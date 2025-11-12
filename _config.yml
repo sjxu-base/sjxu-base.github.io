@@ -73,9 +73,10 @@ baidu_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : &twitter "mmistakes"
+  username               : &X "shujia_xu"
 facebook:
   username               : &facebook "michaelrose"
+  # todo: Update facebook as zhihu
   app_id                 :
   publisher              :
 og_image                 : "/assets/images/site-logo.png" # Open Graph/Twitter default site image
@@ -85,8 +86,8 @@ social:
   type                   : # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
-    - "https://twitter.com/mmistakes"
-    - "https://www.facebook.com/michaelrose"
+    - "https://x.com/shujia_xu"
+    # - "https://www.facebook.com/michaelrose"
 
 # Analytics
 analytics:
@@ -299,7 +300,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  - jekyll-mermaid
+  # - jekyll-mermaid
   - jemoji
   - jekyll-include-cache
 
@@ -309,7 +310,7 @@ whitelist:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  - jekyll-mermaid
+  # - jekyll-mermaid
   - jemoji
   - jekyll-include-cache
 
@@ -351,6 +352,6 @@ compress_html:
     envs: development
 
 
-# Mermaid Theme
-mermaid:
-  theme: default
+# # Mermaid Theme
+# mermaid:
+#   theme: default
