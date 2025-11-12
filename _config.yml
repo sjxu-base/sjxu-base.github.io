@@ -103,7 +103,7 @@ author:
   bio              : "Senior SRE with a taste for **vintage** and **vistas**."
   location         : "Beijing, CN"
   links:
-    - label: "Zhihu"
+    - label: "知乎"
       icon: "fas fa-fw fa-zhihu"
       url: "https://www.zhihu.com/people/si-tong-27"
     - label: "X"
@@ -112,10 +112,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/sjxu-base"
-    - label: "Red Book"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mmistakes"
-
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/shujia-xu-677a96230/"
 
 # Site Footer
 footer:
