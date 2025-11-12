@@ -1,0 +1,302 @@
+---
+title: "Ubuntu 20.x 新功能：Autoinstall 应答文件"
+date: 2022-09-01
+excerpt: "公司之前用了好多年的 preseed，实际上不仅难看懂，写起来也十分抽象。在公司升级 Ubuntu 到 20.x 版本过程中，发现了社区更新了应答文件编写方式，开始提倡 Autoinstall 应答文件，就升级流程做个简单的总结"
+categories: ["OS"]
+tags: ["Linux", "Ubuntu", "PXE", "Autoinstall"]
+---
+
+# 0x01 Autoinstall 介绍
+
+Autoinstall 是 Ubuntu 社区新定义的自动装机应答文件，用于代替传统 debian-installer 应答文件（下文简称`d-i`文件）。
+ 
+相比于 `d-i` 文件，Autoinstaller 让人感觉最显著的变化是下面两个方面：
+
+1. 拥抱 `yaml`：Autoinstall 的配置文件格式采用 `cloud-init` 格式，可以直接使用 `yaml` 文件，而不是是原来遵 `debconf-set-selections` 格式的配置方式
+2. 更新默认应答流程：preseed 流程中将不会有与用户应答流程的出现，以往 `d-i` 在遇到 “unanswered question” 就会停止安装流程，询问用户，但是 autoinstall 将会采用默认值继续安装，如未设置默认则直接
+   > Autoinstall 支持 `interactive` 设置来明确需要交互的配置，这样遇到对应部分，自动应答就会停下来等待用户选择。
+
+# 0x02 Autoinstall 遗留的人工操作
+
+虽然理论上 Autoinstall 装机过程是全无人的，但是在 Autoinstall 开始将系统写入磁盘之前，Installer 仍需用户确认。这主要是为了防止在系统创建过程中USB意外插入的情况，这种情况下可能导致机器被格式化。
+
+> 不过通过在内核命令行中设置 Autoinstall 执行参数可以避免这部分的应答流程。
+
+大部分 Netboot 流程中内核命令可以在 Netboot 配置文件中设置，记得将 Autoinstall 放入其中。
+
+# 0x03 Autoinstall 实战
+
+## 应答文件的存放位置
+
+在装机完成后，会在 `/var/log/installer/autoinstall-user-data` 创建一个 autoinstall 文件便于重复安装
+
+## 标准格式
+
+```yaml
+version: 1
+reporting:
+    hook:
+        type: webhook
+        endpoint: http://example.com/endpoint/path
+early-commands:
+    - ping -c1 198.162.1.1
+locale: en_US
+keyboard:
+    layout: gb
+    variant: dvorak
+network:
+    network:
+        version: 2
+        ethernets:
+            enp0s25:
+               dhcp4: yes
+            enp3s0: {}
+            enp4s0: {}
+        bonds:
+            bond0:
+                dhcp4: yes
+                interfaces:
+                    - enp3s0
+                    - enp4s0
+                parameters:
+                    mode: active-backup
+                    primary: enp3s0
+proxy: http://squid.internal:3128/
+apt:
+    primary:
+        - arches: [default]
+          uri: http://repo.internal/
+    sources:
+        my-ppa.list:
+            source: "deb http://ppa.launchpad.net/curtin-dev/test-archive/ubuntu $RELEASE main"
+            keyid: ******
+storage:
+    layout:
+        name: lvm
+identity:
+    hostname: hostname
+    username: username
+    password: $crypted_pass
+ssh:
+    install-server: yes
+    authorized-keys:
+      - $key
+    allow-pw: no
+snaps:
+    - name: go
+      channel: 1.14/stable
+      classic: true
+debconf-selections: |
+    bind9      bind9/run-resolvconf    boolean false
+packages:
+    - libreoffice
+    - dns-server^
+user-data:
+    disable_root: false
+late-commands:
+    - sed -ie 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=30/' /target/etc/default/grub
+error-commands:
+    - tar c /var/log/installer | nc 192.168.0.1 1000
+```
+
+## Quick Start
+
+### 准备阶段
+
+确认网络情况，确认Python3安装
+
+```shell
+# download image files
+wget http://releases.ubuntu.com/20.04/ubuntu-20.04.4-live-server-amd64.iso
+
+# mount image disk
+sudo mount -r ~/Downloads/ubuntu-20.04-live-server-amd64.iso /mnt
+
+# create config files
+# The crypted password is just “ubuntu”
+mkdir -p ~/www
+cd ~/www
+cat > user-data << 'EOF'
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-server
+    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
+    username: ubuntu
+EOF
+touch meta-data
+
+# start http service
+cd ~/www
+python3 -m http.server 3003
+```
+
+### 开始安装
+
+本次安装默认是为一台vm进行安装，这里使用kvm来操作安装流程
+
+```shell
+# create target disk for the vm
+truncate -s 10G image.img
+
+# install with no reboot
+kvm -no-reboot -m 1024 \
+    -drive file=image.img,format=raw,cache=none,if=virtio \
+    -cdrom ~/Downloads/ubuntu-20.04-live-server-amd64.iso \
+    -kernel /mnt/casper/vmlinuz \
+    -initrd /mnt/casper/initrd \
+    -append 'autoinstall ds=nocloud-net;s=http://_gateway:3003/'
+
+# boot the installed system
+kvm -no-reboot -m 1024 \
+    -drive file=image.img,format=raw,cache=none,if=virtio
+```
+
+### U盘安装操作
+
+前面准备工作同普通安装流程，唯一这里不同的是，需要在创建`user-data`和`meta-data`后使用下面命令来创建ISO文件作为`cloud-init`数据源，注意`cloud-localds`主要用途就是为`cloud-init`创建一个iso文件，来利用`nocloud`模式启动。
+
+```shell
+sudo apt install cloud-image-utils
+cloud-localds ~/seed.iso user-data meta-data
+```
+
+之后安装流程如下，注意这里第二份drive参数指定通过iso获取`user-data`而不是前面的append参数。
+
+```shell
+# create disk for vm
+truncate -s 10G image.img
+
+# install system for vm
+kvm -no-reboot -m 1024 \
+    -drive file=image.img,format=raw,cache=none,if=virtio \
+    -drive file=~/seed.iso,format=raw,cache=none,if=virtio \
+    -cdrom ~/Downloads/ubuntu-20.04-live-server-amd64.iso
+
+# start system
+kvm -no-reboot -m 1024 \
+    -drive file=image.img,format=raw,cache=none,if=virtio
+```
+
+## Options in Config
+
+基本格式参照上面的Config Example，这里放几个比较新的选项
+
+### Version
+
+这个是一个后续才拓展的选项，目前必须使用 `1`
+
+### interactive-sections
+
+用于选择仍用UI展示的配置项，设置方法如下：
+
+```yaml
+version: 1
+interactive-sections:
+ - network
+identity:
+ username: ubuntu
+ password: $crypted_pass
+```
+
+关于 interactive-sections 有两点需要注意：
+
+- 可以使用通配符`*`来代指所有选项，这种情况下，autoinstall流程将退化为手工安装
+- 在配置为interactive section后，`reporting`设置将会被忽略掉
+
+### Storage/Disk selection extensions
+
+磁盘选择可以通过以下五种方式选择
+
+- model：通过ID_VENDOR来选择
+- path：通过DEVPATH来选择
+- serial：通过ID_SERIAL来选择
+- ssd：bool值，来通过是否为ssd来选择
+- size：枚举值，只能是largest或者smallest，如果多个同样尺寸，则会任意选择（*但是对smallest的支持是在20.06.1的系统中添加的*）
+
+具体使用方式，参考以下几种
+
+```yaml
+- type: disk
+  id: disk0
+  
+- type: disk
+  id: data-disk
+  match:
+    model: Seagate
+
+- type: disk
+  id: big-fast-disk
+  match:
+    ssd: yes
+    size: largest
+```
+
+### Storage/partition/logical volume extensions
+
+用于指定分区和逻辑盘的大小，可以使用1G或512M这种可以被UI识别的数字，或者50%这种百分数，同样也可以使用-1来代指分区应占满磁盘剩余空间。具体分区样例，参照下面
+
+```yaml
+- type: partition
+  id: boot-partition
+  device: root-disk
+  size: 10%
+- type: partition
+  id: root-partition
+  size: 20G
+- type: partition
+  id: data-partition
+  device: root-disk
+  size: -1
+```
+
+### ssh/authorized-keys
+
+A list of SSH public keys to install in the initial user’s account，保证可以通过key登录初始服务器
+
+### reporting
+
+将安装流程信息反馈到一个输出渠道，包括以下几种选项：
+
+- **print**: print progress information on tty1 and any configured serial console. There is no other configuration.
+- **rsyslog**: report progress via rsyslog. The **destination** key specifies where to send output.
+- **webhook**: report progress via POSTing JSON reports to a URL. Accepts the same configuration as [curtin](https://curtin.readthedocs.io/en/latest/topics/reporting.html#webhook-reporter).
+- **none**: do not report progress. Only useful to inhibit the default output.
+
+其中比较有趣的是webhook的方式，配置方法参考下面
+
+```shell
+reporting:
+ hook:
+  type: webhook
+  endpoint: http://example.com/endpoint/path
+  consumer_key: "ck_foo"
+  consumer_secret: "cs_foo"
+  token_key: "tk_foo"
+  token_secret: "tk_secret"
+  level: INFO
+```
+
+## Schema Check
+
+在安装过程中一部分配置需要同JSON Schema来校对，但是校对过程实际上是发生在运行过程中的，具体流程可以参考下面几项
+
+- reporting模块最先被load-validate-apply
+- error-commands模块开始load-validate
+- early-commands模块开始load-validate
+- 运行early-commands
+- load整个config，然后被load-validate
+
+## 将 preseed 应答文件升级为 Autoinstall
+
+对于已有的preseed配置文件，可以使用[autoinstall-generator](https://snapcraft.io/autoinstall-generator?_ga=2.67775633.1267827802.1661936839-27790731.1649741711)来翻译生成对应的autoinstall文件。
+
+---
+
+## Reference
+
+- [Introduction](https://ubuntu.com/server/docs/virtualization-introduction)
+- [Quick Start](https://ubuntu.com/server/docs/install/autoinstall-quickstart)
+- [Autoinstall Reference](https://ubuntu.com/server/docs/install/autoinstall-reference)
+
