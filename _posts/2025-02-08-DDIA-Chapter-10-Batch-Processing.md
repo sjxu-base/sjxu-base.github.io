@@ -1,14 +1,10 @@
 ---
 title: "DDIA Chapter 10 Batch Processing"
 date: 2025-02-08
-categories:
-  - Architect Desgin
-tags:
-  - DDIA
 excerpt: "The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many."
+categories: ["Architect Desgin"]
+tags: ["DDIA"]
 ---
-
-
 
 # 0x01 根据实时性点系统分类
 
@@ -30,7 +26,8 @@ excerpt: "The blog excerpt discusses the evolution of data models, comparing rel
 2. 期待每个程序的输出成为另一个程序的输入。不要将无关信息混入输出。避免使用严格的列数据或二进制输入格式。不要坚持交互式输入。
 3. 设计和构建软件，甚至是操作系统，要尽早尝试，最好在几周内完成。不要犹豫，扔掉笨拙的部分，重建它们。
 4. 优先使用工具来减轻编程任务，即使必须曲线救国编写工具，且在用完后很可能要扔掉大部分。
-summary:自动化，快速原型设计，增量式迭代，对实验友好，将大型项目分解成可管理的块。
+
+> **SUMMARY**: 自动化，快速原型设计，增量式迭代，对实验友好，将大型项目分解成可管理的块。
 
 # Unix方案
 

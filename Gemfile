@@ -4,7 +4,7 @@ source "https://gems.ruby-china.com/"
 
 # gemspec
 
-ruby "~> 3.1.0"
+ruby "> 3.1.0"
 
 gem "github-pages", group: :jekyll_plugins
 

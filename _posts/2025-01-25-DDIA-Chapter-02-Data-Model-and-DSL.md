@@ -1,14 +1,12 @@
 ---
 title: "DDIA Chapter 02 Data Models and Query Languages"
 date: 2025-01-25
-categories:
-  - Architect Design
-tags:
-  - DDIA
-excerpt: The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many.
+excerpt: "The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many."
+categories: ["Architect Design"]
+tags: ["DDIA", "Data Model", "DSL"]
 ---
 
-# Topic-A 数据模型：关系模型与文档模型
+# 数据模型：关系模型与文档模型
 
 关系模型最基础定义：数据被组织成关系（SQL的表），其中每个关系都是一些元组（SQL中的行）构成的无序集合。
 
@@ -23,8 +21,6 @@ JSON 模型更进一步解决了这种模型不一致的问题，拥有更好的
 但是 JSON 模式缺乏对于 schema 的定义。虽然这通常被视作一个优点，因为文档模型因此获得了更多的灵活性，但其存在亦有弊端。
 
 ![image-20250125224607846](/Users/sjxu/Library/Application Support/typora-user-images/image-20250125224607846.png)
-
-
 
 ## 0x02 文档模型的局限性：多对一关系 与 多对多关系
 
@@ -44,8 +40,6 @@ JSON 模型更进一步解决了这种模型不一致的问题，拥有更好的
 这时候文档模型就开始变得过于复杂
 
 ![image-20250125224523866](/Users/sjxu/Library/Application Support/typora-user-images/image-20250125224523866.png)
-
-
 
 ## 0x03 文档模型的核心争论：如何表示多对多关系
 
@@ -81,7 +75,7 @@ JSON 模型更进一步解决了这种模型不一致的问题，拥有更好的
 
 文档模型与关系模型的融合
 
-# Topic-B 数据查询语言
+# 实现工具：数据查询语言
 
 **关系模型**通常使用**声明式查询语言**，而 NoSQL 中（如 IMS 和 CODASYL）通常使用**命令式代码**来查询。下面用一个简单的 Python 来表示这种命令式代码。
 

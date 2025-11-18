@@ -1,14 +1,12 @@
 ---
 title: "DDIA Chapter 05 Replication"
 date: 2025-01-28
-categories:
-  - Architect Desgin
-tags:
-  - DDIA
-excerpt: The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many.
+excerpt: "The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many."
+categories: ["Architect Desgin"]
+tags: ["DDIA", "Replica"]
 ---
 
-**Why you want to replicate data?**
+# Why：为什么要进行数据拷贝
 
 - 保持数据在地理上更接近用户来降低延迟
 - 使系统在一部分节点崩溃时，依然可以继续使用，提高系统可用性

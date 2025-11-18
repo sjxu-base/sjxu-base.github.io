@@ -3,7 +3,6 @@ title: "Kubernetes 中 Pod 的优雅关闭"
 date: 2025-01-07
 excerpt: "如何在 k8s 中完成 pod 的优雅关闭"
 categories: ["CloudNative"]
-- Orchestration
 tags: ["Kubernetes", "Pod", "Shutdown"]
 ---
 
