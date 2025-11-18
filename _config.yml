@@ -300,7 +300,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  # - jekyll-mermaid
   - jemoji
   - jekyll-include-cache
 
@@ -310,7 +309,6 @@ whitelist:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  # - jekyll-mermaid
   - jemoji
   - jekyll-include-cache
 
