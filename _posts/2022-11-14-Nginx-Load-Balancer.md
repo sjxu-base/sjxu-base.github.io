@@ -8,8 +8,6 @@ tags:
     - Nginx
 ---
 
-
-
 # 0x01 Load Balancer
 
 ## [HTTP的负载均衡](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)

@@ -8,8 +8,6 @@ tags:
 - Tutorial
 ---
 
-
-
 ## 准备工作
 
 ### Google Cloud Platform

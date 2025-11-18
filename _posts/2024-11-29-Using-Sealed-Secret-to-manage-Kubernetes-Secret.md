@@ -59,7 +59,8 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 # 0x02 使用 Sealed Secret 加密数据
 
-![architecture](\images\SealedSecret\architecture.webp)
+![architecture](/assets/posts/images/20241129/architecture.webp)
+
 - controller启动时，会在其命名空间中搜索带有 sealedsecrets.bitnami.com/sealed-secrets-key 标签的 Secret 读取其中存放的私钥/公钥对
 - 如果找不到，controller则会生成一个新的 4096 位 RSA 密钥对，并在命名空间中创建新的 Secret 将其保存其中。随后会将公钥部分打印到输出日志中
   - 用户可以使用以下命令以 YAML 格式查看此 Secret（包含公有/私有密钥对）的内容：

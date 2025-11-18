@@ -2,10 +2,8 @@
 title: "Wine Talk 02 旧世界产区介绍"
 date: 2022-05-30
 excerpt: "关于旧世界葡萄酒产区的介绍和分析"
-categories:
-- Wine
-tags:
-- Region
+categories: ["Wine"]
+tags: ["Regions"]
 ---
 
 # 0x01 France 法国

@@ -8,7 +8,6 @@ tags:
 excerpt: The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many.
 ---
 
-
 # Topic-A 数据模型：关系模型与文档模型
 
 关系模型最基础定义：数据被组织成关系（SQL的表），其中每个关系都是一些元组（SQL中的行）构成的无序集合。

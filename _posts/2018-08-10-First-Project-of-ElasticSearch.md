@@ -2,13 +2,9 @@
 title: First Project of ElastiSearch
 date: 2018-08-10
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
-categories:
-  - Backend
-tags:
-  - Elasticsearch
+categories: ["Backend"]
+tags: ["ELK", "MongoDB"]
 ---
-
-
 
 # 0x01 Why Elasticsearch
 
@@ -30,7 +26,7 @@ tags:
 
 下面，我需要从一堆屎山 JSON 文件开始，构建一个完整支持全文检索的文件搜索系统，这里用一份梳理好莎士比亚文集作为模版
 
-![Architecture](\images\20180810\architecture.png)
+![Architecture](\assets\images\posts\20180810\architecture.png)
 
 # 0x02 将 JSON 文件批量导入 MongoDB
 

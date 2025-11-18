@@ -2,10 +2,8 @@
 title: GIL 概念的 Deepdive
 date: 2022-06-11
 excerpt: "What is GIL and Why we have to bare the GIL in Python?"
-categories:
-- Language
-tags:
-- Python
+categories: ["Language"]
+tags: ["Python"]
 ---
 
 # 0x01 什么是 GIL
@@ -39,9 +37,13 @@ print(sys.getrefcount(a))
 
 # 0x03 GIL 成为解决方案的原因
 
-在 [EuroPython 2016](https://www.youtube.com/watch?v=fgWUwQVoLHo) 会议上，Larry Hastings 聊到，在 Python 设计初期，实际上正是 GIL 这个设计的应用才保证了 Python 得以如此流行。
+在 [EuroPython 2016](https://www.youtube.com/watch?v=fgWUwQVoLHo) 会议上，Larry Hastings 聊到：
 
-Python 语言早在多线程被大规模运用前的时候就已经在酝酿之中了。**Python 设计思路就是变得尽简单易用，先保证尽可能多的开发者能获得更好的开发效率。**
+> 在 Python 设计初期，实际上正是 GIL 这个设计的应用才保证了 Python 得以如此流行。
+
+Python 语言早在多线程被大规模运用前的时候就已经在酝酿之中了。
+
+**Python 设计初衷就是保证尽简单易用，先让尽可能多的开发者能获得更好的开发效率。**
 
 鉴于 Python 的许多扩展功能都需要兼容一些 C 语言编写的库，为了避免出现不稳定的不变更，这些 C 语言扩展需要一个线程安全的内存管理方案。
 

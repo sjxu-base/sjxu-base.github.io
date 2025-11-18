@@ -33,7 +33,7 @@ tags: ["Docker"]
 | 移植性     | 轻便、灵活、适用于Linux | 笨重、与虚拟化技术耦合度高  |
 | 硬件亲和性 | 面向软件开发者          | 面向硬件运维者              |
 
-![](\images\docker1-4.png)
+![docker-1-4](/assets/images/posts/20210717/docker-1-4.png)
 
 ## Docker 参考文件
 
@@ -49,7 +49,7 @@ Docker 基于 Go 语言开发
 - Container：启动、停止、删除、基本命令
 - Repository：存放Image的仓库，阿里云、网易云、华为云都会开放服务，默认国外
 
-![](\images\docker1-1.png)
+![docker-1-1](/assets/images/posts/20210717/docker-1-1.png)
 
 # 0x02 Docker Installation
 
@@ -113,18 +113,18 @@ Docker 基于 Go 语言开发
 
   Docker版本信息
 
-  ![](\images\docker1-2.png)
+  ![docker-1-2](/assets/images/posts/20210717/docker-1-2.png)
 
 6. 测试`hello-world`
 
   ```shell
   docker run hello-world    # 下载并启动hello-world
-  docker images    # 查看docker 镜像
+  docker assets/images/posts    # 查看docker 镜像
   ```
 
   对于没有的新镜像需要先下载，默认下载latest版本
 
-  ![](\images\docker1-3.png)
+  ![docker-1-3](/assets/images/posts/20210717/docker-1-3.png)
 
 7. *卸载docker
 
@@ -170,19 +170,19 @@ docker [command] -help
 
 ## 镜像命令
 
-Docker Image Reference: **[[Image Command Document](https://docs.docker.com/engine/reference/commandline/images/)]**
+Docker Image Reference: **[[Image Command Document](https://docs.docker.com/engine/reference/commandline/assets/images/posts/)]**
 
 ## 查看镜像命令
 
 ```shell
-docker images
+docker assets/images/posts
 # -a\--all 列出所有镜像
 # -q\--quiet 只显示镜像id
 ```
 
 ## IMAGE命令结果内容分析
 
-![](\images\docker1-6.png)
+![docker-1-6](/assets/images/posts/docker-1-6.png)
 
 | NAME       | DESCRIPTION  |
 | ---------- | ------------ |
@@ -206,7 +206,7 @@ docker pull ubuntu\
 
 ## PULL命令结果内容分析
 
-![](\images\docker1-5.PNG)
+![](\assets/images/posts\docker1-5.PNG)
 
 - 默认使用latest版本
 - 后面的一系列Pull complete使用了分层下载概念，多个镜像之间的层可以共用
@@ -219,7 +219,7 @@ docker rmi -f 5c62e459e087    # 删除指定镜像
 docker rmi \    # 通过限制容器版本、digest来删除容器
     localhost:5000/test/busybox\
     @sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf
-docker rmi -f $(docker images -aq)    # 删除所有镜像
+docker rmi -f $(docker image -aq)    # 删除所有镜像
 ```
 
 ## 容器命令
@@ -336,7 +336,7 @@ docker cp $INSTANCE_ID:/test.java ./
 
 ## 命令小结
 
-![](\images\docker1-7.png)
+![docker-1-7](/assets/images/posts/20210717/docker-1-7.png)
 
 ```shell
 attach      Attach to a running container            # 当前shell下attach连接指定运行镜像
@@ -525,7 +525,7 @@ docker的镜像实际上由一层一层的文件系统组成，这种层级的�
 
 ## 【TBC】分层理解
 
-![](\images\docker1-8.png)
+![docker-1-8](/assets/images/posts/20210717/docker-1-8.png)
 
 ```shell
 # 查看镜像分层情况

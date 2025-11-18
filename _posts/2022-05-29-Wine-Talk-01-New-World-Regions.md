@@ -2,10 +2,8 @@
 title: "Wine Talk 01 新世界产区介绍"
 date: 2022-05-29
 excerpt: "关于新世界葡萄酒产区的介绍和分析"
-categories:
-- Wine
-tags:
-- Region
+categories: ["Wine"]
+tags: ["Regions"]
 ---
 
 # 0x01 Australia 澳大利亚

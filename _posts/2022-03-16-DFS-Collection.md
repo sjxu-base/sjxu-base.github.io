@@ -1,14 +1,10 @@
 ---
-title: "leetcode DFS Collection"
+title: "DFS Collection"
 date: 2022-03-16
 excerpt: "关于模拟的五道题，尤其注意回溯和深度搜索的使用"
-categories: 
-    - Algorithm
-tags:
-    - Leetcode
+categories: ["Algorithm"]
+tags: ["Leetcode"]
 ---
-
-
 
 # 题目[2044](https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets)——统计按位或能得到最大值的子集数目
 
