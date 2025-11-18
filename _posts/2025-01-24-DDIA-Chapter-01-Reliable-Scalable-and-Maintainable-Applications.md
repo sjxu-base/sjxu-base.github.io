@@ -8,8 +8,6 @@ tags:
   - DDIA
 ---
 
-
-
 # Reliability可靠性
 
 ## Hardware Faults
