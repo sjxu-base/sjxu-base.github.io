@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <p align="center">
-  <img src="https://yehuo.github.io/images/homepage.jpg?raw=true" alt="Photo" style="width: 100%;"/> 
+  <img src="https://yehuo.github.io/images/homepage.jpg?raw=true" alt="Photo" style="width: 80%;"/> 
 </p>
 
 # 关于 SJXu
