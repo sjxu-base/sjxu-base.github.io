@@ -1,13 +1,10 @@
 ---
 title: "Pagination in PHP"
 date: 2018-09-09
-categories:
-    - Backend
-tags:
-    - PHP
+categories: ["Backend"]
+tags: ["PHP"]
+toc: true
 ---
-
-
 
 ## 实现查询结果分页
 

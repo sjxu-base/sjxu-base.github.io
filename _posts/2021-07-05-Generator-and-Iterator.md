@@ -2,10 +2,9 @@
 title: "Python 中的生成器与迭代器：原理剖析与应用场景"
 date: 2021-07-05
 excerpt: "在 Python 相关的面试题里，生成器（Generator）和迭代器（Iterator）是两个经常考察的语法"
-categories:
-- Language
-tags:
-- Python
+categories: ["Language"]
+tags: ["Python", "Generator", "Iterator"]
+toc: true
 ---
 
 在 Python 相关的面试题里，生成器（Generator）和迭代器（Iterator）是两个经常考察的语法。

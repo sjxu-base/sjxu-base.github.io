@@ -1,17 +1,15 @@
 ---
-title: Captcha Function in PHP
+title: "PHP 中的验证码、查询结果分页、图片上传功能设计"
 date: 2018-09-10
-categories:
-  - Backend
-tags:
-  - PHP
+categories: ["Backend"]
+tags: ["PHP"]
+toc: true
 ---
 
+# 实现图形验证码
 
+## 预设变量
 
-## 实现图形验证码
-
-### 预设变量
 - `$number` 验证码个数
 - `$codeType` 验证码类型
   - `0` 纯数字
@@ -22,7 +20,7 @@ tags:
 - `$code` 验证码
 - `$image` 图像资源
 
-### 实现步骤
+## 实现步骤
 
 - 生成验证码
 - 创建画布
@@ -38,7 +36,6 @@ public function __construct($number,$codeType,$width,$height)
     
 // Magic method to code getter
 public function __get($name)
-    
 
 protected function createCode()
     // 0: getNumberCode()
@@ -84,7 +81,7 @@ public function _destruct()
     imagedestory($this->image)
 ```
 
-## 实现查询结果分页
+# 实现查询结果分页
 
 ```php
 $_SERVER
@@ -109,9 +106,9 @@ http_build_query()
     return $scheme.'://'.$host.':'.$port.$path;
 ```
 
-## 实现图片上传
+# 实现图片上传
 
-### 类变量
+## 类变量
 
 类变量
 
@@ -134,9 +131,8 @@ http_build_query()
 ```php
 public function __construct($arr={})
     $this->setOption($key,$value);
-public function
 
+//成功返回文件路径，失败返回False
 public function uploadFile($key)
-    成功返回文件路径，失败返回false
 ```
 

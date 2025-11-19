@@ -1,18 +1,17 @@
 ---
-title: Nginx Cookbook Session 01
+title: "Nginx Cookbook Session 01"
 date: 2021-07-05
 excerpt: "通过 Nginx 服务可以构建四层/七层负载均衡，并通过HTTP协议与TCP协议来支持Session保持，健康状态检测"
-categories:
-  - Network
-tags:
-  - Nginx
+categories: ["Network"]
+tags: ["Nginx", "LoadBalance"]
+toc: true
 ---
 
 # 0x01 高性能负载均衡
 
 ## 1. HTTP负载均衡
 
-```
+```nginx
 upstream backend { 
 	server 10.10.12.45:80 weight=1; 
 	server app.example.com:80 weight=2;
@@ -24,9 +23,21 @@ server {
 }
 ```
 
-HTTP 模块的 upstream 用于设置被代理的 HTTP 服务器实现负载均衡。模块 内定义一个目标服务器连接池，它可以是 **UNIX 套接字、IP 地址、DNS 记录 或它们的混合使用配置**；此外 upstream 还可以通过 weight 参数配置，如何 分发请求到应用服务器。 所有 HTTP 服务器在 upstream 块级指令中由 server 指令配置完成。server 指令接收 UNIX 套接字、IP 地址或 FQDN(Fully Qualified Domain Name: 全限 定域名) 及一些可选参数。
+HTTP 模块的 upstream 用于设置被代理的 HTTP 服务器实现负载均衡。
 
-可选参数能够精细化控制请求分发。它们包括用于负 载均衡算法的 `weight` 参数；判断目标服务器是否可用，及如何判断服务器可用 性的 `max_fails` 指令和 `fail_timeout` 指令。NGINX Plus 版本提供了许多其他 方便的参数，比如**服务器的连接限制、高级DNS解析控制，以及在服务器启动后 缓慢地连接到服务器的能力**。
+模块 内定义一个目标服务器连接池，它可以是 **UNIX 套接字、IP 地址、DNS 记录 或它们的混合使用配置**；
+
+此外 upstream 还可以通过 weight 参数配置，如何 分发请求到应用服务器。
+
+所有 HTTP 服务器在 upstream 块级指令中由 server 指令配置完成。
+
+Server 指令接收 UNIX 套接字、IP 地址或 全限定域名（FQDN, Fully Qualified Domain Name）及一些可选参数。
+
+可选参数能够精细化控制请求分发。它们包括用于负 载均衡算法的 `weight` 参数；
+
+判断目标服务器是否可用，及如何判断服务器可用性的 `max_fails` 指令和 `fail_timeout` 指令。
+
+NGINX Plus 版本提供了许多其他 方便的参数，比如**服务器的连接限制、高级DNS解析控制，以及在服务器启动后 缓慢地连接到服务器的能力**。
 
 ## 2. TCP 负载均衡
 
@@ -50,11 +61,11 @@ TCP 负载均衡在 stream 模块中配置实现。stream 模块类似于 http �
 
 ## 3. 负载均衡算法
 
-## 轮询Round Robin
+## 轮询 Round Robin
 
 权重算法的核心技术是，依据**访问权重求均值**进行概率统计。轮询作为默认的负载均衡算法，将在没有指定明确的负载均衡指令的情况下启用。
 
-## 最少连接数Least Connections
+## 最少连接数 Least Connections
 
 ```nginx
 upstream backend { 
@@ -78,7 +89,7 @@ upstream backend {
 
 这对需要存储使用会话， 而又没有使用共享内存存储会话的应用服务来说，能够保证同一个客户端 请求，在应用服务可用的情况下，永远被负载到同一台应用服务器上。 该指令同样提供了权重参数选项。该指令的配置名称是 `ip_hash`。
 
-# 0x03 会话保持（Intelligent Session Persistence）
+# 0x02 会话保持（Intelligent Session Persistence）
 
 在真实的服务里，应用会有会话状态变量被存储在本地。例如，在应用程序中，要处理的数据非常大，网络开销在性能上非常昂贵。NGINX通过三种方式跟踪会话持久性：
 
@@ -131,9 +142,9 @@ upstream backend {
 
 The cookie in this example is named affinity , is set for example.com, persists an hour, cannot be consumed client-side, can only be sent over HTTPS, and is valid for all paths.
 
-## 2. Sticky Learn
+## 2. 回话粘连 Sticky Learn
 
-如何将downstream的客户端和upstream的服务器通过一个cookie连接，Nginx可以通过sticky learn来自动发现、追踪被upstream创建的cookie名字
+如何将下游的客户端和上游的服务器通过一个 Cookie 连接，Nginx 可以通过 **Sticky Learn** 来自动发现、追踪被上游创建的 Cookie 名称。
 
 ```nginx
 upstream backend {
@@ -146,11 +157,13 @@ upstream backend {
 }
 ```
 
-这个例子指示NGINX通过在响应头中查找名为COOKIENAME的cookie来查找和跟踪会话，并通过在请求头中查找相同的cookie来查找已存在的会话。这个会话关联存储在一个 2MB 的共享内存域中，可以跟踪大约16,000个会话。
+这个例子指示 NGINX 通过在响应头中查找名为 COOKIE_NAME 的 cookie 来跟踪会话，并通过在请求头中查找相同的cookie来查找已存在的会话。
+
+这个会话关联存储在一个 2MB 的共享内存域中，可以跟踪大约16,000个会话。
 
 ## 3. Sticky Routing
 
-如果需要颗粒化控制把持久session匹配到upstream的服务器，使用可以将sticky和route同时使用
+如果需要颗粒化控制把持久 Session 匹配到 上游服务器，使用可以将 Sticky 和 Route 同时使用。
 
 ```nginx
 map $cookie_jsessionid $route_cookie {
@@ -184,17 +197,19 @@ curl 'http://localhost/upstream_conf?upstream=backend&id=1&drain=1'
 - Draining can be configured for a particular server by adding the drain parameter to the server directive.
 - When the drain parameter is set, NGINX Plus will stop sending new sessions to this server but will allow current sessions to continue being served for the length of their session.
 
-# 0x03 Health Checks
+# 0x03 健康监测 Health Checks
 
 TCP 服务的 Health Checks 可以参考 NGINX 服务器官网的教程 [TCP Health Checks Guide](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/)。
 
 ## 1. HTTP 状态码检测
 
-负载均衡器可以通过获取被负载服务器的响应状态码是否为 200 判断应用服务器进程是否正常。
+负载均衡器可以通过获取上游服务器的响应状态码是否为 200 判断应用服务器进程是否正常。
 
 ## 2. 慢连接 Slow Start
 
-刚刚上线的服务器往往可能会被负载瞬间压垮，Nginx提供一种慢连接方式，让服务器weight值可以从0逐渐上升到与预定值。但是当节点池只有一台服务器时，`slow start` 参数是无效的。
+刚刚上线的服务器往往可能会被负载瞬间压垮，Nginx 提供一种慢连接方式，让服务器 weight 可以从 0 逐渐上升到与预定值。
+
+*但是当节点池只有一台服务器时，`slow start` 参数是无效的。*
 
 ```nginx
 upstream backend {
@@ -204,11 +219,13 @@ upstream backend {
 }
 ```
 
-## 3. TCP Health Check
+## 3. TCP 检测
 
 TCP Health Check 会对代理池中的节点进行主动监测。
 
-当出现连续 **3** 个非响应等TCP请求时，则被该服务认为是失效的服务。失效后只有连续满足 **2** 个正常响应后，才能重新上线，中间 NGINX 服务器会每隔 **10** 秒进行一次检测。
+当出现连续 **3** 个非响应等TCP请求时，则被该服务认为是失效的服务。
+
+失效后只有连续满足 **2** 个正常响应后，才能重新上线，中间 NGINX 服务器会每隔 **10** 秒进行一次检测。
 
 ```nginx
 stream { 
@@ -220,7 +237,7 @@ stream {
 }
 ```
 
-## 4. HTTP健康监测
+## 4. HTTP 监测
 
 HTTP Health Check 会每 **2** 秒访问一次/目录，连续五次通过测试，则确认健康状态，连续 **2** 次失败则认为服务器宕机。返回response必须与match模块匹配。
 

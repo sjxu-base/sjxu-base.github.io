@@ -1,17 +1,11 @@
 ---
-title: Build RESTful API in PHP 
+title: "Build a RESTful API in PHP"
 date: 2018-07-31
-excerpt: "【转载】如何使用PHP调用API接口（如何POST一个JSON格式的数据给Restful服务）"
+excerpt: "使用 PHP 通过 API 接口（如何POST一个JSON格式的数据给Restful服务）"
 canonical_url: "https://blog.csdn.net/DavidFFFFFF/article/details/72828204"
-categories: 
-  - Backend
-tags: 
-  - PHP
+categories: ["Backend"]
+tags: ["PHP"]
 ---
-
-
-
-[转载来源](https://blog.csdn.net/DavidFFFFFF/article/details/72828204)
 
 ## jQuery方法
 
@@ -48,7 +42,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 $result = curl_exec($ch);  
 ```
 
-## 公用写法【推荐】
+## 常见写法
 
 ```php
 function CallAPI($method, $url, $data = false)
@@ -84,3 +78,7 @@ function CallAPI($method, $url, $data = false)
     return $result;
 }   
 ```
+
+---
+
+- [如何使用PHP调用API接口（ 如何POST一个JSON格式的数据给Restful服务）](https://blog.csdn.net/DavidFFFFFF/article/details/72828204)

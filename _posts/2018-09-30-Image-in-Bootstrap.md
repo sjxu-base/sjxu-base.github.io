@@ -1,16 +1,18 @@
 ---
-title: "Implement of image insertion in Bootstrap"
+title: "Bootstrap 的图片插入功能"
 date: 2018-09-30
-categories:
-  - Frontend
-tags:
-  - Bootstrap
+categories: ["Frontend"]
+tags: ["Bootstrap"]
+toc: true
 ---
-
 
 # 0x01 HTML 中的图片插入有什么不一样？
 
-Bootstrap 是一个强大的前端框架，提供了多种方式来处理图片。无论是普通图片、响应式图片，还是圆形、缩略图或其他特殊形状的 icon，Bootstrap 都能帮助你快速实现。本篇 Blog 介绍如何在 Bootstrap 中插入不同类型的图片，并重点介绍如何切割 icon 以形成不同的形状。
+Bootstrap 是一个强大的前端框架，提供了多种方式来处理图片。
+
+无论是普通图片、响应式图片，还是圆形、缩略图或其他特殊形状的 icon，Bootstrap 都能帮助你快速实现。
+
+本篇 Blog 介绍如何在 Bootstrap 中插入不同类型的图片，并重点介绍如何切割 icon 以形成不同的形状。
 
 # 0x02 基本图片插入
 

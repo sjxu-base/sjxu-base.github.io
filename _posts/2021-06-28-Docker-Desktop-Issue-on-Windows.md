@@ -1,11 +1,9 @@
 ---
-title: Docker Desktop Issue on Windows
+title: "在 Windows 中部署 Docker Desktop 的 Issue"
 date: 2021-06-28
 excerpt: "关于Windows 下 Docker Desktop 后台运行出错的一点经验积累"
-categories:
-  - Virtualization
-tags:
-  - Docker
+categories: ["CloudNative"]
+tags: ["Docker"]
 ---
 
 # 0x01 出错现象

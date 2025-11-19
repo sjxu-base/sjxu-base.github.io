@@ -1,13 +1,10 @@
 ---
-title: "Deep dive of grid layout in Bootstrap"
+title: "Bootstrap 中的 Grid设置"
 date: 2018-09-18
-categories:
-  - Frontend
-tags:
-  - Bootstrap
+categories: ["Frontend"]
+tags: ["Bootstrap"]
+toc: true
 ---
-
-
 
 # 0x01 引言
 

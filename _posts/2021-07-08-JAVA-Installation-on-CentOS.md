@@ -1,11 +1,9 @@
 ---
 title: "CentOS 安装 JAVA 教程"
 date: 2021-07-08
-excerpt: ""
-categories:
-- Language
-tags:
-- JAVA
+excerpt: "关于 CentOS 下安装 JAVA 时候遇到的两个 issue。"
+categories: ["Language"]
+tags: ["JAVA"]
 ---
 
 # 0x01 下载 & 检测
@@ -46,4 +44,4 @@ ln -s /usr/local/java/jdk1.8.0_xxx/bin/java /usr/bin/java
 ## Reference
 
 - [CentOS 7 安装 JAVA环境（JDK 1.8）](https://www.cnblogs.com/stulzq/p/9286878.html)
-- [CentOS 7 安装JDK 1.8 环境教程](https://timberkito.com/?p=12)
+- [CentOS 7 安装 JDK 1.8 环境教程](https://timberkito.com/?p=12)

@@ -86,7 +86,7 @@ if __name__ == "__main__":
     batch_import_json_to_mongodb(folder_path, db_name, collection_name, mongo_uri)
 ```
 
-# 0x02 使用bulk API将json批量导入Elasticsearch
+# 0x02 使用 Bluk API将 JSON 数据批量导入Elasticsearch
 
 # 0x03 设定从 MongoDB 到 Elasticsearch 集群的定期同步
 

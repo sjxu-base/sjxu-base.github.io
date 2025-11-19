@@ -1,17 +1,14 @@
 ---
-title: File Upload Function in PHP
+title: "PHP 中的文件上传功能"
 date: 2018-09-09
-categories:
-  - Backend
-tags:
-  - PHP
+categories: ["Backend"]
+tags: ["PHP"]
 ---
-
-
 
 # 实现图形验证码
 
 ## 预设变量
+
 - `$number` 验证码个数
 - `$codeType` 验证码类型
   - `0` 纯数字
@@ -22,7 +19,7 @@ tags:
 - `$code` 验证码
 - `$image` 图像资源
 
-### 实现步骤
+## 实现步骤
 
 - 生成验证码
 - 创建画布
@@ -82,4 +79,35 @@ protected function show()
 
 public function _destruct()
     imagedestory($this->image)
+```
+
+
+# 实现图片上传
+
+## 类变量
+
+类变量
+
+- `$path` 文件上传路径，默认为`/upload/`
+- `$allowSuffix` 允许上传后缀
+- `$allowMIME` 允许上传MIME
+- `$maxSize` 允许上传size
+- `$isRandName` 是否启用随机名，default=true
+- `$errorNumber` 错误号码
+- `$errorInfo` 错误信息
+
+文件类
+    $oldName        文件名
+    $suffix         文件后缀
+    $fileSize           文件大小
+    $mime          文件MIME
+    $tmpName        文件临时路径
+    $newName        文件新名字
+
+```php
+public function __construct($arr={})
+    $this->setOption($key,$value);
+
+//成功返回文件路径，失败返回False
+public function uploadFile($key)
 ```

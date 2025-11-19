@@ -1,22 +1,18 @@
 ---
-title: Python Decorator
+title: "Python 中的装饰器"
 date: 2021-06-22
-excerpt: "A function returning another function..."
-categories:
-  - Language
-tags:
-  - Python
+excerpt: ""
+categories: ["Language"]
+tags: ["Python"]
 ---
-
-
 
 # 0x01 Motivation
 
 装饰函数，增强函数功能，抽象各类函数共同要运行的一些功能，避免重复编写。原理在于Python中函数是一等公民，函数也是对象。
 
-## Using Scene
+## 使用场景
 
-计算程序运算时间，Flask中检验用户是否登录，例如利用装饰器计算函数时间
+计算程序运算时间，Flask中检验用户是否登录，例如利用装饰器计算函数时间。
 
 ```python
 import time
@@ -57,7 +53,7 @@ def func():
 func()
 ```
 
-为装饰器传入参数时，装饰器写法（三层函数定义装饰器）
+为装饰器传入参数时，装饰器写法：三层函数定义装饰器
 
 ```python
 def login(text):
@@ -72,9 +68,9 @@ def f():
     print('basic func')
 ```
 
-## Builtin Decorators
+## Python 语言的内置装饰器
 
-### @property
+### 支持属性获取的 @property 装饰器
 
 用于定义`getter`和`setter`相关对，使class中的函数可以被当作类的一个attibuter来使用，使用时可以获取函数返回值。
 
@@ -99,13 +95,13 @@ p.name = 'Sitong'
 print(p.name)
 ```
 
-### @staticmethod
+### 定义静态函数的 @staticmethod 装饰器
 
 用于定义类中的`static method`，不需要传入`self`和`cls`参数，可以直接使用。在不需要用到与类相关的属性和方法时，就可以用静态方法。
 
 > The @staticmethod decorator is used to indicate that this is a static method. Unlike class methods, static methods do not have a special first parameter that refers to the class itself. Static methods are often used for utility functions that do not depend on the class or the instance of the class.
 
-### @classmethod
+### 定义类功能的 @classmethod 装饰四起
 
 用于定义`class method`，不与任何instance绑定，而与class本身绑定。所以不需要传入`self`参数，但是第一个参数设置为`cls`。
 

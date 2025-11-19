@@ -1,129 +1,125 @@
 ---
-title: Git Operation
+title: “Git Operation”
 date: 2016-03-18
 excerpt: "Just First Try on Git"
-categories:
-  - CI
-tags:
-  - Git
+categories: ["CI"]
+tags: ["Git"]
+toc: true
 ---
 
+# 0x01 工作区与版本库
 
+## Git 基本工作流程
 
-# 分区
+Git 分为三个区：暂存区、工作区、版本库。
 
-
-# Branch 操作
-
-- 分支操作
-
-	```shell
-	git checkout -b dev		#创建并切换分支
-	git branch dev			#创建分支
-	git checkout dev 		#切换分支
-	git branch 				#查看当前分支 当前分支前面有*
-	git add "file name"		#修改提交
-	git commit -m "branch test"
-	git merge dev			#dev与当前分支合并
-	git branch -d dev		#删除分支
-	git status	#查看合并冲突文件
-	git log 	#查看分支合并情况
-	
-	#图示分支合并过程
-	git log --graph --pretty=oneline --abbrev-commit
-	```
-
-- Fast Forward Merge
-
-	options: --ff | --no-ff | --ff-only
-
-	> Specifies how a merge is handled when the merged-in history is already a descendant of the current history. `--ff` is the default unless merging an annotated (and possibly signed) tag that is not stored in its natural place in the `refs/tags/` hierarchy, in which case `--no-ff` is assumed.
-	>
-	> With `--ff`, when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.
-	>
-	> With `--no-ff`, create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.
-	>
-	> With `--ff-only`, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.
-
-- 常见分支命名策略
-  - master稳定分支
-  - dev不稳定分支
-  - name如Bob，Michael等
-- 恢复操作
-
-```bash
-git stash		#工作现场存储
-git stash apply	#现场恢复
-git stash drop	#删除现场文件
-git stash pop	#恢复现场并删除存储的现场文件工作现场存储
-git stash list	#stash many times并查看保存的多个现场
-git stash spply stash@{0}	#恢复某版本现场
+```shell
+# 将所有修改加入暂存区
+git add .
+# 将修改提交到分支
+git commit -m "description message"
+# 查看工作区状态
+git status
+# 查看工作区与版本库差异
+git diff HEAD -- filename
 ```
 
----
+## 状态反馈类型
 
-## workspace
+Changes not staged for commit：已修改但未暂存的文件
 
-在工作区内，可以直接增加修改源代码
+Untracked files：未跟踪的新建文件
 
-#### Repository
+Changes to be committed：已暂存待提交的文件
 
-- stage：暂存区
-- branch：分支
+working directory clean：工作区干净，与版本库一致
 
-```bash
-git add .	#将所有修改加入暂存区
-git commit -m "git track changes"	#将所有修改提交分支
-git status	#查看暂存区状态，未提交文件等
-git diff HEAD -- readme.txt	#查看当前工作区与版本库区别
+
+
+# 0x02 工作区分支管理
+
+## 基本分支操作
+
+```shell
+# 创建与切换分支
+git checkout -b dev        # 创建并切换分支
+git branch dev             # 创建分支
+git checkout dev           # 切换分支
+
+# 查看与合并
+git branch                 # 查看当前分支（*标记当前分支）
+git merge dev              # 将dev分支与当前分支合并
+
+# 清理与查看
+git branch -d dev          # 删除分支
+git status                 # 查看合并冲突文件
+git log                    # 查看分支合并情况
+
+# 图形化查看分支合并
+git log --graph --pretty=oneline --abbrev-commit
 ```
 
-#### 反馈种类
+## 分支合并策略选项
 
-- Changes not staged for commit：文件修改过未放入暂存区
-- Untracked files：新建文件未被添加
-- Changes to be commit：暂存区还未加入分支的文件
-- working directory clean：工作区清空/工作区与版本库相同
+- `--ff`：默认策略，尽可能使用快进合并
+- `--no-ff`：总是创建合并提交
+- `--ff-only`：仅允许快进合并，否则拒绝合并
 
----
+## 工作现场保存与恢复
 
-## fork
-
-在开源项目中点击fork，该项目便会拷贝一份到你的respositories中，可以通过clone将你的respositories中的代码下载到本地进行二次开发。默认远程的别名为origin，此为我们自己项目中的版本，并非原始作者的代码库。为了方便区分，我们可以为原始代码库创建别名。
-
-#### 为代码库添加别名
-
-```bash
-git remote add upstream git://github.com/user_name/proj_name.git 
-git fetch upstream	#设定别名为upstream
+```shell
+git stash                  # 保存工作现场
+git stash apply            # 恢复工作现场
+git stash drop             # 删除保存的现场
+git stash pop              # 恢复并删除现场
+git stash list             # 查看所有保存的现场
+git stash apply stash@{0}  # 恢复指定版本的现场
 ```
 
-#### 追踪原始代码 
+# 远程协作开发
 
-```bash
-git push origin master		#提交代码更新到自己的代码库
-git fetch upstream 			#获取原始代码库的更新
-git merge upstream/master	#自己的代码合并到原始代码库中
+## Fork 工作流
+
+```shell
+# 设置原始代码库别名
+git remote add upstream git://github.com/user_name/proj_name.git
+git fetch upstream         # 获取原始代码库更新
+
+# 同步与合并
+git push origin master     # 提交到自己的代码库
+git merge upstream/master  # 合并原始代码库更新
 ```
 
-#### pull request
+## 多账号管理
 
-[pull request](http://help.github.com/send-pull-requests/)：将自己的代码发给到原始代码库作者
+## 代码提交策略
 
----
+个人开发流程中，没个新功能进行一次 commit，方便后续对每个 commit 进行单独测试。
 
-## Git Page
+每天结束前至少进行一次 push 操作，上传代码到远程服务器，保证所有提交都可以保留在版本库中。
 
-- Follow：在你的dashboard提示被follow用户动态
-- Watch：你可以在dashboard上看到被watch项目更新
-- Compare & pull request：将你fork的代码修改后，可以对比源项目代码，然后将你的修改提交源作者
-- Issues:在你与别人合作开发过程中，发现，可以帮你keep track of problems，就是在你的分支上发现问题，然后可以看别人分支上对相关问题的修改
-- Star Page：可以看到你赞(star)过的项目
+对于离线开发场景：可以连续几天本地开发并 commit，上线后 push 所有修改，保持完整的开发历史记录。
 
----
+但对于企业级别开发中，最好每次 commit 后，尽可能快完成 Push。
 
-## Push
+一方面便于使用线上 CI 工具进行代码监测，另一方面避免代码抢占现象，可能会引发代码冲突。
 
-本地可以多次commit，一次性push到远程服务器上，服务器上同样可以查看本地的多次commit记录。
+## Stash区使用场景
 
-例如，休假时离线开发三天时，每天commit，第四天回公司上线push所有修改。GitHub的记录中，前三天的commit同样会被保存。
+最常见的场景就是临时切换分支做Hotfix时候，未提交代码不足以作为一个commit，同时又不想丢弃：
+
+```shell
+# 在 dev 分支上
+# ... 修改了一些文件 ...
+
+# 此时需要切到 main 分支修复 Bug
+git stash           # 将未完成的修改存入“储物柜”
+git checkout main   # 现在工作目录是干净的了，可以顺利切换分支
+
+# ... 在 main 分支上修复 Bug 并提交 ...
+
+# 切换回原来的分支
+git checkout dev
+# 从“储物柜”取出之前暂存的修改，恢复工作现场
+git stash pop
+```
