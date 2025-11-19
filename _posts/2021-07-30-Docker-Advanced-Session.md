@@ -2,10 +2,8 @@
 title: Docker Advanced Session
 date: 2021-07-30
 excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的进阶课程"
-categories:
-    - Notes
-tags: 
-    - Docker
+categories: ["Cloud Native"]
+tags: ["Docker", "Docker Compose"]
 ---
 
 

@@ -2,13 +2,9 @@
 title: Redis Introduction Session 01
 date: 2021-07-24
 excerpt: "[狂神说JAVA系列]中，秦疆关于Redis的解说P1-P27"
-categories:
-    - Notes
-tags:
-    - Redis
+categories: ["KV Storage"]
+tags: ["Redis"]
 ---
-
-
 
 # 阿里巴巴数据架构演进
 
@@ -39,7 +35,7 @@ tags:
 
 各类的存储系统的情况
 
-![](\images\redis1-1.png)
+![redis1-1](../assets/images/20210724/redis1-1.png)
 
 解决方案：提供通用数据接口
 
@@ -177,7 +173,7 @@ redis-server redis.self.conf
 redis-benchmark -h localhost -p 6379 -c 100 -n 100000
 ```
 
-![](\images\redis1-2.png)
+![redis1-2](../assets/images/20210724/redis1-2.png)
 
 - 100000个请求在1.52s内完成
 - 100并行用户，3字节载荷
@@ -559,7 +555,7 @@ get k2
 EXEC
 ```
 
-![](\images\redis1-3.png)
+![](../assets/images/20210724/redis1-3.png)
 
 ```shell
 # 取消事务

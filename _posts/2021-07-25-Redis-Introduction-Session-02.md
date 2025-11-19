@@ -2,13 +2,9 @@
 title: Redis Introduction Session 02
 date: 2021-07-25
 excerpt: "[狂神说JAVA系列]中，秦疆关于Redis的解说P28-P36"
-categories:
-    - Notes
-tags:
-    - Redis
+categories: ["KV Storage"]
+tags: ["Redis"]
 ---
-
-
 
 # Redis持久化
 
@@ -28,7 +24,7 @@ RDB 在效率上明显好于 AOF，但是对数据完整性没有保证。此外
 
 AOF 文件默认大小64M当满了之后会重新fork一个子进程来弄个新文件存储。如果同时开启了 RDB 和 AOF。Redis会优先使用 AOF。
 
-![](\images\redis2-3.png)
+![redis2-3](../assets/images/20210725/redis2-3.png)
 
 ## 使用场景
 
@@ -48,7 +44,7 @@ AOF 文件默认大小64M当满了之后会重新fork一个子进程来弄个新
 
 破坏`appendonly.aof`后，尝试启动Redis时，就会收到报错
 
-![](\images\redis2-1.png)
+![](../assets/images/20210725/redis2-1.png)
 
 ```shell
 # 如果文件被破坏，可以通过这样方式修复
@@ -57,7 +53,7 @@ redis-check-aof --fix appendonly.aof
 
 修复后，重新打开即可正常使用
 
-![](\images\redis2-2.png)
+![redis2-2](../assets/images/20210725/redis2-2.png)
 
 # Redis发布订阅
 
@@ -93,7 +89,7 @@ redis-check-aof --fix appendonly.aof
 
 - 订阅频道 `SUBSCRIBE channel [channel ...]`
 
-  ![](\images\redis2-4.png)
+  ![redis2-4](../assets/images/20210725/redis2-4.png)
 
   Subscribes the client to the specified channels.
 
@@ -154,15 +150,15 @@ MASTERAUTH <master-password>
 
 [Redis Sentinel Documentation](https://redis.io/topics/sentinel)
 
-![](\images\redis2-5.png)
+![redis2-5](../assets/images/20210725/redis2-5.png)
 
 由于哨兵本身也有可能挂掉，所以通常配置多个哨兵，避免出现因为自己网络不通，强制Master下线的问题
 
-![](\images\redis2-6.png)
+![redis2-6](../assets/images/20210725/redis2-6.png)
 
-![](\images\redis2-7.png)
+![redis2-7](../assets/images/20210725/redis2-7.png)
 
-配置`sentinel.conf`
+配置 `sentinel.conf`：
 
 ```shell
 # 设置监控节点

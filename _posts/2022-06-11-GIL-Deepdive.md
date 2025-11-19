@@ -170,7 +170,7 @@ sys.getcheckinterval()
 David Beazely 在 [The Python GIL Visualized](http://www.dabeaz.com/blog/2010/01/python-gil-visualized.html) 这篇博客中，对这种现象做了一个可视化展示。
 
 <figure style="text-align: center;">
-    <img src="/images/20220611/starve_demo.png" alt="20210802" width="100%" height="80">
+    <img src="../assets/images/posts/20220611/starve_demo.png" alt="20210802" width="100%" height="80">
     <figcaption><p style="font-size: 10px; color: rgba(0, 0, 0, 0.5);">线程抢占CPU示意图</p></figcaption>
 </figure>
 

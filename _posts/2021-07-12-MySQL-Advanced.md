@@ -33,13 +33,13 @@ tags: ["MySQL", "InnoDB"]
 
 `undo log`和`redo log`并不是直接写到磁盘上的，而是先写入`log buffer`。再等待合适的时机同步到`OS buffer`，再由操作系统决定何时刷到磁盘，具体过程如下：
 
-![logBuffer](/assets/images/posts/20210712/logBuffer.png)
+![logBuffer](../assets/images/posts/20210712/logBuffer.png)
 
 `undo log`和`redo log`都是从`log buffer` 到 `OS buffer`，再到磁盘。所以中途还是有可能因为断电/硬件故障等原因导致日志丢失。为此MySQL提供了三种持久化方式：
 
 这里有一个参数`innodb_flush_log_at_trx_commit`，这个参数主要控制`InnoDB`将`log buffer`中的数据写入`OS buffer`，并刷到磁盘的时间点，取值分别为0，1，2，默认是1。如下图所示：
 
-![innodbFlushLog](/assets/images/posts/20210712/innodbFlushLog.png)
+![innodbFlushLog](../assets/images/posts/20210712/innodbFlushLog.png)
 
 ### crash recovery
 

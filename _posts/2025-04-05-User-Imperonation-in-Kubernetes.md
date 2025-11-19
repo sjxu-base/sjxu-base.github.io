@@ -1,16 +1,10 @@
 ---
 title: "Using user imperonation to setup continuous deployment in Kubernetes"
 date: 2025-04-05
-categories:
-    - Kubernetes
-tags:
-    - Authenticating
-    - ContinuousDeployment
-    - Helm
 excerpt: "Learn how to use Kubernetes user impersonation in CI/CD pipelines for secure, least-privilege deployments. This guide covers kubectl, helm, and audit log tracing for better access control and observability."
+categories: ["Cloud Native"]
+tags: ["Kubernetes", "CD", "Helm"]
 ---
-
-
 
 In modern DevOps workflows, security and automation are equally critical. When setting up Continuous Deployment (CD) pipelines to Kubernetes clusters, teams often face a dilemma: *how to give CI/CD systems the access they need without compromising the principle of least privilege?*
 
