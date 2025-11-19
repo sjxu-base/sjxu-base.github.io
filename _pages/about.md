@@ -12,9 +12,9 @@ redirect_from:
   <img src="https://yehuo.github.io/images/homepage.jpg?raw=true" alt="Photo" style="width: 80%;"/> 
 </p>
 
-# 关于 SJXu
+# 关于 Sitong
 
-Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 SJXu。
+Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 这里会分享一些技术、红酒、摄影的想法，并且记录一些对现实有益的“抽象”。
 
@@ -62,7 +62,7 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 SJXu。
 
 # Why：为什么写这个博客？
 
-## Abstracting：搞抽象
+## Abstracting：知识汇聚
 
 > In general, a good abstraction simplifies life by hiding complex details, should be common enough to be useful, and must strike a balance between being cohesive enough to protect its internals while flexible enough to handle change.
 
@@ -76,7 +76,7 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 SJXu。
 
 为了更好地探索未知的那部分世界，我已知的世界，就需要一些总结和提炼。
 
-而这个博客就是 **Shujia's Knowledge Base and Best Practice**。
+而这个博客就是 **Sitong's Knowledge Base and Best Practice**。
 
 ## Mile Stone：里程碑
 
@@ -93,4 +93,4 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 SJXu。
 
 这里会记录我个人在那些时刻中，最真切的感受，尽可能理性的判断。
 
-从而在足够漫长的时间之后，仍然能从这些里程碑中找到 **Shujia's Moments**。
+从而在足够漫长的时间之后，仍然能从这些里程碑中找到 **Sitong's Moments**。
