@@ -73,9 +73,9 @@ tags: ["Ansible"]
 
 ### Intro
 
-![ansible_arch_1](../assets/images/20210901/ansible_arch_1.jpg)
+![ansible_arch_1](../assets/images/posts/20210901/ansible_arch_1.jpg)
 
-![ansible_arch_2](../assets/images/20210901/ansible_arch_2.jpg)
+![ansible_arch_2](../assets/images/posts/20210901/ansible_arch_2.jpg)
 
 Ansible的API调用者包括：
 

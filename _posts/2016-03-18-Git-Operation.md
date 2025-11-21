@@ -2,7 +2,7 @@
 title: “Git Operation”
 date: 2016-03-18
 excerpt: "Just First Try on Git"
-categories: ["CI"]
+categories: ["CICD"]
 tags: ["Git"]
 toc: true
 ---

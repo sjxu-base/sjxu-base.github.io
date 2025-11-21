@@ -84,7 +84,7 @@ tags: ["Regions"]
 
 # 0x03 Chine 智利
 
-![WineInChine](../assets/images/20220529/Chile.png)
+![WineInChine](../assets/images/posts/20220529/Chile.png)
 
 ## Central Valley **中央山谷**
 

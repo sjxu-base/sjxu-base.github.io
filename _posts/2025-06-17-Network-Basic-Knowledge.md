@@ -14,7 +14,7 @@ mermaid: true
 TCP 数据包头部共 20 字节，结构参考下图：
 
 <figure style="text-align: center;">
-    <img src="/images/20250617/tcp_header.png" alt="tcp_header" width="750" height="210">
+    <img src="/assets/images/posts/20250617/tcp_header.png" alt="tcp_header" width="750" height="210">
     <figcaption>TCP Header</figcaption>
 </figure>
 

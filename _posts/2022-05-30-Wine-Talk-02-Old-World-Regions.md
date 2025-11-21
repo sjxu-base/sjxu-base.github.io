@@ -8,7 +8,7 @@ tags: ["Regions"]
 
 # 0x01 France 法国
 
-![France](../assets/images/20220530/France.jpg)
+![France](../assets/images/posts/20220530/France.jpg)
 
 ## Champagne
 
@@ -58,7 +58,7 @@ Sangiovese 在意大利语中代表“丘比特之血”的意思，通常只有
 
 # 0x03 German 德国
 
-![WineInChine](../assets/images/20220530/German.jpeg)
+![WineInChine](../assets/images/posts/20220530/German.jpeg)
 
 ## Rheingau **莱茵高**
 

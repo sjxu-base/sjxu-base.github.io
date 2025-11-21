@@ -2,7 +2,7 @@
 title: "Kernel Tuning for Kubernetes"
 date: 2024-12-21
 excerpt: "This blog post discusses how to optimize Linux kernel parameters for improving Kubernetes node performance. It covers four key areas: networking, memory management, file systems, and process scheduling. By tuning parameters like connection tracking, TCP buffer sizes, memory overcommitment, and file descriptor limits, Kubernetes clusters can achieve better stability and performance. Additionally, it explains how to deploy these optimizations using Ansible for automated configuration across Kubernetes nodes."
-categories: 
+categories:
 - Orchestration
 tags: 
 - Kubernetes

@@ -28,14 +28,14 @@ mermaid: true
 - 修改图片大小
 
     ```html
-    <img src="/images/rocks.jpg" width="200" height="100">
+    <img src="../images/rocks.jpg" width="200" height="100">
     ```
 
 - 为图片添加注释
 
     ```html
     <figure style="text-align: center;">
-        <img src="/images/20210802/netfilter.png" alt="20210802" width="500" height="150">
+        <img src="../assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
         <figcaption>A Netfilter Demo Pic</figcaption>
     </figure>
     ```

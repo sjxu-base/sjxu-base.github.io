@@ -35,7 +35,7 @@ tags: ["Redis"]
 
 各类的存储系统的情况
 
-![redis1-1](../assets/images/20210724/redis1-1.png)
+![redis1-1](../assets/images/posts/20210724/redis1-1.png)
 
 解决方案：提供通用数据接口
 
@@ -173,7 +173,7 @@ redis-server redis.self.conf
 redis-benchmark -h localhost -p 6379 -c 100 -n 100000
 ```
 
-![redis1-2](../assets/images/20210724/redis1-2.png)
+![redis1-2](../assets/images/posts/20210724/redis1-2.png)
 
 - 100000个请求在1.52s内完成
 - 100并行用户，3字节载荷
@@ -555,7 +555,7 @@ get k2
 EXEC
 ```
 
-![](../assets/images/20210724/redis1-3.png)
+![](../assets/images/posts/20210724/redis1-3.png)
 
 ```shell
 # 取消事务
