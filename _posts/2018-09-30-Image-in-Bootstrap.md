@@ -21,13 +21,13 @@ Bootstrap 是一个强大的前端框架，提供了多种方式来处理图片�
 为了让图片在不同屏幕尺寸下自适应，可以使用 `img-fluid` 类，它会确保图片的最大宽度为 100%，并根据父容器调整高度。
 
 ```html
-<img src="image.jpg" class="img-fluid" alt="Responsive image">
+<img src="image.jpg" class="img-fluid" alt="Responsive image" />
 ```
 
 也可以使用 `.img-responsive` 让图片适应父元素的大小：
 
 ```html
-<img src="image.jpg" class="img-responsive" alt="Responsive image">
+<img src="image.jpg" class="img-responsive" alt="Responsive image" />
 ```
 
 ## 2. 头像与圆形图片
@@ -35,13 +35,13 @@ Bootstrap 是一个强大的前端框架，提供了多种方式来处理图片�
 如果需要显示圆形图片，可以使用 `rounded-circle` 类：
 
 ```html
-<img src="avatar.jpg" class="rounded-circle" alt="Circular image">
+<img src="avatar.jpg" class="rounded-circle" alt="Circular image" />
 ```
 
 或者使用 `border-radius: 50%` 手动设置：
 
 ```html
-<img src="avatar.jpg" style="border-radius: 50%;" alt="Circular image">
+<img src="avatar.jpg" style="border-radius: 50%;" alt="Circular image" />
 ```
 
 ## 3. 缩略图与圆角图片
@@ -49,54 +49,58 @@ Bootstrap 是一个强大的前端框架，提供了多种方式来处理图片�
 使用 `img-thumbnail` 类可以给图片添加边框，使其看起来像一个缩略图。
 
 ```html
-<img src="thumb.jpg" class="img-thumbnail" alt="Thumbnail image">
+<img src="thumb.jpg" class="img-thumbnail" alt="Thumbnail image" />
 ```
 
 如果想要图片带有圆角效果，可以使用 `border-radius:6px`：
 
 ```html
-<img src="image.jpg" style="border-radius: 6px;" alt="Rounded image">
+<img src="image.jpg" style="border-radius: 6px;" alt="Rounded image" />
 ```
 
-# 0x03 图标 (`.icon`) 处理与切割
+# 0x03 icon 处理与切割
 
-Bootstrap 并未内置 icon 处理，但我们可以结合 CSS 和 Bootstrap 工具类来自定义 icon 的形状。
+Bootstrap 并未内置 icon 对象，但可以结合 CSS 和 Bootstrap 工具类来自定义 icon 的形状。
 
 ## 1. 使用 Font Awesome 或 Bootstrap Icons
 
-可以使用 `Bootstrap Icons` 或 `Font Awesome` 直接插入矢量图标：
+可以使用 `Bootstrap Icons` 或 `Font Awesome` 直接插入 icon。
 
 ```html
 <i class="bi bi-alarm" style="font-size: 2rem; color: red;"></i>
 ```
 
-## 2. 使用 CSS `clip-path` 进行切割
+## 2. 使用 CSS 中 `clip-path` 类
 
-可以使用 `clip-path` 来剪切 icon 形状。例如，将 icon 剪裁成三角形：
+可以使用 `clip-path` 来切割 icon 图形。
+
+例如，将 icon 剪裁成三角形：
 
 ```html
-<img src="icon.png" class="custom-icon" alt="Triangle icon">
+<img src="icon.png" class="custom-icon" alt="Triangle icon" />
+
 <style>
-.custom-icon {
+  .custom-icon {
     width: 100px;
     height: 100px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
+  }
 </style>
 ```
 
 ## 3. 圆形剪裁
 
-除了 `rounded-circle`，我们还可以使用 `clip-path: circle()` 直接剪裁：
+除了 `rounded-circle`，我们还可以使用 `clip-path` 属性直接剪裁：
 
 ```html
-<img src="icon.png" class="circle-icon" alt="Circular icon">
+<img src="icon.png" class="circle-icon" alt="Circular icon" />
+
 <style>
-.circle-icon {
+  .circle-icon {
     width: 80px;
     height: 80px;
     clip-path: circle(40% at center);
-}
+  }
 </style>
 ```
 
@@ -105,13 +109,13 @@ Bootstrap 并未内置 icon 处理，但我们可以结合 CSS 和 Bootstrap 工
 如果想让图片呈现斜切的效果，可以这样实现：
 
 ```html
-<img src="icon.png" class="angled-icon" alt="Angled icon">
+<img src="icon.png" class="angled-icon" alt="Angled icon" />
 <style>
-.angled-icon {
+  .angled-icon {
     width: 100px;
     height: 100px;
     clip-path: polygon(0% 0%, 80% 0%, 100% 100%, 20% 100%);
-}
+  }
 </style>
 ```
 
@@ -122,13 +126,13 @@ Bootstrap 并未内置 icon 处理，但我们可以结合 CSS 和 Bootstrap 工
 ```html
 <div class="bg-icon"></div>
 <style>
-.bg-icon {
+  .bg-icon {
     width: 100px;
     height: 100px;
-    background-image: url('icon.png');
+    background-image: url("icon.png");
     background-size: cover;
     clip-path: ellipse(50% 40%);
-}
+  }
 </style>
 ```
 
@@ -136,11 +140,11 @@ Bootstrap 并未内置 icon 处理，但我们可以结合 CSS 和 Bootstrap 工
 
 在 Bootstrap 中，除了使用 `rounded-circle`、`img-fluid`、`.img-responsive` 等默认类，我们还可以结合 `clip-path`、`mask-image` 进行更高级的 icon 形状处理。这样不仅可以实现响应式设计，还能让图片更加多样化，适应不同的 UI 需求。
 
-| 类名 | 作用 |
-|------|------|
-| `.img-fluid` | 让图片宽度自适应父容器 |
-| `.img-responsive` | 让图片适应父元素大小 |
-| `.img-thumbnail` | 给图片添加边框，形成缩略图效果 |
-| `.rounded-circle` | 让图片变成圆形 |
-| `border-radius: 6px` | 让图片带有圆角 |
-| `border-radius: 50%` | 让图片变成完全的圆形 |
+| 类名                 | 作用                           |
+| -------------------- | ------------------------------ |
+| `.img-fluid`         | 让图片宽度自适应父容器         |
+| `.img-responsive`    | 让图片适应父元素大小           |
+| `.img-thumbnail`     | 给图片添加边框，形成缩略图效果 |
+| `.rounded-circle`    | 让图片变成圆形                 |
+| `border-radius: 6px` | 让图片带有圆角                 |
+| `border-radius: 50%` | 让图片变成完全的圆形           |
