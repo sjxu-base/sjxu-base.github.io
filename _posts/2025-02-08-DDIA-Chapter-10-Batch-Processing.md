@@ -2,7 +2,7 @@
 title: "DDIA Chapter 10 Batch Processing"
 date: 2025-02-08
 excerpt: "The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many."
-categories: ["Architect Desgin"]
+categories: ["Architect Design"]
 tags: ["DDIA"]
 ---
 

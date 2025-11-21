@@ -1,13 +1,9 @@
 ---
 title: Elasticsearch Notes
 date: 2021-06-21
-categories:
-  - Backend
-tags:
-  - Elasticsearch
+categories: ["Backend"]
+tags: ["ElasticSearch"]
 ---
-
-
 
 # 0x02 什么是Elasticsearch
 

@@ -139,6 +139,8 @@ print(say_hello.__name__)
 print(say_hello.__doc__)
 ```
 
+---
+
 ## Reference
 
 - [PEP-318 Decorators for Functions and Methods Version](https://peps.python.org/pep-0318/)

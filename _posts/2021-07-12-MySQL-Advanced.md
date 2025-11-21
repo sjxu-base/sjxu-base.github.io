@@ -1,7 +1,7 @@
 ---
-title: "MySQL 进阶教程"
+title: "MySQL 进阶知识：InnoDB 的事务锁实现方案"
 date: 2021-07-12
-excerpt: "关于InnoDB中事务与锁的实现方案的初步学习"
+excerpt: "InnoDB 的事务锁实现方案"
 categories: ["Database"]
 tags: ["MySQL", "InnoDB"]
 ---

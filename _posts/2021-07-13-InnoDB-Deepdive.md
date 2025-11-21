@@ -2,13 +2,11 @@
 title: "InnoDB 存储引擎的深入分析"
 date: 2021-07-13
 excerpt: "InnoDB的存储引擎系统，关于线程、内存、Checkpoint、Master Thread的实现细节，以及InnoDB五项特性"
-categories:
-- Database
-tags: 
-- InnoDB
+categories: ["Database"]
+tags: ["MySQL", "InnoDB"]
 ---
 
-# 0x01 InnoDB架构体系
+# 0x01 InnoD 架构
 
 ## 后台进程
 

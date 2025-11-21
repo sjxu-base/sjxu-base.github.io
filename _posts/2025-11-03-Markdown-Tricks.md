@@ -43,7 +43,7 @@ mermaid: true
     实际效果如下
 
     <figure style="text-align: center;">
-        <img src="/images/20210802/netfilter.png" alt="20210802" width="500" height="150">
+        <img src="../assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
         <figcaption>A Netfilter Demo Pic</figcaption>
     </figure>
 
@@ -74,10 +74,19 @@ Front Matter 是位于文件顶部、用分隔符包围的元数据区块，用�
 
 # 0x04 使用 Mermaid 绘图
 
-
-
-# 0x05 开启文章目录
+可以使用 Mermaid 来支持
 
 # 0x06 本地测试
 
-https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll
+```shell
+# Install gem denpendency
+bundle install
+# Exec the Jekyll Server
+bundle exec jekyll server
+```
+
+---
+
+## Reference
+
+- [Creating a GitHub Pages site with Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll)

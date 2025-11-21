@@ -99,9 +99,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Shujia's Blog" # *name is a YAML reference pointing to the &anchor earlier
+  name             : "Shujia" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
-  bio              : "Senior SRE with a taste for **vintage** and **vistas**."
+  bio              : "A senior SRE work on K8S and System level."
   location         : "Beijing, CN"
   links:
     - label: "知乎"
@@ -132,7 +132,7 @@ footer:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/shujia-xu-677a96230/"
-  since: "2025"
+  since: "2023"
 
 
 # Reading Files
@@ -197,9 +197,9 @@ kramdown:
 
 # Collections
 collections:
-  docs:
-    output: true
-    permalink: /:collection/:path/
+  # docs:
+  #   output: true
+  #   permalink: /:collection/:path/
   recipes:
     output: true
     permalink: /:collection/:path/
