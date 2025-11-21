@@ -1,16 +1,20 @@
 ---
-title: "Python 中的装饰器"
+title: "Python 语法糖解析：使用装饰器来包装函数"
 date: 2021-06-22
 excerpt: ""
 categories: ["Language"]
-tags: ["Python"]
+tags: ["Python", "Decorator"]
 ---
 
-# 0x01 Motivation
+# 0x01 Why：为什么需要装饰函数？
 
-装饰函数，增强函数功能，抽象各类函数共同要运行的一些功能，避免重复编写。原理在于Python中函数是一等公民，函数也是对象。
+在于 Python 中函数是一等公民，函数也被理解为对象。
 
-## 使用场景
+而为了增强函数的功能，支持更加复杂的对象使用方式。
+
+装饰函数就可以用于 增强函数功能，提炼共有功能，避免冗余代码。
+
+## Use Case：使用场景
 
 计算程序运算时间，Flask中检验用户是否登录，例如利用装饰器计算函数时间。
 
@@ -32,7 +36,7 @@ def sub(a,b):
     return a-b
 ```
 
-## Syntax Forms
+## Syntax Forms：定义格式
 
 ```python
 # Define a decorator without @ sign
@@ -109,11 +113,13 @@ print(p.name)
 
 > The @classmethod decorator is used to indicate that this is a class method. The cls parameter in the method definition refers to the class itself, through which the class-level variables (example: class_val) and methods can be accessed. 
 
-## Using `wraps` to recover attribute of wrapped function
+## 拆装：如何在被装饰函数中调用原函数的属性？
 
-在使用wrapper函数编写装饰器后，被包装后的函数所有的`__doc__`和`__name__`等属性会被wrapper函数的`__doc__`和`__name__`覆盖，而原有函数的属性则无法被访问。
+在使用 wrapper 函数编写装饰器后，被包装后的函数所有的 `__doc__` 和 `__name__` 等属性会被包装函数的 `__doc__` 和 `__name__` 覆盖。
 
-而编写装饰器时，对`wrapper`函数使用`wraps`装饰器即可恢复原有函数的属性，例如：
+此时原有函数的属性就无法被访问。
+
+而编写装饰器时，对 wrapper 函数使用 wraps 装饰器即可恢复原有函数的属性，例如：
 
 ```python
 from functools import wraps

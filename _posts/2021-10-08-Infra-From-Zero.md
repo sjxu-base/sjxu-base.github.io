@@ -2,7 +2,7 @@
 title: "DevOps 指南：如何从 0 到 1 为一家AI公司打造开源基础设施解决方案"
 date: 2021-10-08
 excerpt: "总结一下职业生涯里看到的基础架构部门主要的工作，以及如何从零开始进行公司基础架构的演化"
-categories: ["Cloud Native"]
+categories: ["CloudNative"]
 tags: ["Infra", "ML"]
 ---
 

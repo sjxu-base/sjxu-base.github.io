@@ -12,16 +12,16 @@ tags: ["PHP"]
 使用ajax函数生成一个请求、填充参数后发送
 
 ```php
-$.ajax({
-  url:url,
-  type:"POST",
-  data:data,
-  contentType:"application/json; charset=utf-8",
-  dataType:"json",
-  success: function(){
-    ...
-  }
-})
+    $.ajax({
+        url:url,
+        type:"POST",
+        data:data,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(){
+            //TODO: Add a php function
+        }
+    })
 ```
 
 ## PHP Curl方法
@@ -29,17 +29,17 @@ $.ajax({
 使用`curl_setopt`方法来设定好`curl`对象需要传递的参数，然后直接执行`curl`对象，详细讲解参见[curl_setopt文档](http://www.runoob.com/php/func-curl_setopt.html)
 
 ```php
-$data = array("name" => "Hagrid", "age" => "36");                                                                      
-$data_string = json_encode($data);       
-$ch = curl_init('http://api.local/rest/users');        
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                            
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);  
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(                   
-    'Content-Type: application/json',  
-    'Content-Length: ' . strlen($data_string))           
-);                                                                                                                     
-$result = curl_exec($ch);  
+    $data = array("name" => "Hagrid", "age" => "36");                                                                      
+    $data_string = json_encode($data);       
+    $ch = curl_init('http://api.local/rest/users');        
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                            
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                   
+        'Content-Type: application/json',  
+        'Content-Length: ' . strlen($data_string))           
+    );                                                                                                                     
+    $result = curl_exec($ch);  
 ```
 
 ## 常见写法

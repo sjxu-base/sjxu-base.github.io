@@ -2,7 +2,7 @@
 title: "Proxmox 运维手册"
 date: 2022-02-17
 excerpt: "之前公司一直在使用 Proxmox 作为虚拟机解决方案，但 Proxmox 单薄的管理能力，实际上在国外一直是作为家用级别在使用。这里结合公司的用法，总结一下日常对 Proxmox 的运维经验。"
-categories: ["Cloud Native"]
+categories: ["CloudNative"]
 tags: ["Proxmox"]
 ---
 
