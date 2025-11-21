@@ -7,12 +7,13 @@
 
 remote_theme             : "mmistakes/minimal-mistakes@master"
 
-minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# Skin:"air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark"
 
 # Site Settings
 locale                   : "zh-CN"
 title                    : "Shujia's Blog"
-title_separator          : "-"
+title_separator          : "|"
 # subtitle                 : "A Jekyll theme"
 name                     : &name "Shujia Xu" # &name is a YAML anchor which can be *referenced later
 description              : &description "Shujia's Knowledge Base"
@@ -73,7 +74,7 @@ baidu_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : &X "shujia_xu"
+  username               : &twitter "shujia_xu"
 facebook:
   username               : &facebook "michaelrose"
   # todo: Update facebook as zhihu
@@ -87,7 +88,6 @@ social:
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
     - "https://x.com/shujia_xu"
-    # - "https://www.facebook.com/michaelrose"
 
 # Analytics
 analytics:
