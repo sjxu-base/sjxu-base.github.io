@@ -101,10 +101,10 @@ analytics:
 author:
   name             : "Shujia Xu" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
-  bio              : "A python integration and DevOps developer focused on automation, kubernetes and AWS services."
+  bio              : "A pythonic DevOps engineer focused on automation, kubernetes and AWS services."
   location         : "CN"
   links:
-    - label: "知乎"
+    - label: "Zhihu"
       icon: "fab fa-fw fa-zhihu"
       url: "https://www.zhihu.com/people/si-tong-27"
     - label: "Twitter"
