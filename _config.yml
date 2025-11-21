@@ -101,8 +101,8 @@ analytics:
 author:
   name             : "Shujia" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
-  bio              : "A senior SRE work on K8S and System level."
-  location         : "Beijing, CN"
+  bio              : "A python integration and DevOps developer focused on automation, kubernetes and AWS services."
+  location         : "CN"
   links:
     - label: "知乎"
       icon: "fab fa-fw fa-zhihu"
