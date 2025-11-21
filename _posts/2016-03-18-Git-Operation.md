@@ -1,5 +1,5 @@
 ---
-title: “Git Operation”
+title: "Git 入门：工作区概念 与 基础 Git 操作"
 date: 2016-03-18
 excerpt: "Just First Try on Git"
 categories: ["CICD"]

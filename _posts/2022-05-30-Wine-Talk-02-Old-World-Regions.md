@@ -1,14 +1,14 @@
 ---
 title: "Wine Talk 02 旧世界产区介绍"
 date: 2022-05-30
-excerpt: "关于旧世界葡萄酒产区的介绍和分析"
+excerpt: "关于旧世界葡萄酒产地的介绍和产区分析，包括 🇫🇷法国、 🇮🇹意大利、 🇩🇪德国 和 🇵🇹葡萄牙 四个产地的介绍。"
 categories: ["Wine"]
 tags: ["Regions"]
 ---
 
 # 0x01 France 法国
 
-![France](../assets/images/posts/20220530/France.jpg)
+![France]({{ site.url }}/assets/images/posts/20220530/France.jpg)
 
 ## Champagne
 
@@ -58,7 +58,7 @@ Sangiovese 在意大利语中代表“丘比特之血”的意思，通常只有
 
 # 0x03 German 德国
 
-![WineInChine](../assets/images/posts/20220530/German.jpeg)
+![WineInChine]({{ site.url }}/assets/images/posts/20220530/German.jpeg)
 
 ## Rheingau **莱茵高**
 

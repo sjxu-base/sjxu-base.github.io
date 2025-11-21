@@ -1,7 +1,7 @@
 ---
 title: "Wine Talk 01 新世界产区介绍"
 date: 2022-05-29
-excerpt: "关于新世界葡萄酒产区的介绍和分析"
+excerpt: "关于新世界葡萄酒产地的介绍和产区分析，包括 🇦🇺澳大利亚、 🇺🇸美国和 🇨🇱智利三个产地的介绍。"
 categories: ["Wine"]
 tags: ["Regions"]
 ---
@@ -84,7 +84,7 @@ tags: ["Regions"]
 
 # 0x03 Chine 智利
 
-![WineInChine](../assets/images/posts/20220529/Chile.png)
+![WineInChine]({{ site.url }}/assets/images/posts/20220529/Chile.png)
 
 ## Central Valley **中央山谷**
 

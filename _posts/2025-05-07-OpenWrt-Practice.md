@@ -1,10 +1,8 @@
 ---
 title: "Deploy an OpenWrt system on Redmi AC2100 Router"
 date: 2025-05-07
-categories:
-  - Router
-tags:
-  - OpenWrt
+categories: ["Misc"]
+tags: ["OpenWRT", "Router", "IoT"]
 excerpt: ""
 ---
 

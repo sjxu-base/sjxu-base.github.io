@@ -1,7 +1,7 @@
 ---
 title: "Serverless：新一代云原生架构方案"
 date: 2021-08-05
-excerpt: "面试京东云过程中，面试官张金柱聊到了一些 Serverless 概念。后续上网找到了他在一次会议中对 Serverless 的介绍，依然感觉比较抽象，结合他的介绍和查到的一些相关资料，做一些讨论以做启迪。"
+excerpt: "面试京东云过程中，和京东基础架构团队负责人张金柱聊到了 Serverless 概念。后续上网找到了他在一次会议中对 Serverless 的介绍，依然感觉比较抽象，结合他的介绍和查到的一些相关资料，简单概述 Serverless 的概念，可预见的是落地依然很难。"
 categories: ["CloudNative"]
 tags: ["Serverless", "FaaS", "IaaS", "BaaS"]
 ---
@@ -80,7 +80,7 @@ Serverless 脱胎于云时代架构的思想，Serverless 是只属于云时代�
 
 ![img](https://pic2.zhimg.com/v2-a7abc1e34346b349233d3a6ecf8850fd_b.jpg)
 
-Serverless的常见应用场景，可以分为以下几类：
+Serverless的常见应用场景，可以分为三类，
 
 ### 后端应用场景
 
@@ -142,11 +142,11 @@ Serverless 可以明确的是会将基础架构系统开发为三个模块：客
 
 - IaaS 层的挑战
   
-  在 Serverless 平台下，对底层基础架构的依赖性大大增加。可预见的是，谁家的容器启动速度越快，性能损耗越小，谁家的 Serverless 平台就会获得更好的效能。。
+  在 Serverless 平台下，对底层基础架构的依赖性大大增加。可预见的是，谁家的容器启动速度越快，性能损耗越小，谁家的 Serverless 平台就会获得更好的效能。
 
 但随着云基础设施的日臻成熟，Serverless 也将应该更好的发展。
 
-除了上面的难点，下面几个常见的 Serverless 问题也欢迎大家在评论区说说看法：
+除了上面的难点，下面几个常见的 Serverless 问题也欢迎大家在评论区探讨。
 
 - 小程序的兴起是不是代表 Serverless 落地的好时代来了：纯服务端，零后端模式？
 - AWS 在 Serverless 概念下做了哪些支持与平台建设？
