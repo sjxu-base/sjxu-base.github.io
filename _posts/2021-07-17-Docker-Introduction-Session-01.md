@@ -170,14 +170,14 @@ docker [command] -help
 
 ## 镜像命令
 
-Docker Image Reference: **[[Image Command Document](https://docs.docker.com/engine/reference/commandline/assets/images/posts/)]**
+Docker Image Reference: **[[Image Command Document](https://docs.docker.com/engine/reference/commandline/images)]**
 
 ## 查看镜像命令
 
 ```shell
 docker assets/images/posts
-# -a\--all 列出所有镜像
-# -q\--quiet 只显示镜像id
+# -a --all 列出所有镜像
+# -q --quiet 只显示镜像id
 ```
 
 ## IMAGE命令结果内容分析
