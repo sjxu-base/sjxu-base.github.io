@@ -101,37 +101,37 @@ analytics:
 author:
   name             : "Shujia Xu" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
-  bio              : "A pythonic DevOps engineer focused on automation, kubernetes and AWS services."
+  bio              : "A pythonic DevOps engineer focused on IaC, kubernetes and AWS services."
   location         : "CN"
   links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/sjxu-base"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/shujia-xu-677a96230/"
     - label: "Zhihu"
       icon: "fab fa-fw fa-zhihu"
       url: "https://www.zhihu.com/people/si-tong-27"
     - label: "Twitter"
       icon: "fab fa-fw fa-x-twitter"
       url: "https://x.com/shujia_xu"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/sjxu-base"
-    - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/shujia-xu-677a96230/"
 
 # Site Footer
 footer:
   links:
-    - label: "知乎"
-      icon: "fab fa-fw fa-zhihu"
-      url: "https://www.zhihu.com/people/si-tong-27"
-    - label: "X"
-      icon: "fab fa-fw fa-x-twitter"
-      url: "https://x.com/shujia_xu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/sjxu-base"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/shujia-xu-677a96230/"
+    - label: "Zhihu"
+      icon: "fab fa-fw fa-zhihu"
+      url: "https://www.zhihu.com/people/si-tong-27"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-x-twitter"
+      url: "https://x.com/shujia_xu"
   since: "2023"
 
 
