@@ -99,7 +99,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Shujia" # *name is a YAML reference pointing to the &anchor earlier
+  name             : "Shujia Xu" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
   bio              : "A python integration and DevOps developer focused on automation, kubernetes and AWS services."
   location         : "CN"
