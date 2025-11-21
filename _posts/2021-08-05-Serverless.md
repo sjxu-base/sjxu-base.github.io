@@ -1,9 +1,9 @@
 ---
 title: "Serverless：新一代云原生架构方案"
 date: 2021-08-05
-excerpt: "在面试京东前看到的一些京东云概念..."
+excerpt: "面试京东云过程中，面试官张金柱聊到了一些 Serverless 概念。后续上网找到了他在一次会议中对 Serverless 的介绍，依然感觉比较抽象，结合他的介绍和查到的一些相关资料，做一些讨论以做启迪。"
 categories: ["CloudNative"]
-tags: ["Serverless"]
+tags: ["Serverless", "FaaS", "IaaS", "BaaS"]
 ---
 
 # 0x01 从云原生说起
