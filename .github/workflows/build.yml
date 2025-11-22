@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: github.repository == 'mmistakes/minimal-mistakes'
+    # if: github.repository == 'mmistakes/minimal-mistakes'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -24,9 +24,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          docs/Gemfile.lock
-          docs/vendor/bundle
-        key: ${{ runner.os }}-bundler-${{ hashFiles('docs/Gemfile') }}
+          vendor/bundle
+          .bundle
+        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile') }}
         restore-keys: |
           ${{ runner.os }}-bundler-
 
