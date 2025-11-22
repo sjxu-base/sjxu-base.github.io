@@ -1,7 +1,7 @@
 ---
-title: "Ubuntu 20.x 新功能：Autoinstall 应答文件"
+title: "Ubuntu 20.04 LTS 新功能：Autoinstall 应答文件"
 date: 2022-09-01
-excerpt: "公司之前用了好多年的 preseed，实际上不仅难看懂，写起来也十分抽象。在公司升级 Ubuntu 到 20.x 版本过程中，发现了社区更新了应答文件编写方式，开始提倡 Autoinstall 应答文件，就升级流程做个简单的总结"
+excerpt: "公司之前用了好多年的 preseed，实际上不仅难看懂，写起来也十分抽象。在公司升级 Ubuntu 到 20.04 版本过程中，发现了社区更新了应答文件编写方式，开始提倡 Autoinstall 应答文件，就升级流程做个简单的总结"
 categories: ["OS"]
 tags: ["Linux", "Ubuntu", "PXE", "Autoinstall"]
 ---
