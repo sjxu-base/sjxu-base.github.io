@@ -1,18 +1,18 @@
 ---
-title: "Ubuntu apt Usage"
+title: "Ubuntu 安装包管理方案：apt 与 dpkg 命令简析"
 date: 2022-03-04
-excerpt: "关于Ubuntu下包管理软件apt的相关资料"
-categories:
-    - System
-tags:
-    - Tool
+excerpt: "关于 Ubuntu 中包管理方案 apt 和 dpkg 的笔记"
+categories: ["OS"]
+tags: ["Linux", "Ubuntu", "apt", "dpkg"]
 ---
-
-
 
 # [Wikipedia](https://en.wikipedia.org/wiki/APT_(software))
 
-**Advanced package tool**, or **APT**, is a free-software user interface that works with core libraries to handle the installation and removal of software on Debian, and Debian-based Linux distributions. APT simplifies the process of managing software on Unix-like computer systems by automating the retrieval, configuration and installation of [software packages](https://en.wikipedia.org/wiki/Package_manager), either from precompiled files or by compiling source code.
+APT（Advanced Package Tool） 是 Debian 及其衍生发行版（如 Ubuntu）中的软件包管理工具。
+
+它为底层软件库提供接口，用于处理软件包的安装、卸载、更新等操作。
+
+APT 能够自动完成软件包检索、依赖配置与安装，可从预编译包安装，也可从源码构建安装。
 
 # [Man Page](https://manpages.debian.org/unstable/apt/apt-get.8.en.html)
 
@@ -89,8 +89,8 @@ For boolean options you can override the config file by using something like **-
 每个软件源的定义通常使用如下三部分定义
 
 ```shell
-deb url distribution component1 component2 component3 [..] componentX
-deb-src url distribution component1 component2 component3 [..] componentX
+  deb url distribution component1 component2 component3 [..] componentX
+  deb-src url distribution component1 component2 component3 [..] componentX
 ```
 
 - 第一部分：deb为binary文件，deb-src为源代码文件
@@ -100,29 +100,32 @@ deb-src url distribution component1 component2 component3 [..] componentX
   - non-free: 不完全满足Debian Free Software Guidelines，但是可以不受限制分发的软件。通常用于提供对特定硬件的支持。
   - contrib: 是指需要non-free软件支持才可以正常工作的一类软件，同时也包括一些使用免费，但是需要使用特定编译工具生成的软件
 
-## Stable版本的软件库
+## Stable 版本的软件库
 
 ```shell
-# Security updates
-deb http://security.debian.org/ buster/updates main contrib non-free
-deb-src http://security.debian.org/ buster/updates main contrib non-free
+  # Security updates
+  deb http://security.debian.org/ buster/updates main contrib non-free
+  deb-src http://security.debian.org/ buster/updates main contrib non-free
 
-# Debian mirror
+  # Debian mirror
 
-# Base repository
-deb https://deb.debian.org/debian buster main contrib non-free
-deb-src https://deb.debian.org/debian buster main contrib non-free
+  # Base repository
+  deb https://deb.debian.org/debian buster main contrib non-free
+  deb-src https://deb.debian.org/debian buster main contrib non-free
 
-# Stable updates
-deb https://deb.debian.org/debian buster-updates main contrib non-free
-deb-src https://deb.debian.org/debian buster-updates main contrib non-free
+  # Stable updates
+  deb https://deb.debian.org/debian buster-updates main contrib non-free
+  deb-src https://deb.debian.org/debian buster-updates main contrib non-free
 
-# Stable backports
-deb https://deb.debian.org/debian buster-backports main contrib non-free
-deb-src https://deb.debian.org/debian buster-backports main contrib non-free
+  # Stable backports
+  deb https://deb.debian.org/debian buster-backports main contrib non-free
+  deb-src https://deb.debian.org/debian buster-backports main contrib non-free
 ```
 
-# Related Reading:
+---
 
-- [apt与apt-get的区别](https://juejin.cn/post/6997060031229198350)
+# Reference
+
+- [apt 与 apt-get 的区别](https://juejin.cn/post/6997060031229198350)
+- [6.1. 编写 sources.list 文件](https://www.debian.org/doc/manuals/debian-handbook/apt.zh-cn.html#sect.apt-sources.list)
 - [Ubuntu Basic Skill](https://samwhelp.github.io/book-ubuntu-basic-skill/book/index.html)

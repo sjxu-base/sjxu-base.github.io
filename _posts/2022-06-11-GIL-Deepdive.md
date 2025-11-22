@@ -4,6 +4,7 @@ date: 2022-06-11
 excerpt: "对于大部分 Python 学习者，GIL 都是绕不开的一个话题。在我学习 GIL 时候，在 realpython 上发现了一篇讲解 GIL 来源和性能的文章，写得非常透彻。故单独翻译并整理到这篇博客当中，作为后续学习 Python 多线程的参考。"
 categories: ["Language"]
 tags: ["Python", "GIL"]
+toc: true
 ---
 
 # 0x01 什么是 GIL
