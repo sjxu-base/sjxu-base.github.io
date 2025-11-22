@@ -75,11 +75,11 @@ baidu_site_verification  :
 # Social Sharing
 twitter:
   username               : &twitter "shujia_xu"
-facebook:
-  username               : &facebook "michaelrose"
-  # todo: Update facebook as zhihu
-  app_id                 :
-  publisher              :
+# facebook:
+#   username               : &facebook "michaelrose"
+#   # todo: Update facebook as zhihu
+#   app_id                 :
+#   publisher              :
 og_image                 : "/assets/images/site-logo.png" # Open Graph/Twitter default site image
 # For specifying social profiles, used in _includes/seo.html
 # - https://developers.google.com/structured-data/customize/social-profiles
@@ -102,7 +102,7 @@ author:
   name             : "Shujia Xu" # *name is a YAML reference pointing to the &anchor earlier
   avatar           : "/assets/images/profile.png"
   bio              : "A pythonic DevOps engineer focused on IaC, kubernetes and AWS services."
-  location         : "CN"
+  location         : "Beijing, CN"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
