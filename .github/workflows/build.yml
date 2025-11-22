@@ -26,21 +26,21 @@ jobs:
         path: |
           vendor/bundle
           .bundle
-        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile') }}
+        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-bundler-
 
     - name: Install - Bundler
       env:
         MAKE: make -j2
-      working-directory: docs/
+      # working-directory: docs/
       run: |
         bundle config set path vendor/bundle
         bundle install --jobs=4 --retry=3
         bundle clean
 
     - name: Update Algolia index
-      working-directory: docs/
+      # working-directory: docs/
       run: bundle exec jekyll algolia push
       env:
         ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
