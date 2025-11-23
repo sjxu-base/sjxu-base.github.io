@@ -4,9 +4,10 @@ date: 2022-03-04
 excerpt: "关于 Ubuntu 中包管理方案 apt 和 dpkg 的笔记"
 categories: ["OS"]
 tags: ["Linux", "Ubuntu", "apt", "dpkg"]
+published: false
 ---
 
-# [Wikipedia](https://en.wikipedia.org/wiki/APT_(software))
+# 什么是 APT
 
 APT（Advanced Package Tool） 是 Debian 及其衍生发行版（如 Ubuntu）中的软件包管理工具。
 
@@ -126,6 +127,7 @@ For boolean options you can override the config file by using something like **-
 
 # Reference
 
+- [Wikipedia](https://en.wikipedia.org/wiki/APT_(software))
 - [apt 与 apt-get 的区别](https://juejin.cn/post/6997060031229198350)
 - [6.1. 编写 sources.list 文件](https://www.debian.org/doc/manuals/debian-handbook/apt.zh-cn.html#sect.apt-sources.list)
 - [Ubuntu Basic Skill](https://samwhelp.github.io/book-ubuntu-basic-skill/book/index.html)

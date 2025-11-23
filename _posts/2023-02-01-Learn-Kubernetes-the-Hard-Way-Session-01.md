@@ -2,10 +2,9 @@
 title: "Learn Kubernetes the Hard Way Session 01"
 date: 2023-02-01
 excerpt: "构建k8s集群 Master Nodes 以及 Control Plane"
-categories: 
-- Kubernetes
-tags: 
-- Tutorial
+categories: ["CloudNative"]
+tags: ["Kubernetes"]
+published: false
 ---
 
 ## 准备工作

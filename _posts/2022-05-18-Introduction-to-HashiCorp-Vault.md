@@ -4,6 +4,7 @@ date: 2022-05-18
 excerpt: "Why you should use vault in your office"
 categories: ["CICD"]
 tags: ["Vault", "Hashicorp"]
+toc: true
 ---
 
 # 0x01 Vault 设计背景

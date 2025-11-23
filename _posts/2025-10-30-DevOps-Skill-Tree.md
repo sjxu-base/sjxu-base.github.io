@@ -6,6 +6,7 @@ categories:
 tags:
   - DevOps
 excerpt: "DevOps、SRE技能树"
+published: false
 ---
 
 # 基础知识

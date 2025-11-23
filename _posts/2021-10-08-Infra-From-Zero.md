@@ -4,6 +4,7 @@ date: 2021-10-08
 excerpt: "总结一下职业生涯里看到的基础架构部门主要的工作，以及如何从零开始进行公司基础架构的演化"
 categories: ["CloudNative"]
 tags: ["Infra", "ML"]
+published: false
 ---
 
 # 0x01 底层资源管理：设备入场阶段

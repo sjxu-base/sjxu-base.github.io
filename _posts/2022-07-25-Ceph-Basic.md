@@ -1,11 +1,10 @@
 ---
-title: "An Introduction to Ceph"
+title: "分布式存储系统 Ceph 基础知识"
 date: 2022-07-25
-excerpt: "Ceph is an open-source distributed storage system designed to provide highly scalable and reliable storage solutions."
-categories: 
-    - Storage
-tags: 
-    - Ceph
+excerpt: "Ceph 是一个分布式存储系统，旨在提供可扩展、可靠且容错的存储解决方案。它支持块存储（RBD）、对象存储（RGW）和文件系统存储（CephFS）。Ceph 是开源的，可以在普通硬件上运行，适合企业级存储需求，且无需硬件 RAID 控制器。"
+categories: ["Storage"]
+tags: ["ceph"]
+published: false
 ---
 
 # 0x01 Ceph简介

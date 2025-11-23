@@ -1,11 +1,10 @@
 ---
-title: Nginx Load Balancer
+title: "Nginx Load Balancer"
 date: 2022-11-14
-excerpt: "Nginx 仲负载均衡相关配置..."
-categories: 
-    - Web
-tags: 
-    - Nginx
+excerpt: "Nginx 负载均衡相关配置"
+categories: ["Web"]
+tags: ["Nginx", "LoadBalance"]
+published: false
 ---
 
 # 0x01 Load Balancer

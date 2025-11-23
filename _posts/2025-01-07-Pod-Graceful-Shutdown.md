@@ -4,6 +4,7 @@ date: 2025-01-07
 excerpt: "如何在 k8s 中完成 pod 的优雅关闭"
 categories: ["CloudNative"]
 tags: ["Kubernetes", "Pod", "Shutdown"]
+published: false
 ---
 
 Pod优雅关闭是指在Kubernetes中，当Pod因为某种原因（如版本更新、资源不足、故障等）需要被终止时，

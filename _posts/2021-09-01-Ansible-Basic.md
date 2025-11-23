@@ -1,9 +1,9 @@
 ---
-title: "Ansible Basic"
+title: "Ansible 基础概念：场景、架构和测试用例"
 date: 2021-09-01
 excerpt: "Ansible basic architecture"
 categories: ["CICD"]
-tags: ["Ansible"]
+tags: ["Ansible", "CD"]
 ---
 
 # 0x01 自动化运维应用场景
@@ -57,7 +57,7 @@ tags: ["Ansible"]
 - Fabric：Python 编写，agentless
 - Chef：ruby 编写，国内应用少
 
-# 2. Ansible 架构
+# 0x02 架构
 
 ## Features
 
@@ -117,7 +117,7 @@ Ansible 最终作用对象通常是 hosts 主机或者 Network 设备
 - 文件加密程序`/usr/bin/ansible-vault`
 - Console 界面程序`/usr/bin/ansible-console`
 
-# 3. Example
+# 0x03 Example
 
 ```shell
 # use ping module on target server
@@ -129,6 +129,8 @@ ansible 192.168.1.101,192.168.1.102 ping
 # use all servers in inventory as target servers
 ansible all ping
 ```
+
+---
 
 ## Reference
 

@@ -1,25 +1,25 @@
 ---
 title: "DDIA Chapter 01 Reliable, Scalable and Maintainable Applications"
 date: 2025-01-24
-excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
+excerpt: "Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems."
 categories: ["Architect Design"]
 tags: ["DDIA", "Reliable", "Scalable", "Maintainable"]
 ---
 
-# Reliability可靠性
+## 可靠性（Reliability）
 
 ## Hardware Faults
 
 首先通过MTTF一类指标去评估硬件故障发生概率，对于一些小的节点、集群，做好RAID、热备电源，可以热切换的CPU甚至于柴油发电机就够了。{: .notice--success}
 
 > Hard disks are reported as having a **mean time to failure (MTTF)** of about 10 to 50 years. Thus, on a storage cluster with 10,000 disks, we should expect on average one disk to die per day.
-
+>
 > Our first response is usually to add redundancy to the individual hardware components in order to reduce the failure rate of the system. Disks may be set up in a RAID configuration, servers may have dual power supplies and hot-swappable CPUs, and datacenters may have batteries and diesel generators for backup power.
 
 从系统层面看，出现故障的往往并非某个硬件配件，所以需要去做一些备用的节点和主机。同时，支持备用主机的系统也更方便去滚动升级。
 
 > However, as data volumes and applications' computing demands have increased, more applications have begun using larger numbers of machines, which proportionally increases the rate of hardware faults.
-
+>
 > Hence there is a move toward systems that can tolerate **the loss of entire machines**, by using software fault-tolerance techniques in preference or in addition to hardware redundancy.
 
 ## Software Errors
@@ -44,7 +44,7 @@ tags: ["DDIA", "Reliable", "Scalable", "Maintainable"]
 - Allow quick and easy recovery from human errors, to minimize the impact in the case of a failure.
 - Set up detailed and clear monitoring, such as performance metrics and error rates.
 
-# Scalability可扩展性
+## 可扩展性（Scalability）
 
 ## Describing Load
 
@@ -73,7 +73,6 @@ WHERE follows.follower_id = current_user
 ![DDIA1-1](../assets/images/posts/20250124/DDIA1-1.png)
 
 > **This works better because the average rate of published tweets is almost two orders of magnitude lower than the rate of home timeline reads, and so in this case it’s preferable to do more work at write time and less at read time.**
-
 > The final twist of the Twitter anecdote: now that approach 2 is robustly implemented, **Twitter is moving to a hybrid of both approaches**. Most users' tweets continue to be fanned out to home timelines at the time when they are posted, but a small number of users with a very large number of followers (i.e., celebrities) are excepted from this fan-out. 
 >
 > Tweets from any celebrities that a user may follow are fetched separately and merged with that user's home timeline when it is read, like in approach 1. This hybrid approach is able to deliver consistently good performance.
@@ -94,12 +93,11 @@ SLA和SLO中对于相应时间百分数的实际应用
 
 现实中，一个用户端程序往往会并行请求多个服务端的服务，而客户端的总延迟是由那个延迟最长的服务来决定的。此时在服务端来测算延迟，几百个请求中，可能只有一两个延迟会超标，但是客户端的体验依然会十分差，这种情况往往被称作 **尾部延迟放大**（**tail latency amplification**）效应，内容参见文章 [The Tail at Scale \| February 2013 \| Communications of the ACM](https://cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext)。
 
-## Approaches for Coping with Load
+### Approaches for Coping with Load
 
 横向扩展vs纵向扩展 & 人工操作vs弹性伸缩
 
 - scaling up: vertical scaling, moving to a more powerful machine
-
 - scaling out: horizontal scaling, distributing the load across multiple smaller machines
 - elastic system: they can automatically add computing resources when they detect a load increase, whereas other systems are scaled manually (a human analyzes the capacity and decides to add more machines to the system).
 
@@ -107,19 +105,14 @@ SLA和SLO中对于相应时间百分数的实际应用
 
 > The architecture of systems that operate at large scale is usually highly specific to the application—there is no such thing as a generic, one-size-fits-all scalable architecture (informally known as magic scaling sauce). The problem may be the volume of reads, the volume of writes, the volume of data to store, the complexity of the data, the response time requirements, the access patterns, or (usually) some mixture of all of these plus many more issues.
 
-# Maintainability可维护性
+## 可维护性（Maintainability）
 
 - **Operability**
-
-	Make it easy for operations teams to keep the system running smoothly.
-
-- **Simplicity** 
-
-	Make it easy for new engineers to understand the system, by removing as much complexity as possible from the system. (Note this is not the same as simplicity of the user interface.)
-
+  Make it easy for operations teams to keep the system running smoothly.
+- **Simplicity**
+  Make it easy for new engineers to understand the system, by removing as much complexity as possible from the system. (Note this is not the same as simplicity of the user interface.)
 - **Evolvability**
-
-	Make it easy for engineers to make changes to the system in the future, adapting it for unanticipated use cases as requirements change. Also known as extensibility, modifiability, or plasticity.
+  Make it easy for engineers to make changes to the system in the future, adapting it for unanticipated use cases as requirements change. Also known as extensibility, modifiability, or plasticity.
 
 ## Operability 让运维活得更开心
 
@@ -174,24 +167,14 @@ SLA和SLO中对于相应时间百分数的实际应用
 
 > The ease with which you can modify a data system, and adapt it to changing requirements, is closely linked to its simplicity and its abstractions: simple and easy-to-understand systems are usually easier to modify than complex ones. But since this is such an important idea, we will use a different word to refer to agility on a data system level: evolvability. 
 
-# Summary
+## Summary
 
 - **功能需求（functional requirements）**
-
-	它应该做什么，比如允许以各种方式存储，检索，搜索和处理数据
+  它应该做什么，比如允许以各种方式存储，检索，搜索和处理数据
 
 - **非功能性需求（nonfunctional ）**
+  通用属性，例如安全性，可靠性，合规性，可扩展性，兼容性和可维护性
 
-	通用属性，例如安全性，可靠性，合规性，可扩展性，兼容性和可维护性
-
-  - 可靠性 Reliability
-
-		抵抗来自于硬件（通常是随机的和不相关的），软件（通常是系统性的Bug，很难处理），和人类（不可避免地时不时出错）的故障的影响
-
-  - 可扩展性 Scalability
-
-		定量描述负载和性能，通过添加处理容量（processing capacity） 以在高负载下保持可靠
-
-  - 可维护性 Maintainability
-
-		良好的可操作性意味着对系统的健康状态具有良好的可见性，并拥有有效的管理手段
+  - 可靠性 Reliability：抵抗来自于硬件（通常是随机的和不相关的），软件（通常是系统性故障，很难处理），和人类（不可避免地时不时出错）的故障的影响
+  - 可扩展性 Scalability：定量描述负载和性能，通过添加处理容量（processing capacity） 以在高负载下保持可靠
+  - 可维护性 Maintainability：良好的可操作性意味着对系统的健康状态具有良好的可见性，并拥有有效的管理手段

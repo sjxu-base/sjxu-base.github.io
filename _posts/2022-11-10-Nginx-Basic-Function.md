@@ -1,11 +1,10 @@
 ---
-title: Nginx Basic Function
+title: "Nginx Basic Function"
 date: 2022-11-10
-excerpt: "Nginx的启动及信号格式..."
-categories: 
-    - Web
-tags: 
-    - Nginx
+excerpt: "Nginx 的启动过程及信号格式"
+categories: ["Web"]
+tags: ["Nginx", "LoadBalance"]
+published: false
 ---
 
 # Basic Functionality

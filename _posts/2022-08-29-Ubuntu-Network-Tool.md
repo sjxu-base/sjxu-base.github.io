@@ -1,16 +1,15 @@
 ---
-title: Ubuntu Network Tools
+title: "Ubuntu 网络管理工具：Internet Protocol 和 Socket Statistics"
 date: 2022-08-29
-excerpt: "随着 ifconfig 和 netstat 的淘汰，ip 和 ss 已经成为 Ubuntu 系统中管理网络的现代工具。这篇专门研究了 ip 命令的基本用法，帮助系统管理员告别旧命令，并展示如何通过 netplan 检查网络配置的有效性。"
-categories: 
-   - System
-tags:
-   - Tooling
+excerpt: "在 Ubuntu 网络检测任务中，'ip' 和 'ss' 命令已逐步取代 'ifconfig'和 'netstat' 命令。'ip' 和 'ss' 是基于 'iproute2' 包的工具，它们更高效、功能更强大，因此推荐使用这些命令来管理和调试网络设置。"
+categories: ["Linux"]
+tags: ["Network","SocketStatistics", "InternetProtocol"]
+toc: true
 ---
 
 在网络检测过程中，`ip`和`ss`命令已逐步取代传统的`ifconfig`和`netstat`命令。`ip`和`ss`命令是基于`iproute2`包的工具，它们更高效、功能更强大，因此推荐使用这些命令来管理和调试网络设置。
 
-# 0x01 Internet Protocol 命令介绍{#InternetProtocol}
+# 0x01 Internet Protocol 命令介绍
 
 `ip` 命令替代了旧的 `ifconfig` 命令，采用模块化设计，包含多个功能模块，主要用于网络设备、路由、地址等的管理。
 
@@ -29,10 +28,9 @@ Ubuntu 官方也推荐使用 `ip` 命令代替 `ifconfig`，并且建议使用 `
 以下是一些常用的`ip`命令操作：
 
 ```shell
-# 查看网口信息
-ip link show
-# 开启网卡 eno1
-ip link set eno1 up
+ip link show   # 查看网口信息
+
+ip link set eno1 up         # 开启网卡 eno1
 # 设置网卡 MTU 为 1400
 ip link set eno1 mtu 1400
 # 查看设备 IP 地址
@@ -49,7 +47,7 @@ ip route add 192.168.4.0/24 via 192.168.0.254 dev eno1
 
 通过这些命令，用户可以轻松地查看和修改网络配置。
 
-# 0x02 Socket Statistics 命令介绍{#SocketStatistics}
+# 0x02 Socket Statistics 命令介绍
 
 **Socket Statistics** `ss` 命令是用来查看网络套接字的状态和统计信息，已逐渐取代传统的`netstat`命令。`ss`比`netstat`更高效，能够处理大量连接并快速返回结果，同时支持更多的过滤选项，适合用于快速查询和调试。
 

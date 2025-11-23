@@ -4,6 +4,7 @@ date: 2021-11-01
 excerpt: "公司网络组同事结合 Netbox 构建了一套新的网络设备监控方案，参考他们的方案，在家里的网络设备上做个Demo，也非常有效的管理了家用网络设备。"
 categories: ["CloudNative"]
 tags: ["NetBox", "Network"]
+published: false
 ---
 
 

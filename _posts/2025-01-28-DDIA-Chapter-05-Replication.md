@@ -6,33 +6,33 @@ categories: ["Architect Design"]
 tags: ["DDIA", "Replica"]
 ---
 
-# Why：为什么要进行数据拷贝
+## Why：为什么要进行数据拷贝
 
 - 保持数据在地理上更接近用户来降低延迟
 - 使系统在一部分节点崩溃时，依然可以继续使用，提高系统可用性
 - 增加可以用于读操作的节点，提高数据吞吐量
 
-**Three popular algorithms for replicating changes between nodes**
+### 分布式拷贝算法的分类
 
-- single leader
-- multi-leader
-- leaderless
+- Single Leader
+- Multi Leader
+- Leaderless
 
-# Leaders and Followers
+## Leaders and Followers
 
-## Synchronous vs Asynchronous
+### Synchronous vs Asynchronous
 
 `innobackupex` MySQL设置快照工具
 
 `binlog coordinates` snapshot在MySQL日志中的位置
 
-## Implementation of Replication Logs
+### Implementation of Replication Logs
 
 - Statement-based replication
 - Write-ahead log(WAL) skipping
 - Logical(row-based) log replication
 - Trigger-based replication
 
-## Problems with Replication Lag
+### Problems with Replication Lag
 
 因为同步延迟造成的数据不一致性，往往会因为集群规模的扩大而愈发凸显（集群越大，网络情况也越发复杂）。

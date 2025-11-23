@@ -1,11 +1,9 @@
 ---
-title: "How to get a CKA Certification"
+title: "考试经验分享：我是如何用一周时间考过 CKA 认证的"
 date: 2024-01-30
-excerpt: "如何一周内通过CNCF的CKA认证"
-categories: 
-    - Cert
-tags: 
-    - CKA
+excerpt: "花了一周时间准备，考下来了 CNCF 的 CKA 认证，这里不讲题，简单聊聊报名和考试的经验。"
+categories: ["Training"]
+tags: ["CNCF", "CKA"]
 ---
 
 ## 0x01 报名考试

@@ -1,9 +1,10 @@
 ---
 title: "Synology：基于群晖构建的家庭影音平台"
-date: 2021-10-19
+date: 2025-11-19
 excerpt: "今年 618 就到手的群晖 DS219+，迟迟未能上线，恰逢朋友给了个退役的投影仪，于是在家折腾起了自己的影音系统。"
 categories: ["Misc"]
 tags: ["NAS", "Synology"]
+published: false
 ---
 
 # 0x01 硬件设备

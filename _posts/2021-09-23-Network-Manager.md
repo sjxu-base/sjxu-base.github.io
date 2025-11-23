@@ -4,6 +4,7 @@ date: 2021-09-23
 excerpt: "使用 Network Manager 配置 CentOS 网络"
 categories: ["OS"]
 tags: ["Network", "Linux", "CentOS"]
+toc: true
 ---
 
 # 0x01 手工配置网络方案
@@ -19,21 +20,21 @@ vim /etc/sysconfig/network-scripts/ifcfg-eth0
 Network Config 文件修改内容参考如下配置
 
 ```ini
-DEVICE = eth0               # 网卡设备名称   
-ONBOOT = yes                # 启动时是否激活 yes | no  
-BOOTPROTO = static          # 协议类型 dhcp bootp none  
-IPADDR = 192.168.1.90       # 网络IP地址  
-NETMASK = 255.255.255.0     # 网络子网地址  
-GATEWAY = 192.168.1.1       # 网关地址  
-BROADCAST = 192.168.1.255   # 广播地址  
-HWADDR = 00:0C:29:FE:1A:09  # 网卡MAC地址  
-TYPE = Ethernet             # 网卡类型为以太网
+  DEVICE = eth0               # 网卡设备名称   
+  ONBOOT = yes                # 启动时是否激活 yes | no  
+  BOOTPROTO = static          # 协议类型 dhcp bootp none  
+  IPADDR = 192.168.1.90       # 网络IP地址  
+  NETMASK = 255.255.255.0     # 网络子网地址  
+  GATEWAY = 192.168.1.1       # 网关地址  
+  BROADCAST = 192.168.1.255   # 广播地址  
+  HWADDR = 00:0C:29:FE:1A:09  # 网卡MAC地址  
+  TYPE = Ethernet             # 网卡类型为以太网
 ```
 
 修改完成后，还需要重启 Network 服务使之生效。
 
 ```shell
-/etc/init.d/network reload
+  /etc/init.d/network reload
 ```
 
 这种方式虽然直观，但在现代系统中存在几个明显问题：
@@ -88,19 +89,19 @@ nmcli connection delete eth0
 假设我们要将网卡 `ens33` 配置为静态地址：
 
 ```shell
-nmcli connection add type ethernet con-name ens33 ifname ens33 \
-ipv4.addresses 192.168.1.90/24 \
-ipv4.gateway 192.168.1.1 \
-ipv4.dns 8.8.8.8 \
-ipv4.method manual \
-autoconnect yes
+  nmcli connection add type ethernet con-name ens33 ifname ens33 \
+  ipv4.addresses 192.168.1.90/24 \
+  ipv4.gateway 192.168.1.1 \
+  ipv4.dns 8.8.8.8 \
+  ipv4.method manual \
+  autoconnect yes
 ```
 
 激活并检查 `ens33`：
 
 ```shell
-nmcli connection show ens33
-nmcli connection up ens33
+  nmcli connection show ens33
+  nmcli connection up ens33
 ```
 
 这样配置会在后台自动生成 `/etc/NetworkManager/system-connections/ens33.nmconnection` 文件，格式为 `keyfile`，比旧的 `ifcfg` 文件更规范，也方便版本控制与导出。
@@ -110,7 +111,7 @@ nmcli connection up ens33
 在无桌面环境但需要交互式操作时，可使用 nmtui：
 
 ```shell
-nmtui
+  nmtui
 ```
 
 进入后可以选择：
@@ -131,10 +132,10 @@ nmtui
 若需要兼容旧系统脚本，可通过以下方式启用传统网络管理：
 
 ```shell
-systemctl stop NetworkManager
-systemctl disable NetworkManager
-systemctl enable network
-systemctl start network
+  systemctl stop NetworkManager
+  systemctl disable NetworkManager
+  systemctl enable network
+  systemctl start network
 ```
 
 但这会失去动态管理与自动检测能力，除非特殊需求（如 PXE 环境），一般不推荐。

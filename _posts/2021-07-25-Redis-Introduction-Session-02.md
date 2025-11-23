@@ -4,6 +4,7 @@ date: 2021-07-25
 excerpt: "[狂神说JAVA系列]中，秦疆关于Redis的解说P28-P36"
 categories: ["KV Storage"]
 tags: ["Redis"]
+published: false
 ---
 
 # Redis持久化

@@ -4,6 +4,7 @@ date: 2021-10-08
 excerpt: "谈谈Ubuntu中常用的几个网络诊断工具"
 categories: ["OS"]
 tags: ["Network", "Ubuntu", "Linux", "Tools"]
+published: false
 ---
 
 # 0x01 网络诊断工具

@@ -4,6 +4,7 @@ date: 2022-02-17
 excerpt: "前司一直在使用 Proxmox 作为虚拟机解决方案，但随着线上压力逐渐增加，Proxmox 管理能力捉襟见肘，这篇博客结合官方资料和使用经验，总结下生产环境中 Proxmox 的运维经验以及最佳实践。"
 categories: ["CloudNative"]
 tags: ["Proxmox", "VM"]
+published: false
 ---
 
 # 0x01 使用背景

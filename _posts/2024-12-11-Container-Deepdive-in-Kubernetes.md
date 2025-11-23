@@ -2,17 +2,17 @@
 title: "Container Deepdive in Kubernetes"
 date: 2024-12-11
 excerpt: "This blog post explores the role of the \"pause container\" in Kubernetes for process isolation and resource cleanup within Pods. It also covers the evolution of kube-proxy modes, from user-space proxy to iptables and ipvs, highlighting how Kubernetes optimizes network traffic management and load balancing for improved performance at scale."
-categories: ["Kubernetes"]
-tags: ["Node", "Container"]
+categories: ["CloudNative"]
+tags: ["Kubernetes", "Container", "Pod"]
 ---
 
-# Pause 容器
+## Pause 容器
 
 Kubernetes 的 pod 实现基于 Linux 的 namespace 和 cgroups，为容器提供了良好的隔离环境。在同一个pod中，不同容器犹如在 localhost 中。
 
 但是容器之间会遇到网络无法共享问题，容器内部也会出现“孤儿进程”无法回收问题。
 
-## 资源回收问题
+### 资源回收问题
 
 在Unix系统中，PID为`1`的进程为init进程，即所有进程的父进程。它很特殊，维护一张进程表，不断地检查进程状态。例如，一旦某个子进程由于父进程的错误而变成了“孤儿进程”，其便会被init进程进行收养并最终回收资源，从而结束进程。
 
@@ -27,11 +27,11 @@ Kubernetes中的pause容器便被设计成为每个业务容器提供以下功�
 - 在pod中担任Linux命名空间共享的基础
 - 启用pid命名空间，开启init进程
 
-# kube-proxy的工作模式
+## kube-proxy的工作模式
 
 Kubernetes里 `kube-proxy` 支持三种模式，在v1.8之前使用的是iptables 以及 userspace两种模式，在kubernetes 1.8之后引入了ipvs模式，并且在v1.11中正式使用，其中iptables和ipvs都是内核态也就是基于netfilter，只有userspace模式是用户态。
 
-## userspace mode
+### userspace mode
 
 起初，`kube-proxy` 进程是一个真实的TCP/UDP代理，在用户空间运行，监听 Kubernetes API Server 的服务和端点变化，然后创建相应的 iptables 规则。
 
@@ -45,7 +45,7 @@ Kubernetes里 `kube-proxy` 支持三种模式，在v1.8之前使用的是iptable
 
 ClusterIP 模式中重定向到 kube-proxy 服务的过程存在内核态到用户态的切换，开销很大，因此有了iptables模式，userspace 模式也被废弃了。
 
-## iptables
+### iptables
 
 kubernets从1.2版本开始将iptabels模式作为默认模式，这种模式下kube-proxy不再起到proxy的作用。
 
@@ -55,7 +55,7 @@ kubernets从1.2版本开始将iptabels模式作为默认模式，这种模式下
 
 2个svc，8个pod就有34条iptabels规则了，随着集群中svc和pod大量增加以后，iptables中的规则开会急速膨胀，导致性能下降，某些极端情况下甚至会出现规则丢失的情况，并且这种故障难以重现和排查。
 
-## ipvs
+### ipvs
 
 从kubernetes 1.8版本开始引入第三代的IPVS模式，它也是基于netfilter实现的，但定位不同：iptables是为防火墙设计的，IPVS则专门用于高性能。
 

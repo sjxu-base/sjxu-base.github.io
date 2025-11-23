@@ -1,12 +1,13 @@
 ---
-title: "MySQL 基础教程"
+title: "MySQL 基础知识：SQL"
 date: 2021-07-11
 categories: ["Database"]
 tags: ["MySQL"]
 toc: true
+published: false
 ---
 
-# 1 SQL语句
+# 0x01 SQL 语句
 
 SQL语句分类
 
@@ -16,9 +17,9 @@ SQL语句分类
 - TCL（事务控制语言）：commit提交事务，rollback回滚事务(TCL中的T是Transaction)
 - DCL（数据控制语言）: grant授权、revoke撤销权限等
 
-# 2 操作数据库
+# 0x02 数据库操作
 
-## 2.4 根据已有数据库查看新建数据库代码
+## 根据已有数据库查看新建数据库代码
 
 ```sql
 SHOW CREATE DATABASE school
@@ -26,7 +27,7 @@ SHOW CREATE TABLE student
 DESC student -- 显示表结构
 ```
 
-## 2.5 数据表类型
+## 数据表类型
 
 | Function   | MyISAM               | InnoDB        |
 | ---------- | -------------------- | ------------- |
@@ -74,7 +75,7 @@ DESC student -- 显示表结构
 		CREATE DATABASE shop CHARSET SET utf8 COLLATE utf_8_general_ci
 		```
 
-## 2.6 修改删除表
+## 修改删除表
 
 注意`MODIFY`和`CHANGE`的区别：
 
@@ -100,7 +101,7 @@ ALTER TABLE teacher1 DROP age1
 DROP TABLE teacher1 IF EXISTS
 ```
 
-# 3 MySQL数据管理
+# 0x03 MySQL数据管理
 
 ## 3.1 外键
 

@@ -1,29 +1,25 @@
 ---
-title: GPT with Canvas
+title: "ChatGPT 的多模态进化：ChatGPT with Canvas"
 date: 2024-10-12
-excerpt: "GPT中关于Canvas的新用法"
-categories: 
-    - AI
-tags: 
-    - ChatGPT
+excerpt: "ChatGPT 中关于 Canvas 的新用法"
+categories: ["AI"]
+tags: ["Canvas", "ChatGPT"]
+
 ---
-
-
 
 ![CanvasIntro](\images\20241012\Canvas.jpg)
 
+## 0x01 什么是 Canvas
 
-## 0x01 什么是 Canvas ？
-
-近期GPT 推出了一个测试模型： **GPT-4o Canvas**。
+近期 ChatGPT 推出了一个新功能： **GPT-4o Canvas**。
 
 Canvas 使用了全新的界面，可用于与 ChatGPT 合作编写，甚至多文件的编码项目，而不仅仅是简单的聊天。
 
-使用过程中，Canvas 会在一个单独的窗口中打开，让用户和 ChatGPT 合作完成一个项目。这个早期测试版引入了一种全新的合作方式 — 不仅仅是通过对话，还可以直接通过code或者文案来和GPT进行交互。 
+使用过程中，Canvas 会在一个单独的窗口中打开，让用户和 ChatGPT 合作完成一个项目。这个早期测试版引入了一种全新的合作方式 — 不仅仅是通过对话，还可以直接通过code或者文案来和GPT进行交互。
 
 Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中手动选择。但仅有 ChatGPT Plus 和 Team 用户可以访问 Canvas。企业版和教育版用户将于下周（2024.10.10）获得访问权限。之后 OpenAI 还会计划在测试版结束后向所有 ChatGPT Free 用户提供 Canvas。
 
-## 0x02 为什么要用 Canvas ？ 
+## 0x02 为什么要用 Canvas
 
 作为 ChatGPT 深度用户，我基本每天都会使用 ChatGPT 来获取代码方面的帮助，包括从0到1编写脚本，以及优化、解释和注释我的代码。
 
@@ -31,11 +27,11 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 现在 Canvas 为这类工作提供了一个新界面。
 
-通过 Canvas ，ChatGPT 可以很好地理解代码和需求的不同。而且可以突出显示特定部分，以准确表明希望 ChatGPT 关注的内容。就像文字编辑或 code reviewer 一样，来针对整个项目提供高相关度的反馈和建议。
+通过 Canvas，ChatGPT 可以很好地理解代码和需求的不同。而且可以突出显示特定部分，以准确表明希望 ChatGPT 关注的内容。就像文字编辑或 code reviewer 一样，来针对整个项目提供高相关度的反馈和建议。
 
 此外，在之前的使用过程中，用户可以在 Canvas 中控制项目，也一个编辑器中同时生成多个文件。用户还可以直接编辑文本或代码。同时支持快捷方式菜单，可以让 ChatGPT 调整书写长度、调试代码以及​​快速执行其他有用的操作，甚至还可以使用 roll back 按钮恢复先前生成的版本。
 
-## 0x03 怎么用 GPT Canvas
+## 0x03 怎么使用 Canvas
 
 当 ChatGPT 检测到 Canvas 可能有用的场景时，它就会自动打开。用户还可以在提示中包含“使用 Canvas”以打开 Canvas 并使用它来处理现有项目。
 
@@ -55,7 +51,7 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 - 修复错误：检测并重写有问题的代码以解决错误。
 - **语言移植**：将已有代码翻译成 JavaScript、TypeScript、Python、Java、C++ 或 PHP。
 
-## 0x04 Canvas 为什么会更强？
+## 0x04 为什么 Canvas 会比原生 GPT 更强
 
 除了本身的功能介绍外，官方发布特别提到的一件事就是他们是如何训练新模型 GPT-4o with Canvas （相比于原生 Prompt GPT-4o）来变成一个更加智能的内容合作者。他们着重提到了下面三个优化项目。
 

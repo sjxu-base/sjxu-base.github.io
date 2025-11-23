@@ -1,18 +1,12 @@
 ---
-title: "Monitoring in Kubernetes"
+title: "Kubernetes 中的监控采集方案：cAdvisor 与 Exporter"
 date: 2024-01-02
 excerpt: "在Node级别监控Kubernetes的监控"
-categories: 
-- Orchestration
-tags: 
-- Kubernetes
+categories: ["CloudNative"]
+tags: ["Kubernetes", "Monitoring"]
 ---
 
-
-
-# 使用
-
-# 使用cAdvisor在内核级别进行监控
+## 使用 cAdvisor 设置内核级别监控
 
 cAdvisor对Node机器上的资源及容器进行实时监控和性能数据采集，包括CPU使用情况、内存使用情况、网络吞吐量及文件系统使用情况，cAdvisor集成在Kubelet中，当kubelet启动时会自动启动cAdvisor，即一个cAdvisor仅对一台Node机器进行监控。kubelet的启动参数 `--cadvisor-port` 可以定义cAdvisor对外提供服务的端口，默认为4194。可以通过浏览器访问。项目主页：[cadvisor]([http://github.com/google/cadvisor)。
 
@@ -25,7 +19,7 @@ cAdvisor对Node机器上的资源及容器进行实时监控和性能数据采�
 
 注意：cadvisor 监听的端口将在 v1.12 中删除，建议所有外部工具使用 Kubelet Metrics API 替代。
 
-# 使用Exporter在Node级别部署监控
+## 使用 Exporter 设置 Node 级别监控
 
 Kubernetes 社区提供了一些列的工具来监控容器和集群的状态，并借助 Prometheus 提供告警的功能。
 

@@ -1,11 +1,10 @@
 ---
-title: Learn Kubernetes the Hard Way Session 02
+title: "Learn Kubernetes the Hard Way Session 02"
 date: 2023-02-06
 excerpt: "这部分主要介绍如何构建 Kubernetes 集群 Worker Nodes"
-categories: 
-    - Kubernetes
-tags: 
-    - Tutorial
+categories: ["CloudNative"]
+tags: ["Kubernetes"]
+published: false
 ---
 
 

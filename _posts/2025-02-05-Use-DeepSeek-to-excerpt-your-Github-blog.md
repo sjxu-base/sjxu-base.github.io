@@ -3,8 +3,8 @@ title: "DeepSeek API 初体验：使用 DeepSeek 为你的Github博客编写AI�
 date: 2025-02-05
 excerpt: "关于如何使用 DeepSeek 来为 GitHub 博客自动生成摘要。通过集成 DeepSeek API 和 GitHub Actions，来实现了新博客提交后自动生成摘要的工作流。从本地测试到线上部署都进行了清晰的操作说明，为开发节省了时间和精力。"
 categories: ["AI"]
-tags:
-  - DeepSeek
+tags: ["CI", "Deepseek"]
+toc: true
 ---
 
 从2022年开始，我就一直在写[个人技术博客](https://sjxu-base.github.io/)，前前后后写了接近100篇左右的技术分享，然后一直稳定运行在我的 github.io 上。
@@ -12,7 +12,6 @@ tags:
 但随着技术分析越写越多，在众多博客中查找根据主题来查找内容逐渐成为了一个比较麻烦的事情。目前博客默认只会在主页上使用博客内容第一行为摘要，只有通过使用 yaml frontmatter 手动添加摘要才能覆盖掉默认的内容。
 
 但如何把自己辛勤耕耘了几千字的内容缩略成包含关键字的几十字摘要，对工科生显然是个比较烦人的事情，直到我想到了使用 DeepSeek。例如在我的[博客主页](https://yehuo.github.io/year-archive/)上，下面的几篇内容里，Kernel Tuning for Kubernetes 就是使用了 DeepSeek 来编写摘要的。
-
 
 ![blog](\assets\images\posts\20250205\blog.png)
 
@@ -43,7 +42,7 @@ name: Trigger on new posts
 on:
   push:
     paths:
-      - '_posts/**'	# blog 存放位置
+      - '_posts/**' # blog 存放位置
 jobs:
   new_post_detected:
     runs-on: ubuntu-latest
@@ -52,7 +51,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 2	# 至少抓取两个版本的repo，从而对比是否有新文件
+        # 至少抓取两个版本的repo，从而对比是否有新文件
+        fetch-depth: 2
 
     - name: 
       id: get_changed_files
@@ -60,13 +60,13 @@ jobs:
     
     - name: Run excerptor.sh on new files
       env:
-      	# 从 github action env 获取 DeepSeek API Key
+        # 从 github action env 获取 DeepSeek API Key
         API_KEY: ${{ secrets.DS_API_KEY }}
         # 将 API Key 设置为 workflow环境变量
       run: ...
 
     - name: Commit and push changes
-			run: |
+      run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         git add _posts/
@@ -77,7 +77,7 @@ jobs:
 基本框架写好后，就需要处理 3 个小问题：
 
 1. 如何获得 `_post` 中指定目录的更新？鉴于我们只需要文件名，这里推荐使用 [`git show`](https://git-scm.com/docs/git-show) 命令来查看更新。
-2. 如何保证DeepSeek API Key 不在代码中被泄露？关于如何在 Github Action 中安全地使用密数据，可以参考 [在 GitHub Actions 中使用机密 ](https://docs.github.com/zh/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) 来解决。
+2. 如何保证DeepSeek API Key 不在代码中被泄露？关于如何在 Github Action 中安全地使用密数据，可以参考 [在 GitHub Actions 中使用机密](https://docs.github.com/zh/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) 来解决。
 3. 如何调用目录下的 shell 脚本？调用很简单，使用 Github Action 中 `run` 模块即可，但是为了保证脚本路径正确，建议使用绝对路径或者模块的 `working-directory` 属性来确立根目录，并在 `awk` 命令处理文件名时，注意空格的处理。
 
 ## 0x03 编写 DeepSeek API 访问脚本
@@ -200,6 +200,3 @@ excerpt: The blog excerpt discusses the evolution of data models, comparing rela
 - 1 个中文字符 ≈ 0.6 token
 
 按照一篇博客大概 2000-3000 个汉字计算，均值为 2500，平均一篇博客需要耗费1500个 token，按照使用 `deepseek-chat` 模型，且不使用缓存的情况，百万token耗费2元，赠送的10元，大概够跑3300多篇博客，增加了缓存后，还会更便宜。
-
-
-

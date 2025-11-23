@@ -1,9 +1,10 @@
 ---
-title: "中小企业虚拟化实践：从超融合 HCI 到 Proxmox"
+title: "虚拟化实践：从超融合 HCI 到 Proxmox"
 date: 2022-11-17
 excerpt: "超融合架构HCI的一些基础知识..."
 categories: ["CloudNative"]
 tags: ["Proxmox", "HCI"]
+toc: true
 ---
 
 # 0x01 什么是 HCI 超融合？

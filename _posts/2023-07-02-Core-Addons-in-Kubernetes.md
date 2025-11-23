@@ -2,15 +2,14 @@
 title: Core Addons in Kubernetes
 date: 2023-07-02
 excerpt: "Some details about three core addons(CNI, CoreDNS, KubePorxy) work for control plane of Kuberenetes."
-categories: 
-    - Kubernetes
-tags: 
-    - Addons
+categories: ["CloudNative"]
+tags: ["Kubernetes", "Addon","CNI","KubeProxy","CoreDNS"]
+published: false
 ---
 
+# Kubernetes 中的三大核心 Addon
 
-
-# 0x01 Background
+## 0x01 Background
 
 Kubernetes 升级过程中，往往需要为三个核心组件进行升级，这篇文章简单分析下。
 
@@ -18,9 +17,9 @@ Kubernetes 升级过程中，往往需要为三个核心组件进行升级，这
 - **KubeProxy**，在 Node 上以 DeamonSet 方式存在，监听 APIServer 对 Service 的变更，支持通过 Service 对 Pod 的直接访问，在 Node 中实现 Service 负载均衡和服务发现
 - **CoreDNS**，负责在集群内部内部，支持对Service/Pod别名进行DNS查询
 
-# 0x02 CNI，Container Network Interface
+## 0x02 CNI，Container Network Interface
 
-## 1. 介绍及安装
+### 1. 介绍及安装
 
 Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包括常见的 CNI 插件包括 Calico、flannel、Terway、Weave Net 以及 Contiv。具体使用方法就是**配置**+**下载**+**kubelet调用**：
 
@@ -41,7 +40,7 @@ Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包�
 
 实际过程中，在k8s集群中，只要在client端使用kubectl，一条命令就可以完成二进制包从master到worker的分发、配置、安装（以flannel为例）：`kubectl apply -f kube-flannel.yml`
 
-## 2. 选型及性能分析
+### 2. 选型及性能分析
 
 根据Pod网络构建方式，CNI通常分为三种模式：
 
@@ -70,7 +69,7 @@ Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包�
    1. 首先 CNI 在每个节点上运行的 Daemon 进程会学习到集群所有 Pod 的 IP 地址及其所在节点信息。学习的方式通常是通过监听 K8s APIServer，拿到现有 Pod 的 IP 地址以及节点，并且新的节点和新的 Pod 的创建的时候也能通知到每个 Daemon
    2. 拿到 Pod 以及 Node 的相关信息之后，还需通过配置网络进行打通。**第一步是创建集群内的通道**，Daemon 会创建到整个集群所有节点的通道。这里的通道是个抽象概念，具体实现一般是通过 Overlay 隧道、阿里云上的 VPC 路由表、或者是自己机房里的 BGP 路由完成的；**第二步是将Pod内的IP地址和上一步的通道关联起来**，具体的实现通常是通过 **Linux 路由、fdb 转发表或者OVS 流表**等完成的。Linux 路由可以设定某一个 IP 地址路由到哪个节点上去。fdb 转发表是 forwarding database 的缩写，就是把某个 Pod 的 IP 转发到某一个节点的隧道端点上去（Overlay 网络）。OVS 流表是由 Open vSwitch 实现的，它可以把 Pod 的 IP 转发到对应的节点上。
 
-# 0x02 KubeProxy
+## 0x02 KubeProxy
 
 KubeProxy 本质是 Service 和 Pod 间的负载均衡器。
 
@@ -78,7 +77,7 @@ KubeProxy 本质是 Service 和 Pod 间的负载均衡器。
 
 任何对于 Service 的请求需要通过这个 endpoint 列表来对应到所有的 Pod。这个对应关系，存储在 etcd 中，但是实际负责流量分发的，是在 Node 上运行的 KubeProxy 组件。
 
-## 1. Service 资源的概念与实现
+### 1. Service 资源的概念与实现
 
 当 Kubernetes 创建一个新的 Service 时，有两个组件需要参与，分别是**KubeController** 和 **KubeProxy**。
 
@@ -91,24 +90,23 @@ KubeController 需要生成用于暴露一组 Pod 的 endpoint 对象。其内�
 
 Service 资源根据访问方式的不同又分为下面四种
 
-### ClusterIP
+#### ClusterIP
 
 默认 Service 类型，自动分配一个仅 Cluster 内部可以访问的虚拟 IP。Service创建一个仅集群内部可访问的ip，集群内部其他的pod可以通过该服务访问到其监控下的 Pod。
 
-### NodePort
+#### NodePort
 
 在 ClusterIP 基础上为 Service 在每个 Node 上绑定一个端口，这样就可以通过 Node 上不同的端口来访问该服务。在 Service 及各个node节点上开启端口，外部的应用程序或客户端访问node的端口将会转发到service的端口，而service将会依据负载均衡随机将请求转发到某一个pod的端口上。一般暴露服务常用的端口。
 
-### LoadBalancer
+#### LoadBalancer
 
 在 NodePort 的基础上，借助 cloud provider 创建一个外部负载均衡器，并将请求转发到NodePort类型的Service上。在 NodePort 基础之上，即各个节点前加入了负载均衡器实现了真正的高可用，云供应商提供的 Kubernetes 集群就是这种。
 
-### ExternalName
+#### ExternalName
 
 把集群外部的服务暴露到集群内部来，在集群内部直接使用。没有任何类型代理被创建，当集群内的服务需要访问外部集群的服务时，可以选择这种类型。ExternalName 类型的 Service 会把外部服务的 IP 及端口写入到当前集群中，Kubernetes 的代理将会帮助内部节点访问到外部的集群服务。
 
-
-##  2. KubeProxy 代理模式
+### 2. KubeProxy 代理模式
 
 在 Kubernetes 集群中，每个 Node 运行一个 kube-proxy 进程。kube-proxy 负责为 Service 实现了一种 VIP（虚拟IP）的形式。可以在集群内部直接访问，而不是ExternalName 中**返回集群外部的地址信息**的形式。
 
@@ -118,7 +116,7 @@ Service 资源根据访问方式的不同又分为下面四种
 
 > 有意思的是，在 Kubernetes v1.0 中，Service 只是一个 **4层 (TCP/UDP over IP)** 代理概念。在 Kubernetes v1.1 中，新增了 Ingress API，用于在 **7层（HTTP）**实现服务代理，并完成 7层 的负载均衡功能。
 
-### userspace
+#### userspace
 
 运行在用户空间的代理功能，所有的流量最终都会通过 kube-proxy 本身转发给其他的服务。
 
@@ -126,7 +124,7 @@ Service 资源根据访问方式的不同又分为下面四种
 
 userspace 代理模式有明显的性能问题，外部请求到达 Node 节点后，会先进入内核的 iptables，然后回到用户空间的 kube-proxy，这个过程很明显性能消耗。
 
-### iptables
+#### iptables
 
 iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rule 来转发 Node 上的全部流量，这种模式解决了用户空间到内核空间实现转发的方式能够极大地提高 KubeProxy 的效率，增加节点的吞吐量。
 
@@ -134,9 +132,8 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 如果是当前 Node 访问，那么所有的流量都会先经过 OUTPUT，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX。其整个过程可以简单描述为以下过程
 
-
 > PREROUTING --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
- 
+
 > OUTPUT --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
 
 **对于 NodePort 类型的 Service**，会增加一个 KUBE-NODEPORTS 规则链，其他同上。流量进出过程如下
@@ -145,7 +142,7 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 > OUTPUT --> KUBE-SERVICES --> KUBE-NODEPORTS --> KUBE-SVC-XXX --> KUBE-SEP-XXX
 
-### ipvs
+#### ipvs
 
 在 Service 数目和 Pod 数目逐渐增多时，iptables 规则数目会阶乘级别增加，Node资源往往被大量消耗。
 
@@ -155,7 +152,7 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 当然除了提升性能之外，ipvs 额外提供了多种类型的负载均衡算法，除了最常见的 Round-Robin 之外，还支持最小连接、目标哈希、最小延迟等。
 
-## 3. Ingress：Service的Service
+### 3. Ingress：Service的Service
 
 当我们向向外部暴露 Service 时，虽然 我们可以使用 **LoadBalancer** 类型的 Service，通过使用 Cloud Provider（比如：TKE 或者 OpenStack）创建一个与该 Service 对应的负载均衡服务。
 
@@ -163,7 +160,7 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 这种全局的、为了代理不同后端 Service 而设置的负载均衡服务，就是 Kubernetes 里的 Ingress 资源。Ingress 不是 Service 的一个类型，而是在应用层向外代理集群内的多个 Service，通常被称为 Service 的 Service，作为集群内部服务的入口。
 
-# 0x03 CoreDNS
+## 0x03 CoreDNS
 
 ---
 

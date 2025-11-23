@@ -2,10 +2,9 @@
 title: "How to get a CKA Certification"
 date: 2024-02-16
 excerpt: "如何一周内通过CNCF的CKA认证"
-categories: 
-    - Cert
-tags: 
-    - CKA
+categories: ["Training"]
+tags: ["CNCF", "CKA"]
+published: false
 ---
 
 

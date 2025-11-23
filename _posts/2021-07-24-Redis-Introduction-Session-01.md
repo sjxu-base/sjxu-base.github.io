@@ -4,6 +4,7 @@ date: 2021-07-24
 excerpt: "[狂神说JAVA系列]中，秦疆关于Redis的解说P1-P27"
 categories: ["KV Storage"]
 tags: ["Redis"]
+published: false
 ---
 
 # 阿里巴巴数据架构演进

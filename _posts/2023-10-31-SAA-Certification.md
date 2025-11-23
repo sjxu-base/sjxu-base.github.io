@@ -1,14 +1,10 @@
 ---
-title: "How to get a SAA Certification"
+title: "考试经验分享：我是如何用两周时间痛过 AWS SAA-C02 认证的"
 date: 2023-11-08
 excerpt: "如何通过AWS的SAA认证"
-categories: 
-    - Cert
-tags: 
-    - SAA
+categories: ["Training"]
+tags: ["AWS", "SAA"]
 ---
-
-
 
 ## 0x01 报名考试
 
