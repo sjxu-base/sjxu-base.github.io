@@ -6,19 +6,16 @@ author_profile: true
 redirect_from: 
   - /about/
   - /about.html
+layout: single
+header:
+  image: https://yehuo.github.io/images/homepage.jpg
 ---
-
-<p align="center">
-  <img src="https://yehuo.github.io/images/homepage.jpg?raw=true" alt="Photo" style="width: 80%;"/> 
-</p>
-
-# 关于 Sitong
 
 Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 这里会分享一些技术、红酒、摄影的想法，并且记录一些对现实有益的“抽象”。
 
-# Background：从哪来？我是谁？
+## Background：从哪来？我是谁？
 
 本科在某末流北京工科院校学习软件工程，信息安全专业。
 
@@ -36,9 +33,9 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 副业和朋友一起合作开设了一家小公司，用于承担一些企业级云服务相关的工作。
 
-# What Else：工作之外的我是谁？
+## What Else：工作之外的我是谁？
 
-## Traveler：旅行者
+### Traveler：旅行者
 
 喜欢旅行，信奉行万卷书之后应当有万里路。
 
@@ -48,7 +45,7 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 26年开始，将会开始国外的旅程。
 
-## Taster：品鉴者
+### Taster：品鉴者
 
 喜欢咖啡、红酒和威士忌。
 
@@ -60,9 +57,9 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 可以自由品尝来自世界各地的风味，是人生最理想也最美好的状态。
 
-# Why：为什么写这个博客？
+## Why：为什么写这个博客？
 
-## Abstracting：知识汇聚
+### Abstracting：知识汇聚
 
 > In general, a good abstraction simplifies life by hiding complex details, should be common enough to be useful, and must strike a balance between being cohesive enough to protect its internals while flexible enough to handle change.
 
@@ -78,7 +75,7 @@ Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
 
 而这个博客就是 **Shujia's Knowledge Base and Best Practice**。
 
-## Mile Stone：里程碑
+### Mile Stone：里程碑
 
 > 对酒当歌，人生几何！
 > 譬如朝露，去日苦多。
