@@ -50,6 +50,7 @@ excerpt: "一些常见的Linux面试问题"
 # 0x02 问题排查思路
 
 ## 系统瓶颈判断
+
 使用 `vmstat 1 5` 来快速定位系统瓶颈。通过观察 `r`, `b`, `si/so`, `wa`, 和 `cs` 字段
 
 可以判断系统是 CPU 饱和、I/O 阻塞、还是内存不足
@@ -70,12 +71,12 @@ excerpt: "一些常见的Linux面试问题"
 程序内存占用不断上升，**free -h 中可用内存持续下降**；应用长时间运行后变慢、卡顿，甚至 OOM 被杀死；`top`/`htop` 中 RSS 或 VIRT 持续增大。
 
 ```shell
-free -h					# 查看内存变化
-vmstat 1 5			# 1s一次采样5次 性能监控结果
+free -h     # 查看内存变化
+vmstat 1 5   # 1s一次采样5次 性能监控结果
 top -o %MEM      # 按内存排序
 ps aux --sort=-%mem | head
-watch -n 1 pmap -x <pid> | grep total	# 查看进程内存增长趋势
-cat /proc/<pid>/status								# 排查是否是泄漏还是缓存
+watch -n 1 pmap -x <pid> | grep total # 查看进程内存增长趋势
+cat /proc/<pid>/status        # 排查是否是泄漏还是缓存
 ```
 
 ## CPU 使用率诊断
@@ -83,11 +84,11 @@ cat /proc/<pid>/status								# 排查是否是泄漏还是缓存
 `top` 中 `%us` 或 `%sy` 占用高，`idle` 逼近 0%；`load average` 高于 CPU 核心数；响应慢、线程卡顿。
 
 ```shell
-top								# 判断是单核爆？还是所有核爆？
-mpstat -P ALL 1 5	# 1s一次采样5次 CPU核心使用情况
-top -o %CPU				# 定位高占用进程
-ps aux --sort=-%cpu | head	# 查找PID
-top -H -p <pid>		#查找线程级别占用
+top        # 判断是单核爆？还是所有核爆？
+mpstat -P ALL 1 5 # 1s一次采样5次 CPU核心使用情况
+top -o %CPU    # 定位高占用进程
+ps aux --sort=-%cpu | head # 查找PID
+top -H -p <pid>  #查找线程级别占用
 ```
 
 ## 线程异常诊断
@@ -97,7 +98,7 @@ RootCause：程序线程数迅速增加，占用大量资源；上下文切换�
 ```shell
 ps -eLf | wc -l            # 系统总线程数
 ps -L -p <pid> | wc -l     # 某进程的线程数
-watch "ps -L -p <pid> | wc -l"	# 监控线程增长，判断线程泄漏
+watch "ps -L -p <pid> | wc -l" # 监控线程增长，判断线程泄漏
 # 最后查看线程堆栈，判断线程池未回收、死循环
 ```
 
@@ -154,7 +155,7 @@ systemctl list-units --type=service  # 查看所有服务状态
 
 # 0x04 文件系统与权限
 
-## 基础概念：inode、软硬链接、文件权限 
+## 基础概念：inode、软硬链接、文件权限
 
 - inode（索引节点）
   
@@ -180,9 +181,9 @@ systemctl list-units --type=service  # 查看所有服务状态
   
   **权限中三类用户的顺序是 `User`/`Group`/`Others`，然后用 rwx 来去做区分，
   
-  - 文件的特殊权限 **Special Permissions** 
-    
-    - **SUID（Set User ID）**当用户执行某个**可执行文件**时，程序会**临时以该文件的所有者身份运行**。`chmod u+s filename `
+  - 文件的特殊权限 **Special Permissions**
+
+    - **SUID（Set User ID）**当用户执行某个**可执行文件**时，程序会**临时以该文件的所有者身份运行**。`chmod u+s filename`
   
     - **SGID（Set Group ID）**程序运行时以文件所属“用户组”的身份运行（作用类似 SUID 但针对组），在该目录中新建的文件/目录，其 group 会被**强制继承父目录的组**。`chmod g+s filename_or_dir`
   
@@ -220,9 +221,9 @@ systemctl list-units --type=service  # 查看所有服务状态
 
 所以最佳实践应该是，在构建系统之初就做好文件系统选型，具体可以参考下面这些场景与用途。
 
-| 文件系统  | 总结                               | 常见用途                     | 特性                       |
+| 文件系统  | 总结                             | 常见用途                     | 特性                       |
 | --------- | -------------------------------- | ---------------------------- | -------------------------- |
-| **ext4**  | 稳定耐用、安全默认，日常系统首选| 传统服务器 / Web / 应用部署  | 稳定、默认、安全           |
+| **ext4**  | 稳定耐用、安全默认，日常系统首选 | 传统服务器 / Web / 应用部署  | 稳定、默认、安全           |
 | **XFS**   | 并发高效，大文件日志吞吐之选     | 日志服务 / 大文件批处理      | 吞吐高、并发好             |
 | **Btrfs** | 支持快照压缩，适合容器与开发场景 | 快照 + 压缩 + 容器/开发      | 灵活、支持子卷             |
 | **ZFS**   | 数据安全第一，适合归档/数据库    | 数据库 / 存档 / 高可靠性存储 | 自修复 + 快照 + 压缩       |
@@ -243,4 +244,3 @@ systemctl list-units --type=service  # 查看所有服务状态
 | 原生压缩       | ❌             | ❌          | ✅                          | ✅                      | ❌                    |
 | 原生 RAID      | ❌             | ❌          | ✅（简单）                  | ✅（RAID-Z 强大）       | ❌                    |
 | 是否掉电丢数据 | ❌（持久存储） | ❌          | ❌                          | ❌                      | ✅（重启即失）        |
-

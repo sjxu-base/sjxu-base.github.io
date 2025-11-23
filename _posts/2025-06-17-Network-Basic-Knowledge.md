@@ -7,9 +7,9 @@ excerpt: "近期在一些常见的计算机网络面试问题。"
 mermaid: true
 ---
 
-# 0x01 计算机网络基础
+## 0x01 计算机网络基础
 
-## 1. TCP 三次握手与四次挥手
+### 1. TCP 三次握手与四次挥手
 
 TCP 数据包头部共 20 字节，结构参考下图：
 
@@ -39,7 +39,7 @@ sequenceDiagram
   Client->>Server: ACK
 ```
 
-### Why Not
+#### Why Not
 
 > Client 发送的第一个连接请求 SYN1 因网络延迟而滞留，于是 Client 重发了第二个请求 SYN2 并成功建立了连接，数据传输完毕后连接被释放。此时，延迟的 SYN1 才到达 Client...
 
@@ -68,24 +68,24 @@ sequenceDiagram
 
 因为 TCP 是**全双工模式连接**，所以双方需各自释放连接。
 
-### Why Not
+#### Why Not
 
 > 第四次挥手时，客户端发送给服务端的 ACK 有可能丢失，如果服务端因为某些原因而没有收到 ACK 的话，服务端就会重发 FIN，如果客户端在 2*MSL 的时间内收到了 FIN，就会重新发送 ACK 并再次等待 2MSL，防止 Server 没有收到 ACK 而不断重发 FIN...
 
-## 2. TCP 和 UDP 特点和适用场景
+### 2. TCP 和 UDP 特点和适用场景
 
 协议  是否连接    是否可靠    适用场景
 TCP 有连接（三次握手）   有序+重传+拥塞控制  Web、文件传输
 UDP 无连接 不可靠，无重传 视频、语音、DNS、DHCP
 
-## 3. 什么是MTU, MSS, Window Scaling, Nagle's algorithm
+### 3. 什么是MTU, MSS, Window Scaling, Nagle's algorithm
 
 - MTU（最大传输单元）：以太网一般为 1500 bytes。
 - MSS（最大报文段）：TCP 层的数据大小，约为 MTU - 40。
 - Window Scaling：TCP窗口放大，支持高带宽延迟网络。
 - Nagle 算法：合并小包发送，降低拥塞，延迟更高。
 
-## 4. 简述 DNS 原理，递归 vs 迭代查询
+### 4. 简述 DNS 原理，递归 vs 迭代查询
 
 - 递归查询
   - 客户端 → 本地 DNS
@@ -130,7 +130,7 @@ sequenceDiagram
     end
 ```
 
-## Q5. 什么是 ARP, DHCP, NAT, VLAN, 子网划分
+### Q5. 什么是 ARP, DHCP, NAT, VLAN, 子网划分
 
 - ARP：IP → MAC 映射，二层通信。
 - DHCP：动态分配IP地址。
@@ -138,9 +138,9 @@ sequenceDiagram
 - VLAN：逻辑隔离二层广播域。
 - 子网划分：CIDR 记法（如 192.168.1.0/24）控制主机数与网络规模。
 
-# 0x02 网络性能与调优
+## 0x02 网络性能与调优
 
-## 6. Linux 下如何查看网络连接和延迟
+### 6. Linux 下如何查看网络连接和延迟
 
 - `ss -tuna` / `netstat -anp`：查看TCP/UDP连接
 - `ping`：ICMP往返延迟（RTT）
@@ -148,7 +148,7 @@ sequenceDiagram
 - `iperf3`：TCP/UDP 吞吐测试
 - `tcpdump`：抓包分析（过滤如 `tcp port 80`）
 
-## 7. 如何排查高 RTT 成因、丢包现象，以及网络拥塞情况？
+### 7. 如何排查高 RTT 成因、丢包现象，以及网络拥塞情况？
 
 - `ping` 看波动 & 丢包
 - `traceroute` 定位异常出现在哪跳连接
@@ -161,7 +161,7 @@ sequenceDiagram
 - 丢包高 → 链路质量差 or buffer 溢出
 - 窗口小 → 滞后于 BDP，需 window scaling
 
-## 8. 简述 TCP 拥塞控制四阶段和内容
+### 8. 简述 TCP 拥塞控制四阶段和内容
 
 - **慢启动（Slow Start）**：初期指数增长 cwnd，收到一个ack增加一个新窗口。初始拥塞窗口（cwnd）一般为 1~10 个 MSS，每收到一个 ACK，**窗口加倍**（指数增长），快速探测带宽，但风险高。
 - **拥塞避免**：线性增长 cwnd。当 cwnd ≥ ssthresh（慢启动阈值）时，进入拥塞避免。每 RTT 增长**线性**（每轮 +1 MSS），稳健但增长慢。
@@ -171,9 +171,9 @@ sequenceDiagram
   - cwnd = ssthresh（或 ssthresh + 3）
   - 进入**拥塞避免阶段**而不是重回慢启动
 
-# 0x03 高频交易中高性能网络优化
+## 0x03 高频交易中高性能网络优化
 
-## 9. 什么是 busy-polling 和 DPDK
+### 9. 什么是 busy-polling 和 DPDK
 
 **busy-polling**：CPU轮询收包，跳过中断，提高低延迟能力（可用 `SO_BUSY_POLL`）
 
@@ -183,7 +183,7 @@ sequenceDiagram
 - 零拷贝 + 多核并发 + 高吞吐
 - 适用于高频交易、SDN
 
-## 10. 高频交易网络中的延迟会出现在哪些环节？
+### 10. 高频交易网络中的延迟会出现在哪些环节？
 
 ```mermaid
 sequenceDiagram
@@ -234,15 +234,17 @@ sequenceDiagram
 2. 内核层级：内核协议栈处理延迟，来源于 TCP 和 IP 协议处理
 3. 驱动层级：硬件驱动层 → 网卡（NIC）延迟
 4. 物理层级：
-  - 光纤延迟约 5 μs/km
-  - 交换/路由器处理
-  - 数据包排队延迟（Bufferbloat）
 
-## 11. 高频交易网络中可以采用哪些方案优化延迟？
+- 光纤延迟约 5 μs/km
+- 交换/路由器处理
+- 数据包排队延迟（Bufferbloat）
+
+### 11. 高频交易网络中可以采用哪些方案优化延迟？
 
 上面提到的延迟，每个阶段都有优化策略，
 
 > 绑定 CPU core**
+>
 > - **关闭 Nagle**
 > - **用 `SO_RCVBUF` / `SO_SNDBUF` 调整 buffer**
 

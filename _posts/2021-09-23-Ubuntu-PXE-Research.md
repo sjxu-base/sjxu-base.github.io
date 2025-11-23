@@ -4,19 +4,18 @@ date: 2021-09-23
 excerpt: "Start Project in Pony: 使用 iPXE 优化Ubuntu preseed 自动化流程"
 categories: ["OS"]
 tags: ["Linux", "PXE"]
+published: false
 ---
-
-
 
 Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，或是使用初始镜像+应答文件。前者修改复杂，但是安装迅速，支持无人化操作。后者修改简单，但是安装较慢，支持多镜像选择（也意味着通常要有人进行初始操作）。
 
 这次工作是通过应答文件完成的，所以仅介绍后一种安装方式。
 
-# 0x01 PXE 概念解析
+## 0x01 PXE 概念解析
 
 - [PXE](https://en.wikipedia.org/wiki/Preboot_Execution_Environment)
 
- In computing, the **Preboot eXecution Environment**, **PXE** (most often pronounced as [/ˈpɪksiː/](https://en.wikipedia.org/wiki/Help:IPA/English) *pixie*) specification describes a standardized [client–server](https://en.wikipedia.org/wiki/Client–server_model) environment that [boots](https://en.wikipedia.org/wiki/Booting) a software assembly, retrieved from a network, on PXE-enabled clients. On the client side it requires only a PXE-capable [network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller) (NIC), and uses a small set of industry-standard network protocols such as [DHCP](https://en.wikipedia.org/wiki/DHCP) and [TFTP](https://en.wikipedia.org/wiki/TFTP).
+In computing, the **Preboot eXecution Environment**, **PXE** (most often pronounced as [/ˈpɪksiː/](https://en.wikipedia.org/wiki/Help:IPA/English) *pixie*) specification describes a standardized [client–server](https://en.wikipedia.org/wiki/Client–server_model) environment that [boots](https://en.wikipedia.org/wiki/Booting) a software assembly, retrieved from a network, on PXE-enabled clients. On the client side it requires only a PXE-capable [network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller) (NIC), and uses a small set of industry-standard network protocols such as [DHCP](https://en.wikipedia.org/wiki/DHCP) and [TFTP](https://en.wikipedia.org/wiki/TFTP).
 
 - 启动文件
 
@@ -28,7 +27,7 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
     对于preseed的支持更多来源于Ubuntu官方，Ubuntu的preseed文件支持一种独特的语法，大部分语句以`d-i`开头，以如下格式组成命令：
 
-    ```
+    ```ini
     <owner> <question name> <question type> <value>
     ```
 
@@ -46,7 +45,7 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
 - **UEFI** & **Legacy BIOS**
 
-# 架构设计
+## 架构设计
 
 整个preseed系统通常需要提前在网络中布置以下三类service
 
@@ -57,28 +56,22 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
 现实情况中，大部分人都是所有服务放到一个physical server上实现，其中tftp和nfs实际上又可以合并到netbootxyz服务中，本文将dhcp和netbootxyz分开两个server存放，并对dns所需的配置做简单讲解。
 
-## DHCP Server
+### DHCP Server
 
-## Option 1: [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq)
+### Option 1: [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq)
 
 > dnsmasq is a lightweight, easy to configure DNS forwarder, designed to provide DNS (and optionally DHCP and [TFTP](https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol)) services to a small-scale network. It can serve the names of local machines which are not in the global DNS.
 
 dnsmasq组件是由个人开发的，可同时部署dns、dhcp、tftp三种服务的方案，目前较为流行，本文不做讲解。
 
-## Option 2: isc-dhcpd [Recommended]
+### Option 2: isc-dhcpd [Recommended]
 
+### Netboot Server (Netboot.xyz)
 
+### DNS Server
 
-## Netboot Server (Netboot.xyz)
+### powerdns
 
-
-
-
-
-## DNS Server
-
-## powerdns
-
-# Reference
+## Reference
 
 [脚本配置GRUB2+iPXE引导netboot.xyz进行网络重装](https://www.sm.link/2020/07/08/92.html)
