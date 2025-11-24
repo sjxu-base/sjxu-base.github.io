@@ -4,10 +4,9 @@ date: 2024-10-12
 excerpt: "ChatGPT 中关于 Canvas 的新用法"
 categories: ["AI"]
 tags: ["Canvas", "ChatGPT"]
-
 ---
 
-![CanvasIntro](\images\20241012\Canvas.jpg)
+![CanvasIntro]({{ site.url }}/assets/images/posts/20241012/Canvas.jpg)
 
 ## 0x01 什么是 Canvas
 
@@ -71,7 +70,7 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 他们有意训练模型在用户通过提示词明确给出要编辑的部分时，优先执行有针对性的编辑，否则倾向于重写。而且后续随着模型的完善，这种行为会不断进行优化。在使用过程中，这样的优化确实大大加快了生成速度和代码变更的准确度。
 
-![CanvasModelBenchmark](\images\20241012\Benchmark-02.jpg)
+![CanvasModelBenchmark]({{ site.url }}/assets/images/posts/20241012/Benchmark-02.jpg)
 
 > For writing and coding tasks, we prioritized improving canvas targeted edits. GPT-4o with canvas performs better than a baseline prompted GPT-4o by 18%.
 

@@ -13,7 +13,7 @@ toc: true
 
 但如何把自己辛勤耕耘了几千字的内容缩略成包含关键字的几十字摘要，对工科生显然是个比较烦人的事情，直到我想到了使用 DeepSeek。例如在我的[博客主页](https://yehuo.github.io/year-archive/)上，下面的几篇内容里，Kernel Tuning for Kubernetes 就是使用了 DeepSeek 来编写摘要的。
 
-![blog](\assets\images\posts\20250205\blog.png)
+![blog]({{ site.url }}/assets/images/posts/20250205/blog.png)
 
 此外，为了更加便于使用英语词汇查询，使用英文编写摘要逐渐也被提上了日程。所以最理想状态就是能让 DeepSeek 同时总结和翻译写好的文章来形成摘要，但这往往意味着要做很多提示词，而如果是通过手工输入的方式和 DeepSeek 交互，这个过程显然会非常消耗人力，让写博客变成一个很不爽的事情。
 
