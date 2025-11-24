@@ -12,30 +12,40 @@ redirect_from:
 -------
 
 Education
+
 ======
+
 * B.Eng. in Software Engineering (Info Security), Beijing Institute of Technology, 2013 -- 2017
 
 Internships
+
 ======
+
 * Security intern, 08.2016 - 10.2016
   * BMW Autonomous Driving Campus, Munich
   * Multiple extended object tracking with Bayesian inference and finite set statistics
   * Algorithm improvement, implementation and validation with Matlab
 
 Projects
+
 ======
+
 <ul>{% for post in site.projects %}
   {% include archive-single-talk-cv.html %}
 {% endfor %}</ul>
 
 Publications
+
 ======
+
 <ul>{% for post in site.publications %}
   {% include archive-single-cv.html %}
 {% endfor %}</ul>
 
 Skills
+
 ======
+
 * Languages
   * Mandarin Chinese: mother language
   * English: fluent in oral and written communication
@@ -53,7 +63,7 @@ Skills
   * Cloud & Infrastructure as Code (IaC)
     * AWS (Certified Solutions Architect - Professional): Hands-on experience with EC2, S3, IAM, VPC, RDS, and Lambda.
     * Terraform: Advanced skills in writing modular code to provision and manage cloud infrastructure.
-    * Snowflake: 
+    * Snowflake: IaC
   * CI/CD & GitOps:
     * Ansible: Experience in configuration management and application deployment using playbooks and roles.
     * CI/CD: Designed and implemented end-to-end CI/CD pipelines using Jenkins, GitLab CI, and GitHub Actions. Practical experience with ArgoCD for GitOps-style continuous delivery in Kubernetes environments.

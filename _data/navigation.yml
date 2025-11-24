@@ -1,7 +1,13 @@
 main:
+  - title: "Year"
+    url: /year-archive/
+  - title: "Categories"
+    url: /categories/
+  - title: "Tags"
+    url: /tags/
+  - title: "Projects"
+    url: /projects/
+  - title: "CV"
+    url: /cv/
   - title: "About"
     url: /about/
-  - title: "Year Archive"
-    url: /year-archive/
-  - title: "Collection Archive"
-    url: /collection-archive/

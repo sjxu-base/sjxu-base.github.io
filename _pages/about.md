@@ -1,14 +1,14 @@
 ---
-permalink: /
+permalink: /about_me
 title: ""
 excerpt: ""
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
-layout: single
+breadcrumbs: false
 header:
-  image: "https://yehuo.github.io/images/homepage.jpg"
+  image: /assets/images/homepage.png
 ---
 
 Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。

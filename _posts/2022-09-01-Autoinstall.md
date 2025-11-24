@@ -3,11 +3,11 @@ title: "Ubuntu 20.04 LTS 新功能：Autoinstall 应答文件"
 date: 2022-09-01
 excerpt: "公司之前用了好多年的 preseed，实际上不仅难看懂，写起来也十分抽象。在公司升级 Ubuntu 到 20.04 版本过程中，发现了社区更新了应答文件编写方式，开始提倡 Autoinstall 应答文件，就升级流程做个简单的总结"
 categories: ["Linux"]
-tags: ["Linux", "Ubuntu", "PXE", "Autoinstall"]
+tags: ["Ubuntu", "PXE", "Autoinstall"]
 toc: true
 ---
 
-# 0x01 Autoinstall 介绍
+## 0x01 Autoinstall 介绍
 
 Autoinstall 是 Ubuntu 社区新定义的自动装机应答文件，用于代替传统 debian-installer 应答文件（下文简称`d-i`文件）。
  
@@ -17,7 +17,7 @@ Autoinstall 是 Ubuntu 社区新定义的自动装机应答文件，用于代替
 2. 更新默认应答流程：preseed 流程中将不会有与用户应答流程的出现，以往 `d-i` 在遇到 “unanswered question” 就会停止安装流程，询问用户，但是 autoinstall 将会采用默认值继续安装，如未设置默认则直接
    > Autoinstall 支持 `interactive` 设置来明确需要交互的配置，这样遇到对应部分，自动应答就会停下来等待用户选择。
 
-# 0x02 Autoinstall 遗留的人工操作
+## 0x02 Autoinstall 遗留的人工操作
 
 虽然理论上 Autoinstall 装机过程是全无人的，但是在 Autoinstall 开始将系统写入磁盘之前，Installer 仍需用户确认。这主要是为了防止在系统创建过程中USB意外插入的情况，这种情况下可能导致机器被格式化。
 
@@ -25,13 +25,13 @@ Autoinstall 是 Ubuntu 社区新定义的自动装机应答文件，用于代替
 
 大部分 Netboot 流程中内核命令可以在 Netboot 配置文件中设置，记得将 Autoinstall 放入其中。
 
-# 0x03 Autoinstall 实战
+## 0x03 Autoinstall 实战
 
-## 应答文件的存放位置
+### 应答文件的存放位置
 
 在装机完成后，会在 `/var/log/installer/autoinstall-user-data` 创建一个 autoinstall 文件便于重复安装
 
-## 标准格式
+### 标准格式
 
 ```yaml
 version: 1
@@ -100,9 +100,9 @@ error-commands:
     - tar c /var/log/installer | nc 192.168.0.1 1000
 ```
 
-## Quick Start
+### Quick Start
 
-### 准备阶段
+#### 准备阶段
 
 确认网络情况，确认Python3安装
 
@@ -133,15 +133,15 @@ cd ~/www
 python3 -m http.server 3003
 ```
 
-### 开始安装
+#### 开始安装
 
 本次安装默认是为一台vm进行安装，这里使用kvm来操作安装流程
 
 ```shell
-# create target disk for the vm
+## create target disk for the vm
 truncate -s 10G image.img
 
-# install with no reboot
+## install with no reboot
 kvm -no-reboot -m 1024 \
     -drive file=image.img,format=raw,cache=none,if=virtio \
     -cdrom ~/Downloads/ubuntu-20.04-live-server-amd64.iso \
@@ -149,12 +149,12 @@ kvm -no-reboot -m 1024 \
     -initrd /mnt/casper/initrd \
     -append 'autoinstall ds=nocloud-net;s=http://_gateway:3003/'
 
-# boot the installed system
+## boot the installed system
 kvm -no-reboot -m 1024 \
     -drive file=image.img,format=raw,cache=none,if=virtio
 ```
 
-### U盘安装操作
+#### U盘安装操作
 
 前面准备工作同普通安装流程，唯一这里不同的是，需要在创建`user-data`和`meta-data`后使用下面命令来创建ISO文件作为`cloud-init`数据源，注意`cloud-localds`主要用途就是为`cloud-init`创建一个iso文件，来利用`nocloud`模式启动。
 
@@ -180,15 +180,15 @@ kvm -no-reboot -m 1024 \
     -drive file=image.img,format=raw,cache=none,if=virtio
 ```
 
-## Options in Config
+### Options in Config
 
 基本格式参照上面的Config Example，这里放几个比较新的选项
 
-### Version
+#### Version
 
 这个是一个后续才拓展的选项，目前必须使用 `1`
 
-### interactive-sections
+#### interactive-sections
 
 用于选择仍用UI展示的配置项，设置方法如下：
 
@@ -206,7 +206,7 @@ identity:
 - 可以使用通配符`*`来代指所有选项，这种情况下，autoinstall流程将退化为手工安装
 - 在配置为interactive section后，`reporting`设置将会被忽略掉
 
-### Storage/Disk selection extensions
+#### Storage/Disk selection extensions
 
 磁盘选择可以通过以下五种方式选择
 
@@ -234,7 +234,7 @@ identity:
     size: largest
 ```
 
-### Storage/partition/logical volume extensions
+#### Storage/partition/logical volume extensions
 
 用于指定分区和逻辑盘的大小，可以使用1G或512M这种可以被UI识别的数字，或者50%这种百分数，同样也可以使用-1来代指分区应占满磁盘剩余空间。具体分区样例，参照下面
 
@@ -252,11 +252,11 @@ identity:
   size: -1
 ```
 
-### ssh/authorized-keys
+#### ssh/authorized-keys
 
 A list of SSH public keys to install in the initial user’s account，保证可以通过key登录初始服务器
 
-### reporting
+#### reporting
 
 将安装流程信息反馈到一个输出渠道，包括以下几种选项：
 
@@ -279,7 +279,7 @@ reporting:
   level: INFO
 ```
 
-## Schema Check
+### Schema Check
 
 在安装过程中一部分配置需要同JSON Schema来校对，但是校对过程实际上是发生在运行过程中的，具体流程可以参考下面几项
 
@@ -289,7 +289,7 @@ reporting:
 - 运行early-commands
 - load整个config，然后被load-validate
 
-## 将 preseed 应答文件升级为 Autoinstall
+### 将 preseed 应答文件升级为 Autoinstall
 
 对于已有的preseed配置文件，可以使用[autoinstall-generator](https://snapcraft.io/autoinstall-generator?_ga=2.67775633.1267827802.1661936839-27790731.1649741711)来翻译生成对应的autoinstall文件。
 
@@ -300,4 +300,3 @@ reporting:
 - [Introduction](https://ubuntu.com/server/docs/virtualization-introduction)
 - [Quick Start](https://ubuntu.com/server/docs/install/autoinstall-quickstart)
 - [Autoinstall Reference](https://ubuntu.com/server/docs/install/autoinstall-reference)
-

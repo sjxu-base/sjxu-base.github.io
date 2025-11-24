@@ -5,16 +5,15 @@ permalink: /projects/
 author_profile: true
 ---
 
-<br>
-<b>[Video2Stream](https://github.com/yehuo/video2stream)</b> <br>
+
+**[Video2Stream](https://github.com/yehuo/video2stream)**
 
 **Shujia**.
 
-<i>Small tools to trans video published to live streaming on Bilibili.</i>, 2023
+- *Small tools to trans video published to live streaming on Bilibili.*, 2023
 
-
-<b>[EpiScope](https://github.com/yehuo/CovidView)</b> <br>
+**[EpiScope](https://github.com/yehuo/CovidView)**
 
 **Shujia**.
 
-<i>EpiScope is an open-source web application designed to provide real‐time visualization and trend forecasting of epidemic data.</i>, 2019
+*EpiScope is an open-source web application designed to provide real‐time visualization and trend forecasting of epidemic data.*, 2019
