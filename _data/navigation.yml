@@ -1,5 +1,5 @@
 main:
-  - title: "Year"
+  - title: "Yearly"
     url: /year-archive/
   - title: "Categories"
     url: /categories/
@@ -7,7 +7,7 @@ main:
     url: /tags/
   - title: "Projects"
     url: /projects/
-  - title: "CV"
+  - title: "Resume"
     url: /cv/
   - title: "About"
     url: /about/
