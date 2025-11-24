@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 layout: single
 header:
-  image: https://yehuo.github.io/images/homepage.jpg
+  image: "https://yehuo.github.io/images/homepage.jpg"
 ---
 
 Hi，欢迎来到我的主页！我是 Shujia，也可以叫我 Sitong。
