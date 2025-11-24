@@ -1,10 +1,11 @@
 ---
 title: "AI 第一步：开通属于你的 ChatGPT 账号"
 date: 2023-11-28
-excerpt: "ChatGPT 来势汹汹，但是想在大陆地区使用并不容易，这里简单结合我的经验，聊聊怎么在大陆地区开通 OpenAI 账号"
 categories: ["AI"]
 tags: ["ChatGPT"]
 ---
+
+ChatGPT 来势汹汹，但是想在大陆地区使用并不容易。最近刚刚花了点时间搞账号，在这里简单聊聊如何在大陆地区使用 ChatGPT 账号。
 
 ## 0x01 前期准备
 

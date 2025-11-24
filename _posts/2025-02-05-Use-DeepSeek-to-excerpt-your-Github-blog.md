@@ -159,7 +159,7 @@ echo "$yfm_content"$'\n'"$blog_content" > "$new_file"
 ./.github/workflows/excerptor.sh _posts/2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.md
 ```
 
-![offline](\images\20250205\offline.png)
+![offline]({{ site.url }}/assets/images/posts/20250205/offline.png)
 
 这时候目录中就出现了对应的 `2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.bkp.md` 文件，里面对应的 frontmatter 如下：
 
