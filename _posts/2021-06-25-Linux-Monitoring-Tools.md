@@ -2,7 +2,7 @@
 title: "Linux 故障排查小节"
 date: 2021-06-25
 excerpt: "简单总结下在 Linux 环境中常用的系统监控命令与监控工具，帮助全面了解如何监控和分析系统性能，确保服务器的稳定运行。重点讨论磁盘、内存、CPU以及网络的监控工具和方法。"
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Linux", "Monitoring", "Debug"]
 published: false
 ---

@@ -2,7 +2,7 @@
 title: "Ubuntu PXE Research"
 date: 2021-09-23
 excerpt: "Start Project in Pony: 使用 iPXE 优化Ubuntu preseed 自动化流程"
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Linux", "PXE"]
 published: false
 ---

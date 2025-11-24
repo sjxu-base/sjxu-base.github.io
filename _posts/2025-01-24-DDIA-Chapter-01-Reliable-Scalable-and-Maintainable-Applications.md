@@ -70,7 +70,7 @@ WHERE follows.follower_id = current_user
 
 2. Maintain a cache for each user’s home timeline—like a mailbox of tweets for each recipient user (see Figure 1-3). When a user posts a tweet, look up all the people who follow that user, and insert the new tweet into each of their home timeline caches. The request to read the home timeline is then cheap, because its result has been computed ahead of time.
 
-![DDIA1-1](../assets/images/posts/20250124/DDIA1-1.png)
+![DDIA1-1]({{ site.url }}/assets/images/posts/20250124/DDIA1-1.png)
 
 > **This works better because the average rate of published tweets is almost two orders of magnitude lower than the rate of home timeline reads, and so in this case it’s preferable to do more work at write time and less at read time.**
 > The final twist of the Twitter anecdote: now that approach 2 is robustly implemented, **Twitter is moving to a hybrid of both approaches**. Most users' tweets continue to be fanned out to home timelines at the time when they are posted, but a small number of users with a very large number of followers (i.e., celebrities) are excepted from this fan-out. 

@@ -2,7 +2,7 @@
 title: "Network 配置新实践：Network Manager"
 date: 2021-09-23
 excerpt: "使用 Network Manager 配置 CentOS 网络"
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Network", "Linux", "CentOS"]
 toc: true
 ---

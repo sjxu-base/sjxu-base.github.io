@@ -34,7 +34,7 @@ mermaid: true
 
     ```html
         <figure style="text-align: center;">
-            <img src="../assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
+            <img src="{{ site.url }}/assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
             <figcaption>A Netfilter Demo Pic</figcaption>
         </figure>
     ```
@@ -42,7 +42,7 @@ mermaid: true
     实际效果如下
 
     <figure style="text-align: center;">
-        <img src="../assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
+        <img src="{{ site.url }}/assets/images/posts/20210802/netfilter.png" alt="20210802" width="500" height="150">
         <figcaption>A Netfilter Demo Pic</figcaption>
     </figure>
 

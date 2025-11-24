@@ -2,7 +2,7 @@
 title: "Ubuntu 安装包管理方案：apt 与 dpkg 命令简析"
 date: 2022-03-04
 excerpt: "关于 Ubuntu 中包管理方案 apt 和 dpkg 的笔记"
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Linux", "Ubuntu", "apt", "dpkg"]
 published: false
 ---

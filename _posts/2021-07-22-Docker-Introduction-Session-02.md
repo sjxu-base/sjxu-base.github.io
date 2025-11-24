@@ -54,13 +54,13 @@ ls /home/dockertest    # 此时文件夹内由temp.file文件
 docker inspect f7cb
 ```
 
-![docker2-1](../assets/images/posts/20210722/docker2-1.png)
+![docker2-1]({{ site.url }}/assets/images/posts/20210722/docker2-1.png)
 
 其中Source为主机地址，Destination为Docker内地址。
 
 ## MySQL映射目录实验
 
-![docker2-2](../assets/images/posts/20210722/docker2-2.png)
+![docker2-2]({{ site.url }}/assets/images/posts/20210722/docker2-2.png)
 
 ```shell
 docker run -d -p 3310:3306 \
@@ -87,15 +87,15 @@ docker volume inspect juming-nginx
 
 `docker volume ls`命令执行结果：
 
-![docker2-2](../assets/images/posts/20210722/docker2-2.png)
+![docker2-2]({{ site.url }}/assets/images/posts/20210722/docker2-2.png)
 
 `docker volume inspect juming-nginx`命令执行结果：
 
-![docker2-3](../assets/images/posts/20210722/docker2-3.png)
+![docker2-3]({{ site.url }}/assets/images/posts/20210722/docker2-3.png)
 
 docker容器内的卷，在未指定目录情况下，都是挂载在`/var/lib/docker/volumes/$volumes_name/_data`
 
-![docker2-4](../assets/images/posts/20210722/docker2-4.png)
+![docker2-4]({{ site.url }}/assets/images/posts/20210722/docker2-4.png)
 
 ```shell
 # 如何确定具名挂载还是匿名挂载
@@ -133,7 +133,7 @@ docker build -f ./df01 -t test/centos:1.0 .
 docker images
 ```
 
-![docker2-5](../assets/images/posts/20210722/docker2-5.png)
+![docker2-5]({{ site.url }}/assets/images/posts/20210722/docker2-5.png)
 
 ## 多个MySQL同步数据
 
@@ -460,7 +460,7 @@ Docker0与各个容器之间，使用veth-pair技术连接。容器删除后，v
 
 Docker0与物理网卡之间使用NAT连接。
 
-![docker2-6](../assets/images/posts/20210722/docker2-6.png)
+![docker2-6]({{ site.url }}/assets/images/posts/20210722/docker2-6.png)
 
 ## 替代动态容器IP（--link）
 
@@ -514,7 +514,7 @@ docker exec -it tomcat-net-01 ping tomcat-net-02
 
 不同docker网络下的服务器无法互相连接的问题。
 
-![docker2-7](../assets/images/posts/20210722/docker2-7.png)
+![docker2-7]({{ site.url }}/assets/images/posts/20210722/docker2-7.png)
 
 ```shell
 # 将tomcat01添加到mynet中
@@ -600,13 +600,13 @@ docker exec -it tomcat01 ping tomcat-net-01
 
     - 查看Cluster配置
 
-        ![docker2-8](../assets/images/posts/20210722/docker2-8.png)
+        ![docker2-8]({{ site.url }}/assets/images/posts/20210722/docker2-8.png)
 
-        ![docker2-9](../assets/images/posts/20210722/docker2-9.png)
+        ![docker2-9]({{ site.url }}/assets/images/posts/20210722/docker2-9.png)
 
     - 存入数据并查看存放位置，之后下线存放节点，验证高可用（红色指针位置，在另一个终端下线了Redis-3节点）
 
-        ![docker2-10](../assets/images/posts/20210722/docker2-10.png)
+        ![docker2-10]({{ site.url }}/assets/images/posts/20210722/docker2-10.png)
 
 ---
 

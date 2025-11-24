@@ -2,7 +2,7 @@
 title: "Linux Kernel 初探"
 date: 2021-08-01
 excerpt: "A quick introduction to virtualization and hypervisors..."
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Linux", "Kernel"]
 ---
 

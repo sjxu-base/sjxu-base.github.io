@@ -156,7 +156,7 @@ SELECT @@auto_increament_increment	-- 查询自增步长：变量
 
 - [七种join理论](https://blog.csdn.net/Assassinhanc/article/details/92678759)
 
-![7join](../assets/images/posts/20210711/7join.png)
+![7join]({{ site.url }}/assets/images/posts/20210711/7join.png)
 
 - 自联结查询
 
@@ -348,7 +348,7 @@ SET AUTOCOMMIT=1;
 
 #### B-Tree
 
-![B-Tree](../assets/images/posts/20210711/B-Tree.png)
+![B-Tree]({{ site.url }}/assets/images/posts/20210711/B-Tree.png)
 
 - B-树特性（d为度，h为高度）
   - 每个非叶子节点由n-1个key和n个指针组成，其中d<=n<=2d
@@ -359,7 +359,7 @@ SET AUTOCOMMIT=1;
 
 #### B+Tree
 
-![B+Tree](../assets/images/posts/20210711/B+Tree.png)
+![B+Tree]({{ site.url }}/assets/images/posts/20210711/B+Tree.png)
 
 - B+树特性
   - 每个节点的指针上限为2d而不是2d+1。
@@ -370,7 +370,7 @@ B+Tree中叶节点和内节点一般大小不同。这点与B-Tree不同，虽�
 
 B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询效率。
 
-![B+Plu](../assets/images/posts/20210711/B+Plu.png)
+![B+Plu]({{ site.url }}/assets/images/posts/20210711/B+Plu.png)
 
 #### B-Tree数据结构优势（相对于HashTable、BST、AVL、红黑树）
 
@@ -426,7 +426,7 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 	第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引
 
-	![InnoDB_B+Tree](../assets/images/posts/20210711/InnoDB_B+Tree.png)
+	![InnoDB_B+Tree]({{ site.url }}/assets/images/posts/20210711/InnoDB_B+Tree.png)
 
 	因而，InnoDB中辅助索引搜索需要检索两遍索引（此时即为InnoDB的非聚簇索引）：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录，这种两次查找的现象，也称作 **回表**。
 

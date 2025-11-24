@@ -26,7 +26,7 @@ tags: ["ELK", "MongoDB"]
 
 下面，我需要从一堆屎山 JSON 文件开始，构建一个完整支持全文检索的文件搜索系统，这里用一份梳理好莎士比亚文集作为模版
 
-![Architecture](../assets/images/posts/20180810/architecture.png)
+![Architecture]({{ site.url }}/assets/images/posts/20180810/architecture.png)
 
 # 0x02 将 JSON 文件批量导入 MongoDB
 

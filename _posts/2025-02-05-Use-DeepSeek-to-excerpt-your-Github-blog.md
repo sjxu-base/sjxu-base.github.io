@@ -182,15 +182,15 @@ excerpt: The blog excerpt discusses the evolution of data models, comparing rela
 - `xxx` 和 `test post` 是编写摘要的工作流，名称来源于使用的 commit 信息
 - `pages build and deployment` 是 github.io 渲染线上页面的工作流
 
-![online1](../assets/images/posts/20250205/online1.png)
+![online1]({{ site.url }}/assets/images/posts/20250205/online1.png)
 
 打开一个编写摘要的工作流，还能看到具体所有子任务的执行状态和输出。
 
-![online2](../assets/images/posts/20250205/online2.png)
+![online2]({{ site.url }}/assets/images/posts/20250205/online2.png)
 
 最后打开目录，就能看到包含 excerpt 的新博客。
 
-![online3](../assets/images/posts/20250205/online3.png)
+![online3]({{ site.url }}/assets/images/posts/20250205/online3.png)
 
 ## 0x05 预期成本
 

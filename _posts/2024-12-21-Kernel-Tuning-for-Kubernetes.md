@@ -134,7 +134,8 @@ kernel.sched_rr_timeslice_ms: 10  ## 设置实时进程的时间片长度
         value: '{{ item.value }}'
       with_dict:
         vm.watermark_scale_factor: 200
-        vm.min_free_kbytes: "{{ (raw_total_memory_output_in_kb.stdout | int * min_free_kbytes_ratio_of_total_memory) | int }}"  ## default is 90MB
+        ## default is 90MB
+        vm.min_free_kbytes: "{{ (raw_total_memory_output_in_kb.stdout | int * min_free_kbytes_ratio_of_total_memory) | int }}"
         vm.swappiness: 0
   when: enable_k8s_disk_optimization | default(False) | bool
 ```

@@ -1,7 +1,7 @@
 ---
 title: "Linux 系统监控和 Debug"
 date: 2025-06-16
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["Linux"]
 excerpt: "一些常见的Linux面试问题"
 ---

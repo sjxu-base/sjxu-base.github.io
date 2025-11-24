@@ -2,7 +2,7 @@
 title: "Linux File System"
 date: 2021-09-24
 excerpt: "Linux文件系统中的基础概念记录"
-categories: ["OS"]
+categories: ["Linux"]
 tags: ["File System", "Linux"]
 published: false
 ---
