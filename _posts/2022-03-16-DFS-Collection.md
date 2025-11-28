@@ -7,9 +7,11 @@ tags: ["Leetcode", "DFS"]
 toc: true
 ---
 
-# 0x01 [LC37](https://leetcode-cn.com/problems/sudoku-solver/)｜解数独
+在 LeetCode 中写过的深度有限搜索（DFS）的题目合集，包含 37，67，94，100，2044 五道题。核心注重状态压缩、剪枝、恢复空间状态三个问题。
 
-## 题目
+## 0x01 [LC37](https://leetcode-cn.com/problems/sudoku-solver/)｜解数独
+
+### 题目
 
     编写一个程序，通过填充空格来解决数独问题。
     数独的解法需 遵循如下规则：
@@ -20,7 +22,7 @@ toc: true
 
     数独部分空格内已填入了数字，空白格用 '.' 表示。
 
-## 测试用例
+### 测试用例
 
     输入：board = [
         ["5","3",".",".","7",".",".",".","."],
@@ -46,7 +48,7 @@ toc: true
 
     备注：题目保证每个数独仅有唯一解
 
-## 解析
+### 解析
 
 爆搜，但是比较 tricky 的地方在于行、列、块中出现数字的记录方式。
 
@@ -54,85 +56,85 @@ toc: true
 
 实现时候容易卡住的地方，在于**回溯终点的处理**以及**函数返回**的位置。
 
-## 题解
+### 题解
 
-```python
-class Solution:
-    def solveSudoku(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        line=[[False]*9 for _ in range(9)]
-        column=[[False]*9 for _ in range(9)]
-        cell=[[[False]*9 for _a in range(3)] for _b in range(3)]
-        space=[]
-        valid=False
+    ```python
+    class Solution:
+        def solveSudoku(self, board: List[List[str]]) -> None:
+            """
+            Do not return anything, modify board in-place instead.
+            """
+            line=[[False]*9 for _ in range(9)]
+            column=[[False]*9 for _ in range(9)]
+            cell=[[[False]*9 for _a in range(3)] for _b in range(3)]
+            space=[]
+            valid=False
 
-        def dfs(pos:int)->None:
-            # 使用 nonlocal 保护状态变量
-            nonlocal line,column,cell,space,valid
-            if pos==len(space):
-                valid=True
-                return
-            i,j=space[pos]
-            for x in range(9):
-                if valid is True:
+            def dfs(pos:int)->None:
+                ## 使用 nonlocal 保护状态变量
+                nonlocal line,column,cell,space,valid
+                if pos==len(space):
+                    valid=True
                     return
-                if line[i][x]==column[j][x]==cell[i//3][j//3][x]==False:
-                    line[i][x]=column[j][x]=cell[i//3][j//3][x]=True
-                    board[i][j]=str(x+1)
-                    dfs(pos+1)
-                    line[i][x]=column[j][x]=cell[i//3][j//3][x]=False
-        for i in range(9):
-            for j in range(9):
-                if board[i][j] =='.':
-                    space.append((i,j))
-                else:
-                    val=int(board[i][j])-1
-                    line[i][val]=True
-                    column[j][val]=True
-                    cell[i//3][j//3][val]=True
-        dfs(0)
-```
+                i,j=space[pos]
+                for x in range(9):
+                    if valid is True:
+                        return
+                    if line[i][x]==column[j][x]==cell[i//3][j//3][x]==False:
+                        line[i][x]=column[j][x]=cell[i//3][j//3][x]=True
+                        board[i][j]=str(x+1)
+                        dfs(pos+1)
+                        line[i][x]=column[j][x]=cell[i//3][j//3][x]=False
+            for i in range(9):
+                for j in range(9):
+                    if board[i][j] =='.':
+                        space.append((i,j))
+                    else:
+                        val=int(board[i][j])-1
+                        line[i][val]=True
+                        column[j][val]=True
+                        cell[i//3][j//3][val]=True
+            dfs(0)
+    ```
 
-# 0x02 [LC67](https://leetcode-cn.com/problems/add-binary/)｜二进制求和
+## 0x02 [LC67](https://leetcode-cn.com/problems/add-binary/)｜二进制求和
 
-## 题目
+### 题目
 
     给你两个二进制字符串，返回它们的和（用二进制表示）。
     输入为 非空 字符串且只包含数字 1 和 0。
 
-## 测试用例
+### 测试用例
 
     输入: a = "11", b = "1"
     输出: "100"
 
-## 解析
+### 解析
 
 理论上讲，应当按位运算，自己模拟进位操作。
 
 但是 Python 和 Java 都有字符转二进制的内建函数，于是就有了下面这种 Python 偷鸡办法了。
 
-## 题解
+### 题解
 
-```python
-class Solution:
-    def addBinary(self, a, b) -> str:
-        return '{0:b}'.format(int(a, 2) + int(b, 2))
-```
+    ```python
+        class Solution:
+            def addBinary(self, a, b) -> str:
+                return '{0:b}'.format(int(a, 2) + int(b, 2))
+    ```
 
-# 0x03 [LC94](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)｜二叉树的中序遍历
+## 0x03 [LC94](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)｜二叉树的中序遍历
 
-## 题目
+### 题目
 
     给定一个二叉树的根节点 root ，返回它的中序遍历。
 
-## 测试用例
+### 测试用例
 
     输入：root = [1,null,2,3]
     输出：[1,3,2]
 
-## 解析
+### 解析
 
 这道题是可以无脑处理的 Easy Level。
 
@@ -142,41 +144,41 @@ class Solution:
 
 对于前序遍历，如后面的 100 题，直接用也会比较轻松。
 
-## 题解
+### 题解
 
-```python
-class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        rest=[]
-        if not root: return rest
-        # 使用递归函数，进行多次 Return
-        def searchNode(nodex: TreeNode)->None:
-            # 使用 nonlocal 保护状态变量
-            nonlocal rest
-            if nodex.left:
-                searchNode(nodex.left)
-            rest.append(nodex.val)
-            if nodex.right:
-                searchNode(nodex.right)
-            return
-        # 从根节点开始搜索
-        searchNode(root)
-        return rest
-```
+    ```python
+    class Solution:
+        def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+            rest=[]
+            if not root: return rest
+            ## 使用递归函数，进行多次 Return
+            def searchNode(nodex: TreeNode)->None:
+                ## 使用 nonlocal 保护状态变量
+                nonlocal rest
+                if nodex.left:
+                    searchNode(nodex.left)
+                rest.append(nodex.val)
+                if nodex.right:
+                    searchNode(nodex.right)
+                return
+            ## 从根节点开始搜索
+            searchNode(root)
+            return rest
+    ```
 
-# 0x04 [LC100](https://leetcode-cn.com/problems/same-tree/)｜相同的树
+## 0x04 [LC100](https://leetcode-cn.com/problems/same-tree/)｜相同的树
 
-## 题目
+### 题目
 
     给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
     如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
 
-## 测试用例
+### 测试用例
 
     输入：p = [1,2,3], q = [1,2,3]
     输出：true
 
-## 题目解析
+### 题目解析
 
 为了最快速度判断两棵树不一致，首先需要判断当根节点的数值是否一致，一旦不符则直接结束比对，之后再去比较左右子树。
 
@@ -184,21 +186,21 @@ class Solution:
 
 特别注意对于叶子结点的处理，对于两个节点同时为 `null` 的情况，返回 True 即可。否则如果其中任一节点为 `null`，则返回 False。
 
-## 题解
+### 题解
 
-```python
-class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        if p is None and q is None:
-            return True
-        if p is None or q is None:
-            return False
-        return p.val==q.val and self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
-```
+    ```python
+    class Solution:
+        def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+            if p is None and q is None:
+                return True
+            if p is None or q is None:
+                return False
+            return p.val==q.val and self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
+    ```
 
-# 0x05 [LC2044](https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets)｜统计按位或能得到最大值的子集数目
+## 0x05 [LC2044](https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets)｜统计按位或能得到最大值的子集数目
 
-## 题目
+### 题目
 
 给你一个整数数组 nums ，请你找出 nums 子集 按位或 可能得到的 最大值 ，并返回按位或能得到最大值的 不同非空子集的数目 。
 
@@ -206,13 +208,13 @@ class Solution:
 
 对数组 a 执行 按位或 ，结果等于 a[0] OR a[1] OR ... OR a[a.length - 1]（下标从 0 开始）。
 
-## 测试用例
+### 测试用例
 
     输入：nums = [2,2,2]
     输出：7
     解释：[2,2,2] 的所有非空子集的按位或都可以得到 2 。总共有 23 - 1 = 7 个子集。
 
-## 解析
+### 解析
 
 直接依次搜索即可，默认搜法可以理解为从 `0001` 搜索到 `1111`，逐位确定取不取，最终统一计算按位或，每次计算过程时间复杂度为 $O(N)$。
 
@@ -220,30 +222,29 @@ class Solution:
 
 可以将时间复杂度从 $O(2^n×n)$ 提升为 $O(2^0+2^1+...+2^n)=O(2×2^n)=O(2^n)$。
 
-## 题解
+### 题解
 
-```python
-class Solution:
-    def countMaxOrSubsets(self, nums: List[int]) -> int:
-        cnt,maxVal=0,0
-        def dfs(pos: int,OrVal: int)->None:
-            # 使用 nonlocal 保护状态变量
-            nonlocal cnt,maxVal
-            if pos==len(nums):
-                if OrVal>maxVal:
-                    maxVal,cnt=OrVal,1
-                elif OrVal==maxVal:
-                    cnt+=1
+    ```python
+    class Solution:
+        def countMaxOrSubsets(self, nums: List[int]) -> int:
+            cnt,maxVal=0,0
+            def dfs(pos: int,OrVal: int)->None:
+                ## 使用 nonlocal 保护状态变量
+                nonlocal cnt,maxVal
+                if pos==len(nums):
+                    if OrVal>maxVal:
+                        maxVal,cnt=OrVal,1
+                    elif OrVal==maxVal:
+                        cnt+=1
+                    return
+                dfs(pos+1,OrVal | nums[pos])
+                dfs(pos+1,OrVal)
                 return
-            dfs(pos+1,OrVal | nums[pos])
-            dfs(pos+1,OrVal)
-            return
-        dfs(0,0)
-        return cnt
-```
+            dfs(0,0)
+            return cnt
+    ```
 
-
-# 0x06 DFS 小结
+## 0x06 DFS 小结
 
 DFS 类题目的实现要点基本就是递归、模拟，要注意以下几点：
 
