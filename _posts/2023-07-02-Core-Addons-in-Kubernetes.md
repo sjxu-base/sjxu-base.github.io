@@ -7,26 +7,26 @@ tags: ["Kubernetes", "Addon","CNI","KubeProxy","CoreDNS"]
 published: false
 ---
 
-# Kubernetes 中的三大核心 Addon
+Kubernetes 升级过程中，除了需要为 Control Plane 和 Worker Nodes 进行升级，还需要升级一些附属插件。
 
-## 0x01 Background
+## 0x01 Addon 介绍
 
-Kubernetes 升级过程中，往往需要为三个核心组件进行升级，这篇文章简单分析下。
+- **CNI**，Container Network Interface，容器接口插件，负责在 Node 上构建 Pod 对外的通信；
+- **KubeProxy**，在 Node 上以 DeamonSet 方式存在，监听 apiserver 对 Service 的变更，支持通过 Service 对 Pod 的直接访问，在 Node 中实现 Service 负载均衡和服务发现；
+- **CoreDNS**，用于代替 kube-dns，负责在集群内部内部，支持对 Service/Pod 别名进行 DNS 查询；
 
-- **CNI**，Container Network Interface，容器接口插件，负责pod对外的通信
-- **KubeProxy**，在 Node 上以 DeamonSet 方式存在，监听 APIServer 对 Service 的变更，支持通过 Service 对 Pod 的直接访问，在 Node 中实现 Service 负载均衡和服务发现
-- **CoreDNS**，负责在集群内部内部，支持对Service/Pod别名进行DNS查询
+## 0x02 CNI 升级
 
-## 0x02 CNI，Container Network Interface
+### 1. 安装 CNI
 
-### 1. 介绍及安装
+Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包括常见的 CNI 插件包括 Calico、flannel、Terway、Weave Net 以及 Contiv。
 
-Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包括常见的 CNI 插件包括 Calico、flannel、Terway、Weave Net 以及 Contiv。具体使用方法就是**配置**+**下载**+**kubelet调用**：
+具体使用方法就是配置、下载、调用：
 
-1. 首先在每个结点上配置 CNI 配置文件`/etc/cni/net.d/xx-net.conf`，其中 `xx-net.conf` 是指定CNI配置文件
-2. 安装 CNI 配置文件中所对应的二进制插件`/opt/cni/bin`
-3. 在这个节点上创建 Pod 之后，Kubelet 就会根据 CNI 配置文件执行所安装的 CNI 插件
-4. 之后kubelet会自动完成Pod 的网络配置
+1. 首先在每个结点上配置 cni 配置文件`/etc/cni/net.d/xx-net.conf`，其中 `xx-net.conf` 是指定 cni 配置文件；
+2. 安装 CNI 配置文件中所对应的二进制插件 `/opt/cni/bin`
+3. 在这个节点上创建 Pod 之后，kubelet 就会根据 CNI 配置文件执行所安装的 CNI 插件
+4. 之后 kubelet 会自动完成 Pod 的网络配置
 
 > 在集群里面创建一个 Pod 的时候，首先会通过 apiserver 将 Pod 的配置写入。
 >
@@ -42,15 +42,18 @@ Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包�
 
 ### 2. 选型及性能分析
 
-根据Pod网络构建方式，CNI通常分为三种模式：
+根据 pod 的网络构建方式，cni 通常分为三种工作模式：
 
-- **Overlay 模式**的典型特征是容器独立于主机的 IP 段，这个 IP 段进行跨主机网络通信时是通过在主机之间创建隧道的方式，将整个容器网段的包全都封装成底层的物理网络中主机之间的包。该方式的好处在于它不依赖于三层以下的底层网络支持互访，创建过程中只需要调用内核接口，而无需创建更为底层的网络资源。**通常也是大部分云主机厂选用的方式。**
-- **路由模式**中主机和容器也分属不同的网段，它与 Overlay 模式的主要区别在于它的跨主机通信是通过路由打通，无需在不同主机之间做一个隧道封包。但路由打通就需要部分依赖于底层网络，比如说要求底层网络有二层可达的一个能力。**可以理解成维护一个构建在节点上的转发规则库。**
-- **Underlay 模式**中容器和宿主机位于同一层网络，两者拥有相同的地位。容器之间网络的打通主要依靠于底层网络。因此该模式是强依赖于底层能力的。
+- **Overlay**
+  典型特征是容器独立于主机的 IP 段，这个 IP 段进行跨主机网络通信时是通过在主机之间创建隧道的方式，将整个容器网段的包全都封装成底层的物理网络中主机之间的包。该方式的好处在于它不依赖于三层以下的底层网络支持互访，创建过程中只需要调用内核接口，而无需创建更为底层的网络资源。**通常也是大部分云主机厂选用的方式。**
+- **路由模式**
+  主机和容器也分属不同的网段，它与 Overlay 模式的主要区别在于它的跨主机通信是通过路由打通，无需在不同主机之间做一个隧道封包。但路由打通就需要部分依赖于底层网络，比如说要求底层网络有二层可达的一个能力。**可以理解成维护一个构建在节点上的转发规则库。**
+- **Underlay 模式**
+  容器和宿主机位于同一层网络，两者拥有相同的地位。容器之间网络的打通主要依靠于底层网络。因此该模式是强依赖于底层能力的。
 
 而关于选型通常从环境、功能、需求三个方面去考量。
 
-- 环境：部署环境分为虚拟化、主机、公有云，虚拟化条件下由于网络限制较多，优先使用Overlay会更容易配置，例如flannel-vxlan，calico-ipip，Weave等。主机条件下，Underlay和路由插件会更便于布置，例如calico-bgp，flannel-hostgw，sriov等。虚拟化条件则需要优先考虑云厂商自身的方案，例如aliyun的Terway。
+- 环境：部署环境分为虚拟化、主机、公有云，虚拟化条件下由于网络限制较多，优先使用 Overlay 会更容易配置，例如 flannel-vxlan，calico-ipip，Weave 等。主机条件下，Underlay 和路由插件会更便于布置，例如 calico-bgp，flannel-hostgw，sriov 等。虚拟化条件则需要优先考虑云厂商自身的方案，例如 aliyun 的 Terway。
 - 功能：功能主要点在支持定制安全规则，支持对集群外资源访问，支持服务发现与负载均衡。特别应当注意，例如对pod的访问策略支持，Underlay更适合支持对集群外资源的访问，但大部分Underlay不支持k8s的服务发现与负载均衡。
 - 性能：Pod创建速度与网络性能，Overlay通常创建速度较快，但是Underlay网络性能较好。
 
@@ -73,48 +76,42 @@ Kubernetes Pod 调用底层网络进行通信的一个通用接口标准，包�
 
 KubeProxy 本质是 Service 和 Pod 间的负载均衡器。
 
-虽然 Service 是本身是个虚拟的概念，但 Service 在集群中会有独立的 IP（ClusterIP），Service 实际上就是其独立IP 映射的一个 Pod 资源列表，每个 Pod 资源的信息都使用 endpoint 对象来存储在 etcd 中。
+虽然 Service 是本身并不对应实体资源，但 Service 在集群中会有独立的 ClusterIP，Service 实际上就是其独立 IP 映射的一个 Pod 资源列表（EndpointSlice），每个 Pod 资源的信息都会用一个 Endpoint 对象映射在 etcd 中。
 
-任何对于 Service 的请求需要通过这个 endpoint 列表来对应到所有的 Pod。这个对应关系，存储在 etcd 中，但是实际负责流量分发的，是在 Node 上运行的 KubeProxy 组件。
+任何对于 Service 的请求需要通过这个 Endpoint 列表来对应到所有的 Pod。这个对应关系，存储在 etcd 中，但是实际负责流量分发的，是在 Node 上运行的 KubeProxy 组件。
 
-### 1. Service 资源的概念与实现
+### Service 资源的概念与实现
 
-当 Kubernetes 创建一个新的 Service 时，有两个组件需要参与，分别是**KubeController** 和 **KubeProxy**。
+当 Kubernetes 创建一个新的 Service 时，有两个组件需要参与，分别是控制面的 **kube-controller-manager** 和节点面的 **KubeProxy**。
 
-KubeController 需要生成用于暴露一组 Pod 的 endpoint 对象。其内部又有两个组件来分别监听 Service 创建事件，一个是 ServiceController，另一个是EndpointController，二者需要监听不同的资源变化。
+kube-controller-manager 需要生成用于暴露一组 Pod 的 endpoint 对象。其内部又有两个组件来分别监听 Service 创建事件：
 
-- **ServiceController** 监控 Service 和 Node 两种对象的变化，针对任何新创建或者更新的服务时，Informer 都会通知 ServiceController，它会将这些任务投入工作队列中。其中处理 Node 对象的方法 nodeSyncLoop，主要工作是对比最新节点和原有节点，若有变化则更新对应的 Service。不过 ServiceController 其实只处理了 LoadBalancer 类型的 Service 对象，它会调用云服务商的 API 接口，而不同的云服务商会实现不同的适配器来创建 LoadBalancer 类型的资源。
+- **Service Controller** 监控 Service 和 Node 两种对象的变化，针对任何新创建或者更新的服务时，Informer 都会通知 ServiceController，它会将这些任务投入工作队列中。其中处理 Node 对象的方法 nodeSyncLoop，主要工作是对比最新节点和原有节点，若有变化则更新对应的 Service。不过 ServiceController 其实只处理了 LoadBalancer 类型的 Service 对象，它会调用云服务商的 API 接口，而不同的云服务商会实现不同的适配器来创建 LoadBalancer 类型的资源。
 - **EndpointController** 监控 Service 和 Pod 两种对象的变化，EndpointController 通过 syncService 方法同时订阅 Service 和 Pod 资源的增删事件，并且该方法会根据 Service 对象中的选择器 Selector 获取集群中存在的所有 Pod，最后根据当前集群中的对象生成 endpoint 对象并将两者进行关联。
 
 在集群中另一个订阅 Service 对象变动的组件就是 KubeProxy 了，每个新节点启动时都会初始化一个 ServiceConfig 对象，这个对象用于接受 Service 的变更事件，这些变更事件都会被订阅了集群中对象变动的 ServiceConfig 和 EndpointConfig 对象推送给启动的 Proxier 实例，收到事件变动的 Proxier 实例随后会根据启动时的配置更新 iptables 或者 ipvs 中的规则，这些应用最终会负责对进出的流量进行转发并完成一些负载均衡相关的任务。
 
 Service 资源根据访问方式的不同又分为下面四种
 
-#### ClusterIP
+1. ClusterIP
+   默认 Service 类型，自动分配一个仅 Cluster 内部可以访问的虚拟 IP。Service创建一个仅集群内部可访问的ip，集群内部其他的pod可以通过该服务访问到其监控下的 Pod。
+2. NodePort
+   在 ClusterIP 基础上为 Service 在每个 Node 上绑定一个端口，这样就可以通过 Node 上不同的端口来访问该服务。在 Service 及各个node节点上开启端口，外部的应用程序或客户端访问node的端口将会转发到service的端口，而service将会依据负载均衡随机将请求转发到某一个pod的端口上。一般暴露服务常用的端口。
+3. LoadBalancer
+   在 NodePort 的基础上，借助 cloud provider 创建一个外部负载均衡器，并将请求转发到NodePort类型的Service上。在 NodePort 基础之上，即各个节点前加入了负载均衡器实现了真正的高可用，云供应商提供的 Kubernetes 集群就是这种。
+4. ExternalName
+   用于把集群外部的服务暴露到集群内部来，在集群内部直接使用。没有任何类型代理被创建，当集群内的服务需要访问外部集群的服务时，可以选择这种类型。ExternalName 类型的 Service 会把外部服务的 IP 及端口写入到当前集群中，Kubernetes 的代理将会帮助内部节点访问到外部的集群服务。
 
-默认 Service 类型，自动分配一个仅 Cluster 内部可以访问的虚拟 IP。Service创建一个仅集群内部可访问的ip，集群内部其他的pod可以通过该服务访问到其监控下的 Pod。
+### KubeProxy 代理模式
 
-#### NodePort
-
-在 ClusterIP 基础上为 Service 在每个 Node 上绑定一个端口，这样就可以通过 Node 上不同的端口来访问该服务。在 Service 及各个node节点上开启端口，外部的应用程序或客户端访问node的端口将会转发到service的端口，而service将会依据负载均衡随机将请求转发到某一个pod的端口上。一般暴露服务常用的端口。
-
-#### LoadBalancer
-
-在 NodePort 的基础上，借助 cloud provider 创建一个外部负载均衡器，并将请求转发到NodePort类型的Service上。在 NodePort 基础之上，即各个节点前加入了负载均衡器实现了真正的高可用，云供应商提供的 Kubernetes 集群就是这种。
-
-#### ExternalName
-
-把集群外部的服务暴露到集群内部来，在集群内部直接使用。没有任何类型代理被创建，当集群内的服务需要访问外部集群的服务时，可以选择这种类型。ExternalName 类型的 Service 会把外部服务的 IP 及端口写入到当前集群中，Kubernetes 的代理将会帮助内部节点访问到外部的集群服务。
-
-### 2. KubeProxy 代理模式
-
-在 Kubernetes 集群中，每个 Node 运行一个 kube-proxy 进程。kube-proxy 负责为 Service 实现了一种 VIP（虚拟IP）的形式。可以在集群内部直接访问，而不是ExternalName 中**返回集群外部的地址信息**的形式。
+在 Kubernetes 集群中，每个 Node 运行一个 kube-proxy 进程。kube-proxy 负责为 Service 实现了一种 VIP（虚拟IP）的形式。可以在集群内部直接访问，而不是 ExternalName 中**返回集群外部的地址信息**的形式。
 
 在 Kubernetes v1.0 版本，Pod 与 Service 间的代理完通过在Linux系统的 userspace 中实现一个 Proxy 来完成。
 
 到了 Kubernetes v1.1 版本，新增了 iptables 类型代理，但并不是默认的运行模式。从 Kubernetes v1.2 起，iptables 才被确定为默认代理。在 Kubernetes v1.8 中，kube-proxy 又新添加了 ipvs 模式。在 Kubernetes 1.14中，ipvs 模式称为 kube-proxy 默认的代理模式。
 
-> 有意思的是，在 Kubernetes v1.0 中，Service 只是一个 **4层 (TCP/UDP over IP)** 代理概念。在 Kubernetes v1.1 中，新增了 Ingress API，用于在 **7层（HTTP）**实现服务代理，并完成 7层 的负载均衡功能。
+- 在 Kubernetes v1.0 中，Service 只是一个4层 (TCP/UDP over IP) 代理概念。
+- 在 Kubernetes v1.1 中，新增了 Ingress API，用于在7层（HTTP）实现服务代理，并完成 7层的负载均衡功能。
 
 #### userspace
 
@@ -133,13 +130,11 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 如果是当前 Node 访问，那么所有的流量都会先经过 OUTPUT，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX。其整个过程可以简单描述为以下过程
 
 > PREROUTING --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
-
 > OUTPUT --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
 
 **对于 NodePort 类型的 Service**，会增加一个 KUBE-NODEPORTS 规则链，其他同上。流量进出过程如下
 
 > PREROUTING --> KUBE-SERVICES --> KUBE-NODEPORTS --> KUBE-SVC-XXX --> KUBE-SEP-XXX
-
 > OUTPUT --> KUBE-SERVICES --> KUBE-NODEPORTS --> KUBE-SVC-XXX --> KUBE-SEP-XXX
 
 #### ipvs
@@ -152,7 +147,7 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 当然除了提升性能之外，ipvs 额外提供了多种类型的负载均衡算法，除了最常见的 Round-Robin 之外，还支持最小连接、目标哈希、最小延迟等。
 
-### 3. Ingress：Service的Service
+### Ingress：将 Service 向集群外暴露
 
 当我们向向外部暴露 Service 时，虽然 我们可以使用 **LoadBalancer** 类型的 Service，通过使用 Cloud Provider（比如：TKE 或者 OpenStack）创建一个与该 Service 对应的负载均衡服务。
 
@@ -168,4 +163,4 @@ iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptable rul
 
 - [从零开始入门K8s](https://zhuanlan.zhihu.com/p/466113622)
 - [深入解析Kubernetes Services](https://zhuanlan.zhihu.com/p/376863759)
-- [k8s的svc所有概念和实操详细说明](
+- [k8s的svc所有概念和实操详细说明](https://blog.csdn.net/cuichongxin/article/details/120182975)

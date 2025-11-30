@@ -5,7 +5,89 @@ excerpt: "关于动态规划的五道题，核心在处理无"
 categories: ["Algorithm"]
 tags: ["Leetcode", "DP"]
 toc: true
+toc_sticky: true
 ---
+
+## [LC53](https://leetcode.cn/problems/house-robber/)｜最大子数组和
+
+### 题目
+
+    给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+    子数组是数组中的一个连续部分。
+
+    示例 1：
+    输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+    输出：6
+    解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+    
+    示例 2：
+    输入：nums = [1]
+    输出：1
+
+    示例 3：
+    输入：nums = [5,4,-1,7,8]
+    输出：23
+    
+
+    提示：
+    1 <= nums.length <= 105
+    -104 <= nums[i] <= 104
+
+### 解析
+
+两种方法，递推、分治。难点在于如果分治思路，很难理解，（需要剪枝），但递推相对容易，递推难点在于想明 $f(n)$ 记录的是必抢第 n 家的最大值，而不是从 0 到 n 的最大值；
+
+n=0 必抢的情况，$f(0)=num[0]$
+n=1 必抢的情况，$f(1)=max(f(0)+num[1], num[1])$
+n=2 必抢的情况，$f(2)=max(f(1)+num[2], num[2])$
+...
+n=n 必抢的情况，$f(n)=max(f(n-1)+num[n], num[n])$
+
+此外，关于分治思路，每次求解f(i,j)，代表从i到j的最大子段和。
+线段和问题基本思路，将f(i,j)拆解四个子问题
+
+1. 必定包含左端点的最大值 $$lSum(l,r)=max(num[l],num[l]+lSum(l+1,r))$$
+2. 必定包含右端点的最大值 $$rSum(l,r)=max(num[r], num[r]+rSum(l,r-1))$$
+3. 最大子段和（最终问题）$$mSum(l,r) = max(lSum(l,r),rSum(l,r),mSum(l+1,r-1),iSum(l+1,r-1))$$
+4. 区间和 $$iSum(l,r)=num[l]+num[r]+iSum(l,r)$$
+
+只计算4，就会退化为暴力，导致 $O(N^2)$ 的时间复杂度。
+此外 3，4 两个问题比较困扰我，当时没想清楚如何拆解出 1 和 2 两个子状态。但这应该是线段树的基础思路。
+
+### 题解
+
+递推方案：
+
+```python
+class Solution():
+    def maxSubArray(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        dp=[[0 for i in range(len(nums))] for j in range(len(nums))]
+        maxSum=max(nums)
+        for i in range(len(nums)):
+            dp[i][i]=nums[i]
+        for i in range(len(nums)):
+            for j in range(i, len(nums),1):
+                if i==j:
+                    continue
+                elif j==i+1:
+                    dp[i][j]=dp[i][j-1]+nums[j]
+                else:
+                    dp[i][j]=dp[i][j-1]+nums[i]+nums[j]
+                    maxSum=max(dp[i][j],maxSum)
+        for i in range(len(nums)):
+            print(dp[i])
+        return maxSum
+```
+
+分治版本
+
+```python
+
+```
+
 
 ## [LC198](https://leetcode.cn/problems/house-robber/)｜打家劫舍
 
@@ -15,54 +97,79 @@ toc: true
 
 ### 题解
 
-    ```python
-        class Solution:
-            def rob(self, nums: List[int]) -> int:
-                if not nums: return 0
-                size=len(nums)
-                if size==1: return nums[0]
-                first, second = nums[0],max(nums[0],nums[1])
-                for i in range(2,size):
-                    first,second=second,max(first+nums[i],second)
-                return second
-    ```
+```python
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: return 0
+        size=len(nums)
+        # 有一家的情况，直接抢唯一一家
+        if size==1: return nums[0]
+        # 有两家的情况，去抢最有钱的一家
+        first, second = nums[0],max(nums[0],nums[1])
+        for i in range(2,size):
+            # 通过前两项递推第三项
+            first,second=second,max(first+nums[i],second)
+        return second
+```
 
 ## [LC740](https://leetcode.cn/problems/delete-and-earn/description/)｜删除并获得点数
 
 ### 题目
 
+    给你一个整数数组 nums ，你可以对它进行一些操作。
+    每次操作中，选择任意一个 nums[i] ，删除它并获得 nums[i] 的点数。之后，你必须删除 所有 等于 nums[i] - 1 和 nums[i] + 1 的元素。
+    开始你拥有 0 个点数。返回你能通过这些操作获得的最大点数。
+
+    示例 1：
+    输入：nums = [3,4,2]
+    输出：6
+    解释：
+    删除 4 获得 4 个点数，因此 3 也被删除。
+    之后，删除 2 获得 2 个点数。总共获得 6 个点数。
+    
+    示例 2：
+    输入：nums = [2,2,3,3,3,4]
+    输出：9
+    解释：
+    删除 3 获得 3 个点数，接着要删除两个 2 和 4 。
+    之后，再次删除 3 获得 3 个点数，再次删除 3 获得 3 个点数。
+    总共获得 9 个点数。
+
+    提示：
+    1 <= nums.length <= 2 * 104
+    1 <= nums[i] <= 104
+
 ### 解析
 
 ### 题解
 
-    ```python
-        class Solution:
-        def deleteAndEarn(self, nums: List[int]) -> int:
-            if not nums: return 0
-            numSet=set(nums)
-            enum=list(numSet)
-            enum.sort()
-            # print(enum)
-            record={}
-            for i in enum:
-                record[str(i)]=i*nums.count(i)
-            dp=[]
-            dp.append(record[str(enum[0])])
-            if len(enum)==1:
-                return record[str(enum[0])]
-            if enum[1]!=enum[0]+1:
-                dp.append(dp[0]+record[str(enum[1])])
+```python
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        if not nums: return 0
+        numSet=set(nums)
+        enum=list(numSet)
+        enum.sort()
+        record={}
+        for i in enum:
+            record[str(i)]=i*nums.count(i)
+        dp=[]
+        dp.append(record[str(enum[0])])
+        if len(enum)==1:
+            return record[str(enum[0])]
+        if enum[1]!=enum[0]+1:
+            dp.append(dp[0]+record[str(enum[1])])
+        else:
+            dp.append(max(record[str(enum[1])],dp[0]))
+        if len(enum)==2:
+            return dp[1]
+        for i in range(2,len(enum)):
+            if enum[i]!=enum[i-1]+1:
+                dp.append(dp[i-1]+record[str(enum[i])])
             else:
-                dp.append(max(record[str(enum[1])],dp[0]))
-            if len(enum)==2:
-                return dp[1]
-            for i in range(2,len(enum)):
-                if enum[i]!=enum[i-1]+1:
-                    dp.append(dp[i-1]+record[str(enum[i])])
-                else:
-                    dp.append(max(dp[i-1],dp[i-2]+record[str(enum[i])]))
-            return dp[-1]     
-    ```
+                dp.append(max(dp[i-1],dp[i-2]+record[str(enum[i])]))
+        return dp[-1]     
+```
 ## [LC1143](https://leetcode.cn/problems/longest-common-subsequence)｜最长公共子序列
 
 ### 题目
@@ -71,20 +178,20 @@ toc: true
 
 ### 题解
 
-    ```python
-        class Solution:
-            def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-                if not text1 or not text2:
-                    return 0
-                dp=[[0 for _ in range(len(text2)+1)] for x in range(len(text1)+1)]
-                for i in range(1,len(text1)+1):
-                    for j in range(1,len(text2)+1):
-                        if text1[i-1]==text2[j-1]:
-                            dp[i][j]=dp[i-1][j-1]+1
-                        else:
-                            dp[i][j]=max(dp[i-1][j],dp[i][j-1])
-                return dp[-1][-1]
-    ```
+```python
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        if not text1 or not text2:
+            return 0
+        dp=[[0 for _ in range(len(text2)+1)] for x in range(len(text1)+1)]
+        for i in range(1,len(text1)+1):
+            for j in range(1,len(text2)+1):
+                if text1[i-1]==text2[j-1]:
+                    dp[i][j]=dp[i-1][j-1]+1
+                else:
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1])
+        return dp[-1][-1]
+```
 
 ## 动态规划（DP）小结
 

@@ -18,6 +18,7 @@ gem "wdm", "~> 0.1.0", :platforms => [:mswin, :mingw, :x64_mingw]
 group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-sitemap"
+  gem "jekyll-mermaid"
   gem "hawkins"
   gem "minimal-mistakes-jekyll"
 end

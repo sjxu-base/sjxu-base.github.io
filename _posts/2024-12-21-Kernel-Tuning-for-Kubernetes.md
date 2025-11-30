@@ -5,6 +5,7 @@ excerpt: "This blog post discusses how to optimize Linux kernel parameters for i
 categories: ["CloudNative"]
 tags: ["Kubernetes", "Monitoring", "Kernel"]
 toc: true
+toc_sticky: true
 ---
 
 要通过调整内核参数来优化 Kubernetes 节点的性能，可以从以下四个关键领域进行优化：

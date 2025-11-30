@@ -6,13 +6,13 @@ categories: ["CICD"]
 tags: ["Ansible", "CD"]
 ---
 
-# 0x01 自动化运维应用场景
+## 0x01 自动化运维应用场景
 
 - 平台架构组建
 - 日常运营保障
 - 性能、效率优化
 
-## 工具组件
+### 工具组件
 
 | 任务           | 工具                                                             |
 | -------------- | ---------------------------------------------------------------- |
@@ -33,11 +33,11 @@ tags: ["Ansible", "CD"]
 | 数据库         | ==MySQL== \| Oracle \| PostgreSQL \| mongoDB \| ==redis==        |
 | 项目管理       | Jira \| Asana \| Taiga \| Trello \| Basecamp \| Pivotal Tracker  |
 
-## 任务路线
+### 任务路线
 
 【基础运维】IT 解决 :arrow_right:【监控运维】外包到机房:arrow_right:【系统运维】PXE 解决 Intake 问题 :arrow_right:【应用运维】Infra 主要职责:arrow_right:【自动化运维】Infra 主要职责 :arrow_right: 架构师 & CTO
 
-## 上线流程
+### 上线流程
 
 > 开发：Bug 修复、更新数据
 >
@@ -49,7 +49,7 @@ tags: ["Ansible", "CD"]
 >
 > 上线：环境准备、上线部署、配置修改、添加监控
 
-## 常用 IaaS 解决方案
+### 常用 IaaS 解决方案
 
 - Ansible：python，Agentless，适应于几百台
 - Saltstack：python，agent，专有协议效率高。适用于上千台机器
@@ -57,9 +57,9 @@ tags: ["Ansible", "CD"]
 - Fabric：Python 编写，agentless
 - Chef：ruby 编写，国内应用少
 
-# 0x02 架构
+## 0x02 架构
 
-## Features
+### Features
 
 - 三个 Python 关键模块
   - Paramiko：基于 ssh 的远程控制模块
@@ -69,9 +69,7 @@ tags: ["Ansible", "CD"]
 - 幂等性，执行一遍与多遍，结果相同
 - 支持 playbook 编排任务，多层解决方案 Role
 
-## Architecture
-
-### Intro
+### Architecture
 
 ![ansible_arch_1]({{ site.url }}/assets/images/posts/20210901/ansible_arch_1.jpg)
 
@@ -102,13 +100,13 @@ Ansible 最终作用对象通常是 hosts 主机或者 Network 设备
 | Slave Server  | Python<2.4 时需要 python-simplejson      |
 |               | 开启 SELinux 时，需要`libselinux-python` |
 
-### Files
+主要配置文件包括：
 
-- Ansible 主配置文件`/etc/ansible/ansible.cfg`
-- Inventory 主机清单`/etc/ansible/hosts`
-- Roles Collection`/etc/ansible/roles`
+- Ansible 主配置文件 `/etc/ansible/ansible.cfg`
+- Inventory 主机清单 `/etc/ansible/hosts`
+- Roles Collection `/etc/ansible/roles`
 
-### Project
+其他内容：
 
 - Ansible 主程序`/usr/bin/ansible`
 - Doc 调阅程序`/usr/bin/ansible-doc`
@@ -117,7 +115,7 @@ Ansible 最终作用对象通常是 hosts 主机或者 Network 设备
 - 文件加密程序`/usr/bin/ansible-vault`
 - Console 界面程序`/usr/bin/ansible-console`
 
-# 0x03 Example
+## 0x03 实战案例
 
 ```shell
 # use ping module on target server

@@ -3,7 +3,7 @@ title: "Linux 下的文件处理命令：sed 与 gawk"
 date: 2021-08-03
 excerpt: "介绍 Linux 环境下的文本流编辑工具 sed 与 gawk 的基本原理、常用参数和典型用法。"
 categories: ["Linux"]
-tags: ["Linux", "sed", "awk"]
+tags: ["sed", "awk"]
 ---
 
 # 0x01 sed：流编辑器（Stream Editor）
