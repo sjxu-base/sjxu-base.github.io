@@ -234,4 +234,4 @@ Kubernetes 的 Pod 优雅关停机制是一个非常重要但容易被忽略的�
 - [Ceph CSI Documentation](https://docs.ceph.com/en/latest/rbd/rbd-kubernetes/)
 - [kubernetes/pkg/kubelet/kubelet_pods.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kubelet_pods.go)
 - [A Guide to Kubernetes Pod LifeCycle](https://medium.com/%40ollycare/a-guide-to-thekubernetes-pod-lifecycle-dc7992255001)
-- [Kubernetes Pod States | An Introduction](https://bobcares.com/blog/kubernetes-pod-states/)
+- [Kubernetes Pod States \| An Introduction](https://bobcares.com/blog/kubernetes-pod-states/)
