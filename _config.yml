@@ -168,10 +168,10 @@ keep_files:
   - .git
   - .svn
 head_scripts:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.8.7/polyfill.min.js
+  # - https://polyfill.io/v3/polyfill.min.js?features=es6
+  # - https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.8.7/polyfill.min.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs
+  # - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
@@ -225,6 +225,8 @@ defaults:
       comments: true
       share: true
       related: true
+      toc: true
+      toc_sticky: true
   # _pages
   - scope:
       path: "_pages"
@@ -302,6 +304,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
+  - jekyll-mermaid
   - jekyll-redirect-from
   - jekyll-include-cache
 
@@ -311,6 +314,7 @@ whitelist:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
+  - jekyll-mermaid
   - jemoji
   - jekyll-include-cache
 
