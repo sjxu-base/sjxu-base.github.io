@@ -2,16 +2,16 @@
 title: "Linux 网络面试题 Part03：滑动窗口 Scaling Windows"
 date: 2025-06-18
 categories: ["Linux"]
-tags: ["Network", "TCP", ""]
+tags: ["Network", "TCP"]
 toc: true
 mermaid: true
 ---
 
 在高频量化公司的面试中，听到的一些网络问题。顺势聊到了高频交易中实用的一些网络优化方案。结合后续网上补课看到的一些技术，总结的一下这些题目相关的网络入门知识。
 
-## 0x03 TCP中有哪些窗口
+## 0x03 TCP 中的窗口概念
 
-### 10. 什么是 busy-polling 和 DPDK？
+### 10. TCP 中有哪些窗口
 
 #### 传统网络模型及限制
 
