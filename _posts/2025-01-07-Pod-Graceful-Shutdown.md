@@ -21,6 +21,11 @@ kubelet 不会立即强制关闭 Pod，而是尽可能以“优雅”的方式�
 
 ## 0x01 Pod 的生命周期
 
+<figure style="text-align: center;">
+    <img src="{{ site.url }}/assets/images/posts/20250107/status.png" alt="20250107" width="100%" height="80">
+    <figcaption><p style="font-size: 10px; color: rgba(0, 0, 0, 0.5);">Pod Status</p></figcaption>
+</figure>
+
 1. Pending：Pod 已提交但尚未调度到 Node，或镜像正在拉取。
 2. Running：至少一个容器成功创建并在运行，Pod 处于正常服务阶段。
 3. Succeeded / Failed：容器正常退出（退出码 0 为 Succeeded），或运行失败（退出码非 0 为 Failed）。
@@ -106,7 +111,7 @@ sequenceDiagram
 - flush buffer / write back cache
 - 通知 upstream 下线
 
-## Pod 的 Prestop 执行流程
+## 0x03 Pod 的 Prestop 执行流程
 
 以下是 kubelet 在停止 Pod 时的完整流程梳理：
 
@@ -130,7 +135,7 @@ flowchart TD
 > 先接收 SIGTERM，然后执行 PreStop。
 > PreStop 不是 "Pre-SIGTERM"，而是 "Pre-Termination"。
 
-## 案例：处理 Orphan Pod 问题（以 Ceph PVC 解绑为例）
+## 0x04 实战：处理 Orphan Pod 问题（以 Ceph PVC 解绑为例）
 
 Source Issue：[ISSUE#60987](https://github.com/kubernetes/kubernetes/issues/60987)
 
@@ -187,7 +192,7 @@ Kubernetes 优雅关闭流程是：停止容器 → 卸载 Volume → 删除 Pod
         terminationGracePeriodSeconds: 60
     ```
 
-## 优雅关闭的最佳实践
+## 0x05 优雅关闭的最佳实践
 
 1. 设置 PreStop Hook
 
@@ -211,7 +216,7 @@ Kubernetes 优雅关闭流程是：停止容器 → 卸载 Volume → 删除 Pod
 
 应用逻辑监控 `/tmp/stop`，提早停止接收请求。
 
-## 总结
+## 0x06 小结
 
 Kubernetes 的 Pod 优雅关停机制是一个非常重要但容易被忽略的部分，它的核心目的在于：
 
