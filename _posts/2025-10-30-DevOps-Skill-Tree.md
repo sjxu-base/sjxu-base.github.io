@@ -1,16 +1,16 @@
 ---
-title: "DevOps技能树"
+title: "基础架构技能树"
 date: 2025-10-30
 categories: ["CloudNative"]
 tags: ["DevOps", "SRE"]
-excerpt: "DevOps、SRE技能树"
+excerpt: "根据工作经验总结的 DevOps、SRE、IT 工程师需要的基本技能树，以供参考。"
 toc: true
 toc_sticky: true
 ---
 
 进入基础架构行业工作四年了，每次面试难免都要回忆基础知识。
 
-但 SRE、DevOps、IT 各个层级的内容相互覆盖，为了方便查缺补漏，就总结了这个知识树，也方便日后将新知识补充进来。
+但 SRE、DevOps、IT 各个层级的内容相互覆盖，为了方便整理，也可以给新入行的同学查缺补漏，构建了下面的知识树。
 
 ## Part A.基础知识
 
