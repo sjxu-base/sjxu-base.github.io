@@ -6,7 +6,7 @@ categories: ["Linux"]
 tags: ["Linux", "Kernel"]
 ---
 
-# LVM学习
+## LVM学习
 
 - [解析Linux Hypervisor](https://developer.ibm.com/tutorials/l-hypervisor/?mhsrc=ibmsearch_a&mhq=Linux%20hypervisor)
 

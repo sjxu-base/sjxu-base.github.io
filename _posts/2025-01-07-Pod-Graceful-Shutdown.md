@@ -12,7 +12,7 @@ kubelet 不会立即强制关闭 Pod，而是尽可能以“优雅”的方式�
 
 这个过程允许容器在被真正终止前：
 
-- 收到 SIGTERM
+- 收到 kubelet 发出的 SIGTERM 信号
 - 完成清理逻辑（关闭连接、刷新缓存、写回数据）
 - 执行 PreStop Hook
 - 在 GracePeriod 内安全地退出
