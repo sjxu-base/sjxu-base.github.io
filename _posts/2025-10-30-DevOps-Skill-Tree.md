@@ -16,7 +16,9 @@ toc_sticky: true
 
 ### A01.计算机网络
 
-#### 基础概念：OSI网络模型
+#### 基础概念
+
+1. 五层与七层网络模型
 
 #### 网络协议
 
@@ -27,30 +29,36 @@ toc_sticky: true
 #### 网络诊断
 
 1. Linux 网络诊断命令
-
 2. Wireshark 抓包分析
-3. 防火墙、SELinux设置
+3. Firewall 设置
+4. [设置和关闭 SELinux](https://www.redhat.com/zh-cn/topics/linux/what-is-selinux)
 
 #### 网络服务
 
 1. DNS 查询原理
-
-2. SeLinuX、四层、七层路由
+2. SELinux
+3. 四层、七层负载均衡
 
 ### A02.操作系统 / Linux
 
 #### 进程管理
 
-1. 进程的7个状态、进程调度、进程间通信、daemon进程
+1. 进程的7个状态、进程调度、进程间通信模型
+2. 僵尸进程与孤儿进程的区别
+3. 查看与关闭 daemon 守护进程
 
-#### 内存管理：虚拟内存、内存分页与交换、内存应谁（mmap）、缓冲与缓存
+#### 内存管理
+
+1. 什么是虚拟内存 SWAP
+2. Linux 中的内存分页与交换技术
+3. 内存映射技术 mmap、缓冲与缓存
 
 #### 文件管理
 
-1. FHS
-2. 什么是inode&block
-3. 文件类型
-4. 挂载机制（mount\umount）
+1. [FHS｜类 Unix 系统标准文件系统结构](https://manpages.ubuntu.com/manpages/resolute/en/man7/hier.7.html)
+2. 什么是 inode 和 block
+3. 文件权限与文件类型
+4. 挂载机制
 
 #### 容器原理
 
@@ -168,7 +176,7 @@ toc_sticky: true
 3. 如何实现多租户隔离
 4. 如何实现计量与计费
 
-### C04.CICD
+### C04.CI & CD & IaC
 
 #### CI
 
@@ -186,9 +194,7 @@ toc_sticky: true
 
 - Jenkins => Docker => Shell
 - Gitea => Python => Shell
-- Gitlab CI/CD => Docker|Kubernetes => Shell
-
-### C05.IaC 相关
+- Gitlab CI/CD => Docker & K8S => Shell
 
 #### Terraform
 
@@ -201,13 +207,16 @@ toc_sticky: true
 
 #### jsonnet 开发
 
-### C06.监控与告警系统
+### C05.监控与告警系统
 
-#### 基础知识
+#### 基础平台
 
 - Prometheus
 - Grafana
 - Alertmanager
+
+#### 技术方案
+
 - APM+Agent探针
 
 #### 可观测性：日志、指标、追踪
@@ -228,15 +237,21 @@ toc_sticky: true
 - 指标监控
   - VictoriaMetrics：高性能时序数据库
   - InfluxDB：时间序列数据存储
-- Istio
-  - 什么是 Service Mesh 服务网格
-  - [Istio 是什么？](https://istio.io/latest/zh/docs/overview/what-is-istio/)
-  - Istio 功能：服务发现、负载均衡、故障恢复、度量和监控等
-  - 使用 Istio 支持更复杂的运维需求：AB 测试、金丝雀发布、速率限制、访问控制和端到端认证。
-  - API 流量管控
-  - 多版本API分流
 
-### C07.数据库服务
+#### 时序数据库
+
+1. 使用 ELK 构建日志分析平台
+
+#### 服务网格 istio
+
+- 什么是 Service Mesh 服务网格
+- [istio 是什么？](https://istio.io/latest/zh/docs/overview/what-is-istio/)
+- istio 功能：服务发现、负载均衡、故障恢复、度量和监控等
+- 使用 istio 支持更复杂的运维需求：AB 测试、金丝雀发布、速率限制、访问控制和端到端认证
+- API 流量管控
+- 多版本API分流
+
+### C06.数据库
 
 #### 数据库基础概念
 
@@ -251,7 +266,7 @@ toc_sticky: true
 
 #### MongoDB
 
-### C08.KV 存储服务
+### C07.KV 存储
 
 #### 一致性基础知识
 
@@ -262,19 +277,19 @@ toc_sticky: true
 
 #### etcd
 
-### C09.消息队列
+### C08.消息队列
 
 #### Kafka
 
 #### RabbitMQ
 
-### C10.对象存储及文件存储
+### C19.对象存储及文件存储
 
 #### Ceph
 
 #### MinIO
 
-#### NFS服务
+#### NFS
 
 #### CephFS
 
@@ -286,7 +301,7 @@ toc_sticky: true
 
 ### E01.系统指标
 
-1. 什么是 SLO/SLA/SLI？
+1. [什么是 SLO/SLA/SLI？](https://sre.google/sre-book/service-level-objectives/)
 2. 系统占用率评估
 
 ### E02.服务发布 SOP
@@ -304,6 +319,11 @@ toc_sticky: true
 ### E04.容灾演练与方案预设
 
 ### E05.系统成本审计
+
+### E06.团队最佳实践
+
+1. [构建 Post Mortem 环节](https://sre.google/sre-book/postmortem-culture/)
+2. 各项服务的 Capacity Review
 
 ## Part F.编程语言
 
@@ -331,16 +351,16 @@ toc_sticky: true
 
 - 管道、重定向、stdin
 - 参数传递：xargs
-- 脚本调试：set\trap
-- 脚本传参：$0、$1、$*、$@
+- 脚本调试：set & trap
+- 脚本传参：`$0` & `$1` & `$*` & `$@`
 
 #### 网络连接
 
-- 基础诊断：telnet/ssh/ping/traceroute
-- 文件传输：scp/rsync/wget/curl
+- 联通诊断：telnet/ssh/ping/traceroute
 - 内网穿透：frp/ngrok
 - 防火墙：iptables/firewalld/ufw
 - 网络配置：ifconfig/ip/route
+- 文件传输：scp/rsync/wget/curl
 
 #### 系统监控
 
@@ -363,6 +383,26 @@ toc_sticky: true
 - yum 与 rpm： CentOS/RHEL
 
 ### F02.Python 开发
+
+#### 基础数据结构
+
+1. Python 数据类型中的**可变类型**与**不可变类型**
+2. **深拷贝**与**浅拷贝**问题
+3. Python 中列表与字典的操作（四种元素删除操作）
+
+#### 文件处理
+
+#### 异常处理
+
+#### 多线程
+
+1. Python 中的 GIL 锁
+2. 使用**协程**进行开发
+
+#### Python 语法糖
+
+1. Python 中的装饰器与解释器
+2. Python 中的生成器与迭代器
 
 ### F03.Golang 开发
 
