@@ -283,7 +283,7 @@ toc_sticky: true
 
 #### RabbitMQ
 
-### C19.对象存储及文件存储
+### C09.对象存储及文件存储
 
 #### Ceph
 
