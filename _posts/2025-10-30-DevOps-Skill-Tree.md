@@ -6,6 +6,7 @@ tags: ["DevOps", "SRE"]
 excerpt: "根据工作经验总结的 DevOps、SRE、IT 工程师需要的基本技能树，以供参考。"
 toc: true
 toc_sticky: true
+toc_levels: 1..2
 ---
 
 进入基础架构行业工作四年了，每次面试难免都要回忆基础知识。

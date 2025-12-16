@@ -227,6 +227,7 @@ defaults:
       related: true
       toc: true
       toc_sticky: true
+      toc_levels: 1..2
   # _pages
   - scope:
       path: "_pages"
