@@ -81,7 +81,6 @@ flowchart LR
     CNI_A -->|封装成 VXLAN 包<br/>NodeIP_A → NodeIP_B| NodeNet[物理网络]
     NodeNet --> CNI_B
     CNI_B --> PodB
-
 ```
 
 #### Route 模式：路由/非隧道网络
@@ -110,7 +109,6 @@ flowchart LR
     NodeA_RT -->|原始 IP 包<br/>目的 Pod 网段| PhysNet[物理网络]
     PhysNet --> NodeB_RT
     NodeB_RT --> PodB
-
 ```
 
 #### Underlay 模式：Direct/Cloud Native 模式
@@ -211,17 +209,70 @@ kube-proxy 有四种代理模式：
 
 iptables 是 KubeProxy 默认的代理模式，其通过直接配置 iptables rule 来转发从 Service 转发到 Node 上的全部流量，这种模式解决了用户空间到内核空间实现转发的方式能够极大地提高 KubeProxy 的效率，增加节点的吞吐量。
 
-**对于 ClusterIP 类型的 Service**，如果是非当前 Node 的访问，那么所有的流量都会先经过 PREROUTING，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX，经过这些链的处理，最终才能够访问到一个服务的真实 IP 地址。
+- ClusterIP 类型的 Service
 
-如果是当前 Node 访问，那么所有的流量都会先经过 OUTPUT，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX。其整个过程可以简单描述为以下过程
+- 如果是非当前 Node 的访问，那么所有的流量都会先经过 PREROUTING，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX，经过这些链的处理，最终才能够访问到一个服务的真实 IP 地址。
 
-> PREROUTING --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
-> OUTPUT --> KUBE-SERVICES --> KUBE-SVC-XXX --> KUBE-SEP-XXX
+```mermaid
+flowchart LR
+   PREROUTING[PREROUTING]
+   KUBE_SERVICES[KUBE-SERVICES]
+   KUBE_SVC[KUBE-SVC-XXX]
+   KUBE_SEP[KUBE-SEP-XXX<br/>Endpoint Pod]
 
-**对于 NodePort 类型的 Service**，会增加一个 KUBE-NODEPORTS 规则链，其他同上。流量进出过程如下
+   PREROUTING --> KUBE_SERVICES
+   KUBE_SERVICES --> KUBE_SVC
+   KUBE_SVC --> KUBE_SEP
+```
 
-> PREROUTING --> KUBE-SERVICES --> KUBE-NODEPORTS --> KUBE-SVC-XXX --> KUBE-SEP-XXX
-> OUTPUT --> KUBE-SERVICES --> KUBE-NODEPORTS --> KUBE-SVC-XXX --> KUBE-SEP-XXX
+- 如果是当前 Node 访问，那么所有的流量都会先经过 OUTPUT，随后进入 Kubernetes 自定义的链入口 KUBE-SERVICES、单个 Service 对应的链 KUBE-SVC-XXXX 以及每个 Pod 对应的链 KUBE-SEP-XXXX。其整个过程可以简单描述为以下过程
+
+```mermaid
+flowchart LR
+   OUTPUT[OUTPUT]
+   KUBE_SERVICES[KUBE-SERVICES]
+   KUBE_SVC[KUBE-SVC-XXX]
+   KUBE_SEP[KUBE-SEP-XXX<br/>Endpoint Pod]
+
+   OUTPUT --> KUBE_SERVICES
+   KUBE_SERVICES --> KUBE_SVC
+   KUBE_SVC --> KUBE_SEP
+```
+
+- NodePort 类型的 Service
+
+   会增加一个 KUBE-NODEPORTS 规则链，其他同上。
+   对于入站流量:
+
+```mermaid
+flowchart LR
+    PREROUTING[PREROUTING]
+    KUBE_SERVICES[KUBE-SERVICES]
+    KUBE_NODEPORTS[KUBE-NODEPORTS]
+    KUBE_SVC[KUBE-SVC-XXX]
+    KUBE_SEP[KUBE-SEP-XXX<br/>Endpoint Pod]
+
+    PREROUTING --> KUBE_SERVICES
+    KUBE_SERVICES --> KUBE_NODEPORTS
+    KUBE_NODEPORTS --> KUBE_SVC
+    KUBE_SVC --> KUBE_SEP
+```
+
+本地流量：
+
+```mermaid
+flowchart LR
+    OUTPUT[OUTPUT]
+    KUBE_SERVICES[KUBE-SERVICES]
+    KUBE_NODEPORTS[KUBE-NODEPORTS]
+    KUBE_SVC[KUBE-SVC-XXX]
+    KUBE_SEP[KUBE-SEP-XXX<br/>Endpoint Pod]
+
+    OUTPUT --> KUBE_SERVICES
+    KUBE_SERVICES --> KUBE_NODEPORTS
+    KUBE_NODEPORTS --> KUBE_SVC
+    KUBE_SVC --> KUBE_SEP
+```
 
 #### ipvs 模式
 
