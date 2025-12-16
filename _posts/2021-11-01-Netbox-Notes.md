@@ -7,17 +7,15 @@ tags: ["NetBox", "Network"]
 published: false
 ---
 
-
-
-# 0x01 [Netbox 是什么](https://github.com/netbox-community/netbox)
+## 0x01 [Netbox 是什么](https://github.com/netbox-community/netbox)
 
 NetBox的存在是为了增强网络工程师的能力。自2016年发布以来，它已经成为全球数千个组织建模和记录网络基础设施的首选解决方案。作为遗留IPAM和DCIM应用程序的继承者，NetBox为所有联网的事物提供了一个内聚的、广泛的和可访问的数据模型。通过为从电缆映射到设备配置的一切提供单一的健壮的用户界面和可编程的api， NetBox成为现代网络的核心来源。
 
-# 0x02 构建一个 Netbox 服务的demo
+## 0x02 构建一个 Netbox 服务的demo
 
 构建数据库PostGreSQL和缓存Redis集群
 
-## 1. 构建后端数据库 PostgreSQL
+### 1. 构建后端数据库 PostgreSQL
 
 目前仅支持PostgreSQL，版本要求大于9.6
 
@@ -44,7 +42,7 @@ psql --username netbox --password --host localhost netbox
 \conninfo
 ```
 
-## 2. 构建 KV 缓存 Redis
+### 2. 构建 KV 缓存 Redis
 
 NetBox v2.9.0 and later require Redis v4.0 or higher.
 
@@ -53,7 +51,7 @@ sudo apt install -y redis-server
 redis-cli ping
 ```
 
-## 3. 部署 NetBox 服务
+### 3. 部署 NetBox 服务
 
 NetBox v3.0 需要 Python3 的支持
 
@@ -160,7 +158,7 @@ ln -s /opt/netbox/contrib/netbox-housekeeping.sh /etc/cron.daily/netbox-housekee
 python3 manage.py runserver 0.0.0.0:8000 --insecure
 ```
 
-# 0x03 构建一个后端可视化
+## 0x03 构建一个后端可视化
 
 ## 1. 使用 Gunicorn
 
@@ -211,7 +209,7 @@ sudo a2ensite netbox
 sudo systemctl restart apache2
 ```
 
-# 0x04 权限管理：引入LDAP(options)
+## 0x04 权限管理：引入LDAP(options)
 
 ```shell
 sudo apt install -y libldap2-dev libsasl2-dev libssl-dev
