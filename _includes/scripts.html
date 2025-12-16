@@ -26,3 +26,28 @@
     <script src="{{ script | relative_url }}"></script>
   {% endfor %}
 {% endif %}
+
+{% if page.mermaid %}
+<!-- Mermaid JS 加载 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  // 等待页面完全加载
+  window.addEventListener('load', () => {
+    // Mermaid 配置
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'default',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      securityLevel: 'loose',
+      fontFamily: 'inherit'
+    });
+    
+    // 渲染所有 Mermaid 图表
+    mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+{% endif %}

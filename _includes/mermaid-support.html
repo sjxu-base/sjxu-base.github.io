@@ -1,0 +1,27 @@
+{% if page.mermaid %}
+<script>
+// 转换所有 mermaid 代码块为 div
+document.addEventListener('DOMContentLoaded', function() {
+  // 找到所有 mermaid 代码块
+  const mermaidCodes = document.querySelectorAll('code.language-mermaid');
+  
+  mermaidCodes.forEach(function(codeBlock) {
+    // 获取代码内容
+    const mermaidCode = codeBlock.textContent;
+    
+    // 创建新的 mermaid div
+    const mermaidDiv = document.createElement('div');
+    mermaidDiv.className = 'mermaid';
+    mermaidDiv.textContent = mermaidCode;
+    
+    // 用 div 替换整个 pre 块（包括 code）
+    const preBlock = codeBlock.closest('pre');
+    if (preBlock) {
+      preBlock.parentNode.replaceChild(mermaidDiv, preBlock);
+    } else {
+      codeBlock.parentNode.replaceChild(mermaidDiv, codeBlock);
+    }
+  });
+});
+</script>
+{% endif %}
